@@ -2,14 +2,16 @@ import MainPage from '../../pages/main-page/main-page';
 //import FavoritesPage from '../../pages/favorite-page/favorites-page';
 //import LoginPage from '../../pages/login-page/login-page';
 //import OfferPage from '../../pages/offer-page/offer-page';
+//import { placeCards } from '../../mocks/mocks';
+import { PlaceCardProps } from '../../mocks/mocks';
 
 type AppProps = {
-  cardsCount: number;
+  placeCards: PlaceCardProps[];
 }
 
-function App({cardsCount }: AppProps): JSX.Element {
+function App({placeCards }: AppProps): JSX.Element {
   return (
-    <MainPage cardsCount={cardsCount} />
+    <MainPage placeCards={placeCards} />
   );
 }
 

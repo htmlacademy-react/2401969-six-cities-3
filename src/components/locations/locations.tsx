@@ -1,14 +1,14 @@
 import { CITIES } from '../../const';
 
 type LocationsItemProps = {
-  city: string;
+  children: string;
 }
 
-function LocationsItem({city}: LocationsItemProps): JSX.Element {
+function LocationsItem({children}: LocationsItemProps): JSX.Element {
   return (
     <li className="locations__item">
       <a className="locations__item-link tabs__item" href="#">
-        <span>{city}</span>
+        <span>{children}</span>
       </a>
     </li>
   );
@@ -19,7 +19,7 @@ function Locations(): JSX.Element {
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {CITIES.map((city) => (<LocationsItem city={city.name} key={city.id}/>))}
+          {CITIES.map((city) => <LocationsItem key={city.id}>{city.name}</LocationsItem>)}
         </ul>
       </section>
     </div>

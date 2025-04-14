@@ -1,12 +1,14 @@
 import Header from '../../components/header/header';
 import Locations from '../../components/locations/locations';
 import Places from '../../components/places/places';
+import { PlaceCardProps } from '../../mocks/mocks';
+//import { placeCards } from '../../mocks/mocks';
 
 type MainPageProps = {
-  cardsCount: number;
+  placeCards: PlaceCardProps[];
 }
 
-function MainPage({cardsCount}: MainPageProps): JSX.Element {
+function MainPage({placeCards}: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -18,7 +20,7 @@ function MainPage({cardsCount}: MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{cardsCount} places to stay in Amsterdam</b>
+              <b className="places__found">{placeCards.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -34,7 +36,7 @@ function MainPage({cardsCount}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <Places cardsCount={cardsCount} />
+              <Places placeCards={placeCards} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

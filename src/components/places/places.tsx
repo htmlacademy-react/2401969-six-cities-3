@@ -1,13 +1,26 @@
 import PlaceCard from '../../components/place-card/place-card';
+import { PlaceCardProps } from '../../mocks/mocks';
 
 type PlacesProps = {
-  cardsCount: number;
+  placeCards: PlaceCardProps[];
 }
 
-function Places({cardsCount}: PlacesProps) {
+
+function Places({placeCards}: PlacesProps) {
   return (
     <div className="cities__places-list places__list tabs__content">
-      {Array.from({ length: cardsCount }, (_, index) => (<PlaceCard key={index} />))}
+      {placeCards.map((card) => (
+        <PlaceCard
+          key={card.id}
+          title={card.title}
+          type={card.type}
+          price={card.price}
+          rating={card.rating}
+          isPremium={card.isPremium}
+          isFavorite={card.isFavorite}
+          previewImage={card.previewImage}
+        />
+      ))}
     </div>
   );
 }
