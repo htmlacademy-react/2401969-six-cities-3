@@ -1,19 +1,44 @@
-const Setting = {
-  CardsCount: 5,
-};
+type SortOption = {
+  value: string;
+  isActive: boolean;
+}
+
+const SortOptions: SortOption[] = [
+  {
+    value:'Popular',
+    isActive: true
+  },
+  {
+    value:'Price: low to high',
+    isActive: false
+  },
+  {
+    value:'Price: high to low',
+    isActive: false
+  },
+  {
+    value:'Top rated first',
+    isActive: false
+  }
+];
 
 type City = {
-  id: number;
   name: string;
+  isActive: boolean;
 };
 
 const CITIES: City[] = [
-  { id: 1, name: 'Paris' },
-  { id: 2, name: 'Cologne' },
-  { id: 3, name: 'Brussels' },
-  { id: 4, name: 'Amsterdam' },
-  { id: 5, name: 'Hamburg' },
-  { id: 6, name: 'Dusseldorf' }
+  { name: 'Paris', isActive: false, },
+  { name: 'Cologne', isActive: false, },
+  { name: 'Brussels', isActive: false, },
+  { name: 'Amsterdam', isActive: true,},
+  { name: 'Hamburg', isActive: false,},
+  { name: 'Dusseldorf', isActive: false, }
 ];
 
-export { Setting, CITIES };
+export {
+  type SortOption,
+  type City,
+  SortOptions,
+  CITIES,
+};

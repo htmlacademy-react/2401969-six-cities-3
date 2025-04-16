@@ -1,4 +1,4 @@
-import HeaderNav from '../header-nav/header-nav';
+import { HeaderNav } from '../header-nav/header-nav';
 
 function Header(): JSX.Element {
   return (
@@ -17,4 +17,4 @@ function Header(): JSX.Element {
   );
 }
 
-export default Header;
+export { Header };
