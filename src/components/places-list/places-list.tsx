@@ -1,4 +1,4 @@
-import PlaceCard from '../../components/place-card/place-card';
+import { PlaceCard } from '../place-card/place-card';
 import { PlaceCardProps } from '../../mocks/mocks';
 
 type PlacesProps = {
@@ -6,7 +6,7 @@ type PlacesProps = {
 }
 
 
-function Places({placeCards}: PlacesProps) {
+function PlacesList({placeCards}: PlacesProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
       {placeCards.map((card) => (
@@ -25,4 +25,4 @@ function Places({placeCards}: PlacesProps) {
   );
 }
 
-export default Places;
+export { PlacesList };

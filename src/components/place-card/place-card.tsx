@@ -1,11 +1,12 @@
-import PremiumMark from '../premium-mark/premium-mark';
 import { PlaceCardProps } from '../../mocks/mocks';
 
 function PlaceCard({ title, type, price, rating, isPremium, isFavorite, previewImage, }: PlaceCardProps): JSX.Element {
-  //console.log('isPremium:', isPremium);
   return (
     <article className="cities__card place-card">
-      {isPremium && <PremiumMark />}
+      {isPremium && (
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>)}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
@@ -21,7 +22,9 @@ function PlaceCard({ title, type, price, rating, isPremium, isFavorite, previewI
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            <span className="visually-hidden">To bookmarks</span>
+            <span className="visually-hidden">
+              {isFavorite ? 'In favorites' : 'To favorites'}
+            </span>
           </button>
         </div>
         <div className="place-card__rating rating">
@@ -39,4 +42,4 @@ function PlaceCard({ title, type, price, rating, isPremium, isFavorite, previewI
   );
 }
 
-export default PlaceCard;
+export { PlaceCard };
