@@ -34,5 +34,5 @@ function MainPage({placeCards}: MainPageProps): JSX.Element {
   );
 }
 
-export default MainPage;
+export { MainPage };
 

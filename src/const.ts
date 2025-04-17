@@ -1,3 +1,16 @@
+enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NotAuth = 'NOT_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+enum AppRoute {
+  Main = '/',
+  Login = '/login',
+  Favorites = '/favorites',
+  Offers = '/offer',
+}
+
 type SortOption = {
   value: string;
   isActive: boolean;
@@ -37,6 +50,8 @@ const CITIES: City[] = [
 ];
 
 export {
+  AuthorizationStatus,
+  AppRoute,
   type SortOption,
   type City,
   SortOptions,

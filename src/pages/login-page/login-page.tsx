@@ -1,4 +1,4 @@
-import Header from '../../components/header/header';
+import { Header } from '../../components/header/header';
 
 function LoginPage(): JSX.Element {
   return (
@@ -34,4 +34,4 @@ function LoginPage(): JSX.Element {
   );
 }
 
-export default LoginPage;
+export { LoginPage };

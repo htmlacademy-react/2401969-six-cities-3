@@ -1,4 +1,4 @@
-import Header from '../../components/header/header';
+import { Header } from '../../components/header/header';
 
 function OfferPage(): JSX.Element {
   return (
@@ -311,5 +311,5 @@ function OfferPage(): JSX.Element {
   );
 }
 
-export default OfferPage;
+export { OfferPage };
 

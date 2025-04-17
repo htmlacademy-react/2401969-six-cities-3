@@ -1,4 +1,4 @@
-import Header from '../../components/header/header';
+import { Header } from '../../components/header/header';
 
 function FavoritesPage(): JSX.Element {
   return (
@@ -143,4 +143,4 @@ function FavoritesPage(): JSX.Element {
   );
 }
 
-export default FavoritesPage;
+export { FavoritesPage };
