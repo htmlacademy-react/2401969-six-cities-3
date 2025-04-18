@@ -13,12 +13,14 @@ type AppProps = {
 }
 
 function App({placeCards }: AppProps): JSX.Element {
+
+  const authStatus = AuthorizationStatus.Auth;
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage placeCards={placeCards} />}
+          element={<MainPage placeCards={placeCards} authStatus={authStatus}/>}
         />
         <Route
           path={AppRoute.Login}
@@ -26,12 +28,15 @@ function App({placeCards }: AppProps): JSX.Element {
         />
         <Route
           path={`${AppRoute.Offers}/:id`}
-          element={<OfferPage />}
+          element={<OfferPage authStatus={authStatus} />}
         />
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute
+              condition={authStatus === AuthorizationStatus.Auth}
+              navigateUrl={AppRoute.Login}
+            >
               <FavoritesPage />
             </PrivateRoute>
           }

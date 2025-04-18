@@ -1,9 +1,14 @@
 import { Header } from '../../components/header/header';
+import { AuthorizationStatus } from '../../const';
+
+/*type FavoritePageProps = {
+  //placeCards: PlaceCardProps[];
+}*/
 
 function FavoritesPage(): JSX.Element {
   return (
     <div className="page">
-      <Header />
+      <Header authStatus={AuthorizationStatus.Auth} />
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">

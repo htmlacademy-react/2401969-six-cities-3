@@ -1,9 +1,15 @@
 import { Header } from '../../components/header/header';
+import { AuthorizationStatus } from '../../const';
 
-function OfferPage(): JSX.Element {
+type OfferPageProps = {
+  //placeCards: PlaceCardProps[];
+  authStatus: AuthorizationStatus;
+}
+
+function OfferPage({ authStatus }: OfferPageProps): JSX.Element {
   return (
     <div className="page">
-      <Header />
+      <Header authStatus={authStatus} />
 
       <main className="page__main page__main--offer">
         <section className="offer">
