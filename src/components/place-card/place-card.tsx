@@ -1,5 +1,6 @@
 import { AppRoute } from '../../const';
 import { PlaceCardProps } from '../../mocks/mocks';
+import { Link } from 'react-router-dom';
 
 type CardProps = PlaceCardProps & {
   onMouseEnter: (id: number) => void;
@@ -47,7 +48,7 @@ function PlaceCard({ id, title, type, price, rating, isPremium, isFavorite, prev
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href={`${AppRoute.Offers}/${id}`}>{title}</a>
+          <Link to={`${AppRoute.Offers}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

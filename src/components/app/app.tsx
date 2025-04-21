@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { MainPage } from '../../pages/main-page/main-page';
+//import { MainPage } from '../../pages/main-page/main-page';
+import { MainPage1 } from '../../pages/main-page/main-page1';
 import { FavoritesPage } from '../../pages/favorites-page/favorites-page';
 import { LoginPage } from '../../pages/login-page/login-page';
 import { OfferPage } from '../../pages/offer-page/offer-page';
@@ -19,7 +20,7 @@ function App({placeCards, authStatus }: AppProps): JSX.Element {
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage placeCards={placeCards} authStatus={authStatus}/>}
+          element={<MainPage1 placeCards={placeCards} authStatus={authStatus}/>}
         />
         <Route
           path={AppRoute.Login}
