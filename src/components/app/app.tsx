@@ -10,11 +10,10 @@ import { PlaceCardProps } from '../../mocks/mocks';
 
 type AppProps = {
   placeCards: PlaceCardProps[];
+  authStatus: AuthorizationStatus;
 }
 
-function App({placeCards }: AppProps): JSX.Element {
-
-  const authStatus = AuthorizationStatus.Auth;
+function App({placeCards, authStatus }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -24,7 +23,14 @@ function App({placeCards }: AppProps): JSX.Element {
         />
         <Route
           path={AppRoute.Login}
-          element={<LoginPage />}
+          element={
+            <PrivateRoute
+              condition={authStatus === AuthorizationStatus.NotAuth}
+              navigateUrl={AppRoute.Main}
+            >
+              <LoginPage />
+            </PrivateRoute>
+          }
         />
         <Route
           path={`${AppRoute.Offers}/:id`}

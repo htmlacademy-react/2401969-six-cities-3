@@ -1,8 +1,21 @@
+import { AppRoute } from '../../const';
 import { PlaceCardProps } from '../../mocks/mocks';
 
-function PlaceCard({ title, type, price, rating, isPremium, isFavorite, previewImage, }: PlaceCardProps): JSX.Element {
+type CardProps = PlaceCardProps & {
+  onMouseEnter: (id: number) => void;
+  onMouseLeave: () => void;
+}
+
+function PlaceCard({ id, title, type, price, rating, isPremium, isFavorite, previewImage, onMouseEnter, onMouseLeave }: CardProps): JSX.Element {
+  const handleMouseEnter = () => {
+    onMouseEnter(id);
+  };
   return (
-    <article className="cities__card place-card">
+    <article
+      className="cities__card place-card"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -34,7 +47,7 @@ function PlaceCard({ title, type, price, rating, isPremium, isFavorite, previewI
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <a href={`${AppRoute.Offers}/${id}`}>{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

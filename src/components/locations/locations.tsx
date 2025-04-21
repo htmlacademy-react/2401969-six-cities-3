@@ -1,18 +1,33 @@
 import { City, CITIES } from '../../const';
+import { useState } from 'react';
 
-type CityProps = City;
+type CityProps = City & {
+  onClick: () => void;
+};
 
-function LocationsItem({ name, isActive }: CityProps): JSX.Element {
+function LocationsItem({ name, isActive, onClick }: CityProps): JSX.Element {
   return (
     <li className="locations__item">
-      <a className={`locations__item-link tabs__item ${isActive && ('tabs__item--active')}`} href="#">
+      <a className={`locations__item-link tabs__item ${isActive && ('tabs__item--active')}`}
+        href="#"
+        onClick={onClick}
+      >
         <span>{ name }</span>
       </a>
     </li>
   );
 }
 
-function Locations(): JSX.Element {
+type LocationsProps = {
+  onCityChange: (cityName: string) => void;
+}
+
+function Locations({ onCityChange }: LocationsProps): JSX.Element {
+  const [activeCity, setActiveCity] = useState<string>('Paris');
+  const handleCityClick = (cityName: string) => {
+    setActiveCity(cityName);
+    onCityChange(cityName);
+  };
   return (
     <div className="tabs">
       <section className="locations container">
@@ -21,7 +36,8 @@ function Locations(): JSX.Element {
             <LocationsItem
               key={city.name}
               name={city.name}
-              isActive={city.isActive}
+              isActive={activeCity === city.name}
+              onClick={() => handleCityClick(city.name)}
             />
           ))}
         </ul>

@@ -1,5 +1,6 @@
 import { PlaceCard } from '../place-card/place-card';
 import { PlaceCardProps } from '../../mocks/mocks';
+import { useState } from 'react';
 
 type PlacesProps = {
   placeCards: PlaceCardProps[];
@@ -7,18 +8,24 @@ type PlacesProps = {
 
 
 function PlacesList({placeCards}: PlacesProps): JSX.Element {
+  const [activeOffer, setActiveOffer] = useState<number | null>(null);
+  const handleCardMouseEnter = (id: number) => {
+    setActiveOffer(id);
+  };
+  const handleCardMouseLeave = () => {
+    setActiveOffer(null);
+  };
+  // eslint-disable-next-line
+  console.log(activeOffer ? `Активный оффер: ${activeOffer}` : 'Мимо');
+
   return (
     <div className="cities__places-list places__list tabs__content">
       {placeCards.map((card) => (
         <PlaceCard
           key={card.id}
-          title={card.title}
-          type={card.type}
-          price={card.price}
-          rating={card.rating}
-          isPremium={card.isPremium}
-          isFavorite={card.isFavorite}
-          previewImage={card.previewImage}
+          {...card}
+          onMouseEnter={handleCardMouseEnter}
+          onMouseLeave={handleCardMouseLeave}
         />
       ))}
     </div>
