@@ -3,7 +3,7 @@ import { PlaceCardProps } from '../../mocks/mocks';
 import { Link } from 'react-router-dom';
 
 type CardProps = PlaceCardProps & {
-  onMouseEnter: (id: number) => void;
+  onMouseEnter: (id: string) => void;
   onMouseLeave: () => void;
 }
 
@@ -43,7 +43,7 @@ function PlaceCard({ id, title, type, price, rating, isPremium, isFavorite, prev
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${rating}%` }}></span>
+            <span style={{ width: `${(Math.round(rating) / 5) * 100}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

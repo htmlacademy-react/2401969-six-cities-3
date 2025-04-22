@@ -9,9 +9,16 @@ type City = {
   location: Location;
 };
 
+type Host = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+};
+
 type PlaceCardProps = {
-  id: number;
+  id: string;
   title: string;
+  description: string;
   type: string;
   price: number;
   rating: number;
@@ -20,15 +27,21 @@ type PlaceCardProps = {
   previewImage: string;
   city: City;
   location: Location;
+  bedrooms: number;
+  goods: string[];
+  host: Host;
+  images: string[];
+  maxAdults: number;
 };
 
 const placeCards: PlaceCardProps[] = [
   {
-    id: 1,
+    id: '1',
     title: 'Beautiful & luxurious apartment at great location',
+    description: 'Cozy apartment with stunning city views and modern amenities.',
     type: 'Apartment',
     price: 120,
-    rating: 80,
+    rating: 4,
     isPremium: true,
     isFavorite: false,
     previewImage: 'img/apartment-01.jpg',
@@ -45,14 +58,38 @@ const placeCards: PlaceCardProps[] = [
       longitude: 2.342499,
       zoom: 16
     },
+    bedrooms: 2,
+    goods: [
+      'Wi-Fi',
+      'Washing machine',
+      'Towels',
+      'Heating',
+      'Coffee machine',
+      'Baby seat',
+      'Kitchen',
+      'Dishwasher',
+      'Cabel TV',
+    ],
+    host: {
+      isPro: true,
+      name: 'Angelina',
+      avatarUrl: 'img/avatar-angelina.jpg'
+    },
+    images: [
+      'img/apartment-01.jpg',
+      'img/apartment-02.jpg',
+      'img/apartment-03.jpg'
+    ],
+    maxAdults: 4,
   },
 
   {
-    id: 2,
+    id: '2',
     title: 'Wood and stone place',
+    description: 'This is a place for dreamers to reset, reflect, and create.',
     type: 'Room',
     price: 80,
-    rating: 80,
+    rating: 4.8,
     isPremium: false,
     isFavorite: true,
     previewImage: 'img/room.jpg',
@@ -69,14 +106,36 @@ const placeCards: PlaceCardProps[] = [
       longitude: 2.330499,
       zoom: 16
     },
+    bedrooms: 1,
+    goods: [
+      'Wi-Fi',
+      'Washing machine',
+      'Heating',
+      'Coffee machine',
+      'Baby seat',
+      'Kitchen',
+      'Cabel TV',
+    ],
+    host: {
+      isPro: false,
+      name: 'Max',
+      avatarUrl: 'img/avatar-max.jpg'
+    },
+    images: [
+      'img/apartment-01.jpg',
+      'img/apartment-02.jpg',
+      'img/apartment-03.jpg'
+    ],
+    maxAdults: 2,
   },
 
   {
-    id: 3,
+    id: '3',
     title: 'Canal View Prinsengracht',
+    description:'Spacious house featuring a large backyard and barbecue area',
     type: 'Apartment',
     price: 132,
-    rating: 80,
+    rating: 4,
     isPremium: false,
     isFavorite: false,
     previewImage: 'img/apartment-02.jpg',
@@ -93,14 +152,36 @@ const placeCards: PlaceCardProps[] = [
       longitude: 2.335499,
       zoom: 16
     },
+    bedrooms: 2,
+    goods: [
+      'Wi-Fi',
+      'Towels',
+      'Heating',
+      'Baby seat',
+      'Kitchen',
+      'Dishwasher',
+
+    ],
+    host: {
+      isPro: true,
+      name: 'Angelina',
+      avatarUrl: 'img/avatar-angelina.jpg'
+    },
+    images: [
+      'img/apartment-01.jpg',
+      'img/apartment-02.jpg',
+      'img/apartment-03.jpg'
+    ],
+    maxAdults: 4,
   },
 
   {
-    id: 4,
+    id: '4',
     title: 'Nice, cozy, warm big bed apartment',
+    description: 'Charming studio located near public transport and local shops',
     type: 'Apartment',
     price: 180,
-    rating: 100,
+    rating: 5,
     isPremium: true,
     isFavorite: false,
     previewImage: 'img/apartment-03.jpg',
@@ -117,14 +198,32 @@ const placeCards: PlaceCardProps[] = [
       longitude: 4.911976,
       zoom: 16
     },
+    bedrooms: 1,
+    goods: [
+      'Kitchen',
+      'Dishwasher',
+      'Cabel TV',
+    ],
+    host: {
+      isPro: true,
+      name: 'Angelina',
+      avatarUrl: 'img/avatar-angelina.jpg'
+    },
+    images: [
+      'img/apartment-01.jpg',
+      'img/apartment-02.jpg',
+      'img/apartment-03.jpg'
+    ],
+    maxAdults: 2,
   },
 
   {
-    id: 5,
+    id: '5',
     title: 'Very-very big room',
-    type: 'Room',
+    description: 'Elegant villa with a private pool and beautiful gardens.',
+    type: 'House',
     price: 80,
-    rating: 80,
+    rating: 4,
     isPremium: false,
     isFavorite: true,
     previewImage: 'img/apartment-small-04.jpg',
@@ -141,7 +240,31 @@ const placeCards: PlaceCardProps[] = [
       longitude: 6.967974,
       zoom: 16
     },
+    bedrooms: 5,
+    goods: [
+      'Wi-Fi',
+      'Washing machine',
+      'Towels',
+      'Heating',
+      'Coffee machine',
+      'Baby seat',
+      'Kitchen',
+      'Dishwasher',
+      'Cabel TV',
+      'Fridge'
+    ],
+    host: {
+      isPro: false,
+      name: 'Max',
+      avatarUrl: 'img/avatar-max.jpg'
+    },
+    images: [
+      'img/apartment-01.jpg',
+      'img/apartment-02.jpg',
+      'img/apartment-03.jpg'
+    ],
+    maxAdults: 10,
   },
 ];
 
-export { type PlaceCardProps, placeCards };
+export { type Host, type PlaceCardProps, placeCards };

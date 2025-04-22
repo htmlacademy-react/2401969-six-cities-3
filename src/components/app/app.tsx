@@ -35,7 +35,7 @@ function App({placeCards, authStatus }: AppProps): JSX.Element {
         />
         <Route
           path={`${AppRoute.Offers}/:id`}
-          element={<OfferPage authStatus={authStatus} />}
+          element={<OfferPage placeCards={placeCards} authStatus={authStatus} />}
         />
         <Route
           path={AppRoute.Favorites}

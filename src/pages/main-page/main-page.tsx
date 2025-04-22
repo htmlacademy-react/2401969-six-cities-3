@@ -33,7 +33,9 @@ function MainPage({placeCards, authStatus}: MainPageProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <Locations onCityChange={handleCityChange} />
         <div className="cities">
-          {cityPlaceCards && cityPlaceCards.length > 0 ? <MainIndex cityPlaceCards={cityPlaceCards} cityName={cityName} /> : <MainIndexEmpty />}
+          {cityPlaceCards && cityPlaceCards.length > 0 ?
+            <MainIndex cityPlaceCards={cityPlaceCards} cityName={cityName} /> :
+            <MainIndexEmpty cityName={cityName} />}
         </div>
       </main>
 

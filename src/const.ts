@@ -37,16 +37,15 @@ const SortOptions: SortOption[] = [
 
 type City = {
   name: string;
-  isActive: boolean;
 };
 
 const CITIES: City[] = [
-  { name: 'Paris', isActive: false, },
-  { name: 'Cologne', isActive: false, },
-  { name: 'Brussels', isActive: false, },
-  { name: 'Amsterdam', isActive: true,},
-  { name: 'Hamburg', isActive: false,},
-  { name: 'Dusseldorf', isActive: false, }
+  { name: 'Paris' },
+  { name: 'Cologne' },
+  { name: 'Brussels' },
+  { name: 'Amsterdam' },
+  { name: 'Hamburg' },
+  { name: 'Dusseldorf' },
 ];
 
 export {

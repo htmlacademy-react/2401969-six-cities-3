@@ -8,8 +8,8 @@ type PlacesProps = {
 
 
 function PlacesList({placeCards}: PlacesProps): JSX.Element {
-  const [activeOffer, setActiveOffer] = useState<number | null>(null);
-  const handleCardMouseEnter = (id: number) => {
+  const [activeOffer, setActiveOffer] = useState<string | null>(null);
+  const handleCardMouseEnter = (id: string) => {
     setActiveOffer(id);
   };
   const handleCardMouseLeave = () => {

@@ -2,13 +2,14 @@ import { City, CITIES } from '../../const';
 import { useState } from 'react';
 
 type CityProps = City & {
+  isActive: boolean;
   onClick: () => void;
 };
 
 function LocationsItem({ name, isActive, onClick }: CityProps): JSX.Element {
   return (
     <li className="locations__item">
-      <a className={`locations__item-link tabs__item ${isActive && ('tabs__item--active')}`}
+      <a className={`locations__item-link tabs__item ${isActive ? ('tabs__item--active') : ''}`}
         href="#"
         onClick={onClick}
       >
