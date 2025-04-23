@@ -1,7 +1,7 @@
 import { PlaceCardProps } from '../../mocks/mocks';
 import { OfferHost } from '../offer-host/offer-host';
 import { OfferInside } from '../offer-inside/offer-inside';
-import { Reviews } from '../reviews/reviews';
+import { ReviewsList } from '../reviews-list/reviews-list';
 
 type OfferCardProps = {
   offerCard: PlaceCardProps;
@@ -53,7 +53,7 @@ function OfferCard({ offerCard }: OfferCardProps): JSX.Element {
         </div>
         <OfferInside goods={goods} />
         <OfferHost host={host} description={description} />
-        <Reviews />
+        <ReviewsList />
       </div>
     </div>
   );
