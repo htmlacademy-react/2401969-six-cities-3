@@ -19,7 +19,7 @@ function MainPage({placeCards, authStatus}: MainPageProps): JSX.Element {
     setCityName(newCityName);
   };
 
-  const cityPlaceCards = placeCards.filter((place) => place.city?.name === cityName);
+  const cityPlaceCards = placeCards.filter((card) => card.city?.name === cityName);
 
   const mainClass = cityPlaceCards.length > 0
     ? 'page__main page__main--index'

@@ -57,7 +57,7 @@ const placeCards: PlaceCardProps[] = [
     price: 120,
     rating: 4,
     isPremium: true,
-    isFavorite: false,
+    isFavorite: true,
     previewImage: 'img/apartment-01.jpg',
     city: {
       name: 'Paris',
@@ -106,7 +106,7 @@ const placeCards: PlaceCardProps[] = [
     rating: 4.8,
     isPremium: false,
     isFavorite: true,
-    previewImage: 'img/room.jpg',
+    previewImage: 'img/room-small.jpg',
     city: {
       name: 'Paris',
       location: {
@@ -198,7 +198,7 @@ const placeCards: PlaceCardProps[] = [
     rating: 5,
     isPremium: true,
     isFavorite: false,
-    previewImage: 'img/apartment-03.jpg',
+    previewImage: 'img/apartment-small-03.jpg',
     city: {
       name: 'Amsterdam',
       location: {
@@ -233,7 +233,7 @@ const placeCards: PlaceCardProps[] = [
 
   {
     id: '5',
-    title: 'Very-very big room',
+    title: 'Very-very-very big room',
     description: 'Elegant villa with a private pool and beautiful gardens.',
     type: 'House',
     price: 80,

@@ -3,17 +3,31 @@ import { PlaceCardProps } from '../../mocks/mocks';
 import { Link } from 'react-router-dom';
 
 type CardProps = PlaceCardProps & {
-  onMouseEnter: (id: string) => void;
-  onMouseLeave: () => void;
+  onMouseEnter?: (id: string) => void;
+  onMouseLeave?: () => void;
+  place?: 'cities' | 'favorites' |'near-places';
 }
 
-function PlaceCard({ id, title, type, price, rating, isPremium, isFavorite, previewImage, onMouseEnter, onMouseLeave }: CardProps): JSX.Element {
+function PlaceCard({
+  id,
+  title,
+  type,
+  price,
+  rating,
+  isPremium,
+  isFavorite,
+  previewImage,
+  place = 'cities',
+  onMouseEnter = () => void 0,
+  onMouseLeave = () => void 0
+}: CardProps): JSX.Element {
   const handleMouseEnter = () => {
     onMouseEnter(id);
   };
+
   return (
     <article
-      className="cities__card place-card"
+      className={`${place}__card place-card`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -21,12 +35,18 @@ function PlaceCard({ id, title, type, price, rating, isPremium, isFavorite, prev
         <div className="place-card__mark">
           <span>Premium</span>
         </div>)}
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
-        </a>
+      <div className={`${place}__image-wrapper place-card__image-wrapper`}>
+        <Link to={`${AppRoute.Offers}/${id}`}>
+          <img
+            className="place-card__image"
+            src={previewImage}
+            width={place === 'favorites' ? 150 : 260}
+            height={place === 'favorites' ? 110 : 200}
+            alt="Place image"
+          />
+        </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`place-card__info ${place === 'favorites' ? 'favorites__card-info' : ''}`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>

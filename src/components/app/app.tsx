@@ -44,7 +44,7 @@ function App({placeCards, authStatus }: AppProps): JSX.Element {
               condition={authStatus === AuthorizationStatus.Auth}
               navigateUrl={AppRoute.Login}
             >
-              <FavoritesPage />
+              <FavoritesPage placeCards={placeCards} />
             </PrivateRoute>
           }
         />
