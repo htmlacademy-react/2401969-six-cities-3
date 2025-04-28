@@ -48,6 +48,12 @@ const CITIES: City[] = [
   { name: 'Dusseldorf' },
 ];
 
+const MAX_GALLERY_PHOTOS = 6;
+
+const MAX_NEAR_PLACES = 3;
+
+const RATING_TITLES = ['отлично', 'хорошо', 'нормально', 'плохо', 'ужасно'];
+
 export {
   AuthorizationStatus,
   AppRoute,
@@ -55,4 +61,7 @@ export {
   type City,
   SortOptions,
   CITIES,
+  MAX_GALLERY_PHOTOS,
+  MAX_NEAR_PLACES,
+  RATING_TITLES,
 };

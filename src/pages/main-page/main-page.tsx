@@ -1,8 +1,8 @@
 import { Header } from '../../components/header/header';
 import { Locations } from '../../components/locations/locations';
-import { MainIndex } from '../../components/main-index/main-index';
-import { MainIndexEmpty } from '../../components/main-index/main-index-empty';
-import { PlaceCardProps } from '../../mocks/mocks';
+import { MainContent } from './components/main-content';
+import { MainEmpty } from './components/main-empty';
+import { PlaceCardProps } from '../../mocks/mock-offers';
 import { AuthorizationStatus } from '../../const';
 import { useState } from 'react';
 
@@ -34,8 +34,8 @@ function MainPage({placeCards, authStatus}: MainPageProps): JSX.Element {
         <Locations onCityChange={handleCityChange} />
         <div className="cities">
           {cityPlaceCards && cityPlaceCards.length > 0 ?
-            <MainIndex cityPlaceCards={cityPlaceCards} cityName={cityName} /> :
-            <MainIndexEmpty cityName={cityName} />}
+            <MainContent cityPlaceCards={cityPlaceCards} cityName={cityName} /> :
+            <MainEmpty cityName={cityName} />}
         </div>
       </main>
 

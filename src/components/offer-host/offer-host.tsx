@@ -1,4 +1,4 @@
-import { Host } from '../../mocks/mocks';
+import { Host } from '../../mocks/mock-offers';
 
 type OfferHostProps = {
   host: Host;

@@ -1,4 +1,4 @@
-import { ReviewProps } from '../../mocks/mocks';
+import { ReviewProps } from '../../mocks/mock-comments';
 
 function Review({ date, user, comment, rating}: ReviewProps): JSX.Element {
   return (

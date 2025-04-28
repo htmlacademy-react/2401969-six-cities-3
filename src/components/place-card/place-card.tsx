@@ -1,5 +1,5 @@
 import { AppRoute } from '../../const';
-import { PlaceCardProps } from '../../mocks/mocks';
+import { PlaceCardProps } from '../../mocks/mock-offers';
 import { Link } from 'react-router-dom';
 
 type CardProps = PlaceCardProps & {
@@ -18,14 +18,15 @@ function PlaceCard({
   isFavorite,
   previewImage,
   place = 'cities',
-  onMouseEnter = () => void 0,
-  onMouseLeave = () => void 0
+  onMouseEnter,
+  onMouseLeave,
 }: CardProps): JSX.Element {
   const handleMouseEnter = () => {
-    onMouseEnter(id);
+    onMouseEnter?.(id);
   };
 
   return (
+
     <article
       className={`${place}__card place-card`}
       onMouseEnter={handleMouseEnter}

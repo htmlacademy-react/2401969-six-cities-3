@@ -1,22 +1,21 @@
 import { Header } from '../../components/header/header';
-import { MainFavorites } from '../../components/main-favotites/main-favorites';
-import { MainFavoritesEmpty } from '../../components/main-favotites/main-favorites-empty';
-//import { PlaceCard } from '../../components/place-card/place-card';
+import { FavoritesContent } from './components/favorites-content';
+import { FavoritesEmpty } from './components/favorites-empty';
 import { AuthorizationStatus } from '../../const';
-import { PlaceCardProps } from '../../mocks/mocks';
+import { PlaceCardProps } from '../../mocks/mock-offers';
 
 type FavoritePageProps = {
-  placeCards: PlaceCardProps[];
+  favoriteCards: PlaceCardProps[];
 }
 
-function FavoritesPage({ placeCards }: FavoritePageProps): JSX.Element {
-  const favoritePlaceCards = placeCards.filter((card) => card.isFavorite);
+function FavoritesPage({ favoriteCards }: FavoritePageProps): JSX.Element {
 
-  const pageClass = favoritePlaceCards.length > 0
+
+  const pageClass = favoriteCards.length > 0
     ? 'page'
     : 'page page--favorites-empty';
 
-  const mainClass = favoritePlaceCards.length > 0
+  const mainClass = favoriteCards.length > 0
     ? 'page__main page__main--favorites'
     : 'page__main page__main--favorites page__main--favorites-empty';
 
@@ -26,9 +25,9 @@ function FavoritesPage({ placeCards }: FavoritePageProps): JSX.Element {
 
 
       <main className={mainClass}>
-        {favoritePlaceCards && favoritePlaceCards.length > 0 ?
-          <MainFavorites favoritePlaceCards={favoritePlaceCards}/> :
-          <MainFavoritesEmpty />}
+        {favoriteCards && favoriteCards.length > 0 ?
+          <FavoritesContent favoriteCards={favoriteCards}/> :
+          <FavoritesEmpty />}
       </main>
       <footer className="footer container">
         <a className="footer__logo-link" href="main.html">
