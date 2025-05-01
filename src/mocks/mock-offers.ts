@@ -1,11 +1,15 @@
+import { CITIES } from '../const';
+
 type Location = {
   latitude: number;
   longitude: number;
   zoom: number;
 };
 
+type CityName = typeof CITIES[number]
+
 type City = {
-  name: string;
+  name: CityName;
   location: Location;
 };
 
@@ -280,6 +284,7 @@ const placeCards: PlaceCardProps[] = [
 
 export {
   type Location,
+  type CityName,
   type City,
   type Host,
   type PlaceCardProps,

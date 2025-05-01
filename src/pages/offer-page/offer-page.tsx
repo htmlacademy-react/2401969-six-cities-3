@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import { NotFoundPage } from '../not-found-page/not-found-page';
 import { OfferGallery } from '../../components/offer-gallery/offer-gallery';
 import { NearPlaces } from '../../components/near-places/near-places';
+import { Map } from '../../components/map/map';
 
 type OfferPageProps = {
   placeCards: PlaceCardProps[];
@@ -45,7 +46,9 @@ function OfferPage({ placeCards, comments, authStatus }: OfferPageProps): JSX.El
               </section>
             </div>
           </div>
-          <section className="offer__map map" />
+          <section className="offer__map map">
+            <Map city={cityPlaceCards[0].city} locations={cityPlaceCards.map((card) => card.location)} />
+          </section>
         </section>
         <div className="container">
           {cityPlaceCards.length > 0 && <NearPlaces cityPlaceCards={cityPlaceCards}/>}

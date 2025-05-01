@@ -35,18 +35,7 @@ const SortOptions: SortOption[] = [
   }
 ];
 
-type City = {
-  name: string;
-};
-
-const CITIES: City[] = [
-  { name: 'Paris' },
-  { name: 'Cologne' },
-  { name: 'Brussels' },
-  { name: 'Amsterdam' },
-  { name: 'Hamburg' },
-  { name: 'Dusseldorf' },
-];
+const CITIES: string[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 const MAX_GALLERY_PHOTOS = 6;
 
@@ -62,7 +51,6 @@ export {
   AuthorizationStatus,
   AppRoute,
   type SortOption,
-  type City,
   SortOptions,
   CITIES,
   MAX_GALLERY_PHOTOS,
