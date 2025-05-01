@@ -1,11 +1,15 @@
+import { CITIES } from '../const';
+
 type Location = {
   latitude: number;
   longitude: number;
   zoom: number;
 };
 
+type CityName = typeof CITIES[number]
+
 type City = {
-  name: string;
+  name: CityName;
   location: Location;
 };
 
@@ -19,7 +23,7 @@ type PlaceCardProps = {
   id: string;
   title: string;
   description: string;
-  type: string;
+  type: 'Apartment' | 'Room' | 'House' | 'Hotel';
   price: number;
   rating: number;
   isPremium: boolean;
@@ -33,20 +37,6 @@ type PlaceCardProps = {
   images: string[];
   maxAdults: number;
 };
-
-type User = {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
-  }
-
-type ReviewProps = {
-  id: string;
-  date: string;
-  user: User;
-  comment: string;
-  rating: number;
-}
 
 const placeCards: PlaceCardProps[] = [
   {
@@ -90,9 +80,11 @@ const placeCards: PlaceCardProps[] = [
       avatarUrl: 'img/avatar-angelina.jpg'
     },
     images: [
-      'img/apartment-01.jpg',
+      'img/apartment-small-04.jpg',
       'img/apartment-02.jpg',
-      'img/apartment-03.jpg'
+      'img/apartment-03.jpg',
+      'img/room.jpg',
+      'img/studio-01.jpg'
     ],
     maxAdults: 4,
   },
@@ -106,7 +98,7 @@ const placeCards: PlaceCardProps[] = [
     rating: 4.8,
     isPremium: false,
     isFavorite: true,
-    previewImage: 'img/room-small.jpg',
+    previewImage: 'img/room.jpg',
     city: {
       name: 'Paris',
       location: {
@@ -138,7 +130,10 @@ const placeCards: PlaceCardProps[] = [
     images: [
       'img/apartment-01.jpg',
       'img/apartment-02.jpg',
-      'img/apartment-03.jpg'
+      'img/apartment-03.jpg',
+      'img/apartment-small-04.jpg',
+      'img/room.jpg',
+      'img/studio-01.jpg'
     ],
     maxAdults: 2,
   },
@@ -184,7 +179,7 @@ const placeCards: PlaceCardProps[] = [
     images: [
       'img/apartment-01.jpg',
       'img/apartment-02.jpg',
-      'img/apartment-03.jpg'
+      'img/room.jpg',
     ],
     maxAdults: 4,
   },
@@ -226,7 +221,10 @@ const placeCards: PlaceCardProps[] = [
     images: [
       'img/apartment-01.jpg',
       'img/apartment-02.jpg',
-      'img/apartment-03.jpg'
+      'img/apartment-03.jpg',
+      'img/studio-01.jpg',
+      'img/room.jpg',
+
     ],
     maxAdults: 2,
   },
@@ -275,36 +273,19 @@ const placeCards: PlaceCardProps[] = [
     images: [
       'img/apartment-01.jpg',
       'img/apartment-02.jpg',
-      'img/apartment-03.jpg'
+      'img/apartment-03.jpg',
+      'img/studio-01.jpg',
+      'img/apartment-01.jpg',
+      'img/apartment-02.jpg',
     ],
     maxAdults: 10,
   },
 ];
 
-const reviews: ReviewProps[] = [
-  {
-    'id': '11',
-    'date': '2025-03-24',
-    'user': {
-      'name': 'Oliver Conner',
-      'avatarUrl': 'img/avatar-max.jpg',
-      'isPro': false
-    },
-    'comment': 'The apartment was dirty, noisy, and not as described.',
-    'rating': 1
-  },
-
-  {
-    'id': '12',
-    'date': '2025-04-14',
-    'user': {
-      'name': 'Pretty Woman',
-      'avatarUrl': 'img/avatar-angelina.jpg',
-      'isPro': true
-    },
-    'comment': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of city.',
-    'rating': 5
-  }
-];
-
-export { type Host, type PlaceCardProps, type ReviewProps, placeCards, reviews };
+export {
+  type Location,
+  type CityName,
+  type City,
+  type Host,
+  type PlaceCardProps,
+  placeCards, };

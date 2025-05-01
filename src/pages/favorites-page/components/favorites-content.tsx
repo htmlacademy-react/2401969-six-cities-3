@@ -1,12 +1,12 @@
-import { PlaceCardProps } from '../../mocks/mocks';
-import { PlaceCard } from '../place-card/place-card';
+import { PlaceCardProps } from '../../../mocks/mock-offers';
+import { PlaceCard } from '../../../components/place-card/place-card';
 
 type MainFavoritesProps = {
-  favoritePlaceCards: PlaceCardProps[];
+  favoriteCards: PlaceCardProps[];
 }
 
-function MainFavorites({ favoritePlaceCards}: MainFavoritesProps): JSX.Element {
-  const cardsByCity = favoritePlaceCards.reduce<{ [key: string]: PlaceCardProps[] }>((acc, card) => {
+function FavoritesContent({ favoriteCards}: MainFavoritesProps): JSX.Element {
+  const cardsByCity = favoriteCards.reduce<{ [key: string]: PlaceCardProps[] }>((acc, card) => {
     const city = card.city.name;
     if (!(city in acc)) {
       acc[city] = [];
@@ -45,4 +45,4 @@ function MainFavorites({ favoritePlaceCards}: MainFavoritesProps): JSX.Element {
   );
 }
 
-export { MainFavorites };
+export { FavoritesContent };

@@ -1,7 +1,9 @@
-import { City, CITIES } from '../../const';
+import { CITIES } from '../../const';
 import { useState } from 'react';
+import { CityName } from '../../mocks/mock-offers';
 
-type CityProps = City & {
+type CityProps = {
+  name: CityName;
   isActive: boolean;
   onClick: () => void;
 };
@@ -35,10 +37,10 @@ function Locations({ onCityChange }: LocationsProps): JSX.Element {
         <ul className="locations__list tabs__list">
           {CITIES.map((city) => (
             <LocationsItem
-              key={city.name}
-              name={city.name}
-              isActive={activeCity === city.name}
-              onClick={() => handleCityClick(city.name)}
+              key={city}
+              name={city}
+              isActive={activeCity === city}
+              onClick={() => handleCityClick(city)}
             />
           ))}
         </ul>

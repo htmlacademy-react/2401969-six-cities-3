@@ -2,7 +2,7 @@ type MainIndexProps = {
   cityName: string;
 }
 
-function MainIndexEmpty({ cityName} : MainIndexProps): JSX.Element {
+function MainEmpty({ cityName} : MainIndexProps): JSX.Element {
   return (
     <div className="cities__places-container cities__places-container--empty container">
       <section className="cities__no-places">
@@ -16,4 +16,4 @@ function MainIndexEmpty({ cityName} : MainIndexProps): JSX.Element {
   );
 }
 
-export { MainIndexEmpty };
+export { MainEmpty };

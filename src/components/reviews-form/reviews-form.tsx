@@ -1,15 +1,22 @@
 import { useState, ChangeEvent, Fragment } from 'react';
+import { RATING_TITLES } from '../../const';
 
 function ReviewsForm(): JSX.Element {
-  const [rating, setRating] = useState<number | null>(null);
-  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setRating(Number(evt.target.value));
+
+  const [formData, setFormData] = useState<{
+    rating: number | null;
+    reviewText: string;
+  }>({rating: null, reviewText: ''});
+
+  const handleChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = evt.target;
+    setFormData({
+      ...formData,
+      [name]: name === 'rating' ? Number(value) : value
+    });
   };
 
-  const [reviewText, setReviewText] = useState<string>('');
-  const handleTextareaChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    setReviewText(evt.target.value);
-  };
+  const { rating, reviewText } = formData;
 
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -23,11 +30,11 @@ function ReviewsForm(): JSX.Element {
               id={`${5 - i}-stars`}
               type="radio"
               checked={5 - i === rating}
-              onChange={handleInputChange}
+              onChange={handleChange}
             />
             <label htmlFor={`${5 - i}-stars`}
               className="reviews__rating-label form__rating-label"
-              title={['отлично', 'хорошо', 'нормально', 'плохо', 'ужасно'][i]}
+              title={RATING_TITLES[i]}
             >
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
@@ -37,16 +44,22 @@ function ReviewsForm(): JSX.Element {
         ))}
       </div>
       <textarea className="reviews__textarea form__textarea"
-        id="review" name="review"
+        id="review"
+        name="reviewText"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewText}
-        onChange={handleTextareaChange}
+        onChange={handleChange}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={reviewText.length <= 50 || !rating}
+        >Submit
+        </button>
       </div>
     </form>
   );

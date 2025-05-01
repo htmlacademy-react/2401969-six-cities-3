@@ -7,14 +7,17 @@ import { OfferPage } from '../../pages/offer-page/offer-page';
 import { NotFoundPage } from '../../pages/not-found-page/not-found-page';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import { PrivateRoute } from '../private-route/private-route';
-import { PlaceCardProps } from '../../mocks/mocks';
+import { PlaceCardProps } from '../../mocks/mock-offers';
+import { ReviewProps } from '../../mocks/mock-comments';
 
 type AppProps = {
   placeCards: PlaceCardProps[];
+  favoriteCards: PlaceCardProps[];
+  comments: ReviewProps[];
   authStatus: AuthorizationStatus;
 }
 
-function App({placeCards, authStatus }: AppProps): JSX.Element {
+function App({placeCards, favoriteCards, comments, authStatus }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -35,7 +38,7 @@ function App({placeCards, authStatus }: AppProps): JSX.Element {
         />
         <Route
           path={`${AppRoute.Offers}/:id`}
-          element={<OfferPage placeCards={placeCards} authStatus={authStatus} />}
+          element={<OfferPage placeCards={placeCards} comments={comments} authStatus={authStatus} />}
         />
         <Route
           path={AppRoute.Favorites}
@@ -44,7 +47,7 @@ function App({placeCards, authStatus }: AppProps): JSX.Element {
               condition={authStatus === AuthorizationStatus.Auth}
               navigateUrl={AppRoute.Login}
             >
-              <FavoritesPage placeCards={placeCards} />
+              <FavoritesPage favoriteCards={favoriteCards} />
             </PrivateRoute>
           }
         />
