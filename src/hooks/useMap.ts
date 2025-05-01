@@ -1,14 +1,22 @@
 import { useEffect, useState } from 'react';
-import { City } from '../mocks/mock-offers';
-import L, { Map } from 'leaflet';
+import { City, Location } from '../mocks/mock-offers';
+import L, { Map, Marker, Icon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { MARKER_DEFAULT_URL } from '../const';
+
+const defaultIcon = new Icon({
+  iconUrl: MARKER_DEFAULT_URL,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
 
 type UseMapProps = {
   mapRef: React.RefObject<HTMLDivElement>;
   city: City;
+  locations: Location[];
 }
 
-function useMap({ mapRef, city }: UseMapProps): Map | null {
+function useMap({ mapRef, city, locations }: UseMapProps): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   // eslint-disable-next-line
   console.log('Карта создана?', map);
@@ -33,13 +41,23 @@ function useMap({ mapRef, city }: UseMapProps): Map | null {
     )
       .addTo(mapInstance);
 
+    locations.forEach((item) => {
+      const marker = new Marker ({
+        lat: item.latitude,
+        lng: item.longitude,
+      });
+      marker
+        .setIcon(defaultIcon)
+        .addTo(mapInstance);
+    });
+
     setMap(mapInstance);
 
     return () => {
       mapInstance.remove();
 
     };
-  }, [mapRef, city]);
+  }, [mapRef, city, locations]);
 
   return map;
 }

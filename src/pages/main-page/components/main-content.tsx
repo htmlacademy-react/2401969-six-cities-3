@@ -19,7 +19,7 @@ function MainContent({ cityPlaceCards, cityName }: MainContentProps): JSX.Elemen
       </section>
       <div className="cities__right-section">
         <section className="cities__map map">
-          <Map placeCards={cityPlaceCards} />
+          <Map city={cityPlaceCards[0].city} locations={cityPlaceCards.map((card) => card.location)} />
         </section>
       </div>
     </div>

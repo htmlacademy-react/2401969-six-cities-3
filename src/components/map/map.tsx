@@ -1,17 +1,20 @@
-import { PlaceCardProps } from '../../mocks/mock-offers';
+import { City, Location } from '../../mocks/mock-offers';
 import { useRef } from 'react';
 import { useMap } from '../../hooks/useMap';
+//import { Icon, Marker } from 'leaflet';
+
 
 type MapProps = {
-  placeCards: PlaceCardProps[];
+  city: City;
+  locations: Location[];
 }
 
-function Map({ placeCards }: MapProps): JSX.Element {
+function Map({ city, locations }: MapProps): JSX.Element {
   const mapRef = useRef<HTMLDivElement>(null);
-
   useMap({
     mapRef,
-    city: placeCards[0].city
+    city,
+    locations,
   });
 
   return (

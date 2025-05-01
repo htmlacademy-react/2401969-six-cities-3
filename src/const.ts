@@ -54,6 +54,10 @@ const MAX_NEAR_PLACES = 3;
 
 const RATING_TITLES = ['отлично', 'хорошо', 'нормально', 'плохо', 'ужасно'];
 
+const MARKER_DEFAULT_URL = 'img/pin.svg';
+
+const MARKER_ACTIVE_URL = 'img/pin-active.svg';
+
 export {
   AuthorizationStatus,
   AppRoute,
@@ -64,4 +68,6 @@ export {
   MAX_GALLERY_PHOTOS,
   MAX_NEAR_PLACES,
   RATING_TITLES,
+  MARKER_DEFAULT_URL,
+  MARKER_ACTIVE_URL,
 };
