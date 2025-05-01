@@ -16,9 +16,6 @@ function MainContent({ cityPlaceCards, cityName }: MainContentProps): JSX.Elemen
     setActiveOffer(id);
   };
 
-  // eslint-disable-next-line
-    console.log(activeOfferId ? `Активный оффер: ${activeOfferId}` : 'null');
-
   const activeLocation = activeOfferId
     ? cityPlaceCards.find((card) => card.id === activeOfferId)?.location
     : null;

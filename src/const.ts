@@ -47,6 +47,10 @@ const MARKER_DEFAULT_URL = 'img/pin.svg';
 
 const MARKER_ACTIVE_URL = 'img/pin-active.svg';
 
+const TILE_LAYER_URL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+
+const TILE_LAYER_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+
 export {
   AuthorizationStatus,
   AppRoute,
@@ -58,4 +62,6 @@ export {
   RATING_TITLES,
   MARKER_DEFAULT_URL,
   MARKER_ACTIVE_URL,
+  TILE_LAYER_URL,
+  TILE_LAYER_ATTRIBUTION
 };
