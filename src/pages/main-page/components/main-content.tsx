@@ -1,13 +1,14 @@
 import { PlacesSorting } from '../../../components/places-sorting/places-sorting';
 import { PlacesList } from '../../../components/places-list/places-list';
 import { PlaceCardProps } from '../../../mocks/mock-offers';
+import { Map } from '../../../components/map/map';
 
-type MainIndexProps = {
+type MainContentProps = {
   cityPlaceCards: PlaceCardProps[];
   cityName: string;
 }
 
-function MainContent({ cityPlaceCards, cityName }: MainIndexProps): JSX.Element {
+function MainContent({ cityPlaceCards, cityName }: MainContentProps): JSX.Element {
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
@@ -17,7 +18,9 @@ function MainContent({ cityPlaceCards, cityName }: MainIndexProps): JSX.Element 
         <PlacesList placeCards={cityPlaceCards} />
       </section>
       <div className="cities__right-section">
-        <section className="cities__map map" />
+        <section className="cities__map map">
+          <Map placeCards={cityPlaceCards} />
+        </section>
       </div>
     </div>
 

@@ -278,4 +278,9 @@ const placeCards: PlaceCardProps[] = [
   },
 ];
 
-export { type Host, type PlaceCardProps, placeCards, };
+export {
+  type Location,
+  type City,
+  type Host,
+  type PlaceCardProps,
+  placeCards, };
