@@ -56,7 +56,7 @@ function OfferPage({ placeCards, comments, authStatus }: OfferPageProps): JSX.El
               activeLocation={offerCard.location}
             />
           </section>
-          {cityPlaceCards.length > 0 && <NearPlaces cityPlaceCards={nearPlaceCards}/>}
+          {nearPlaceCards.length > 0 && <NearPlaces cityPlaceCards={nearPlaceCards}/>}
         </div>
       </main>
     </div>
