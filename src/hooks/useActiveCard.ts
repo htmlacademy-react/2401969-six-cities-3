@@ -4,7 +4,7 @@ import { Location } from '../mocks/mock-offers';
 type useActiveCardProps = { id: string; location: Location }[];
 
 type useActiveCardReturn = {
-  activeOfferId: string | null;
+  //activeOfferId: string | null;
   activeLocation: Location | null;
   handleCardMouseEnter: (id: string) => void;
   handleCardMouseLeave: () => void;
@@ -26,7 +26,7 @@ function useActiveCard(cards: useActiveCardProps): useActiveCardReturn {
   };
 
   return {
-    activeOfferId,
+    //activeOfferId,
     activeLocation,
     handleCardMouseEnter,
     handleCardMouseLeave,

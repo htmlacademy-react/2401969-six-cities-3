@@ -11,6 +11,7 @@ type MapProps = {
 
 function Map({ city, locations, activeLocation }: MapProps): JSX.Element {
   const mapRef = useRef<HTMLDivElement>(null);
+
   useMap({
     mapRef,
     city,
