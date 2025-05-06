@@ -2,6 +2,7 @@
 
 * Студент: [Виктор Волошенко](https://up.htmlacademy.ru/react-individual/3/user/2401969).
 * Наставник: [Александр Сударев](https://htmlacademy.ru/profile/id1152185).
+* Страница проекта: [six-cities=kontur](https://vercel.com/vikkont79s-projects/2401969-six-cities-3).
 
 ---
 

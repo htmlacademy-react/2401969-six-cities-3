@@ -4,6 +4,8 @@ import App from './components/app/app';
 import { placeCards } from './mocks/mock-offers';
 import { comments } from './mocks/mock-comments';
 import { AuthorizationStatus } from './const';
+import { store } from './store/store';
+import { Provider } from 'react-redux';
 
 const favoriteCards = placeCards.filter((card) => card.isFavorite);
 
@@ -15,6 +17,8 @@ const authStatus = AuthorizationStatus.Auth;
 
 root.render(
   <React.StrictMode>
-    <App placeCards={placeCards} favoriteCards={favoriteCards} comments={comments} authStatus={authStatus} />
+    <Provider store={store}>
+      <App placeCards={placeCards} favoriteCards={favoriteCards} comments={comments} authStatus={authStatus} />
+    </Provider>
   </React.StrictMode>
 );

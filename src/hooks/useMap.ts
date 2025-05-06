@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { City, Location } from '../mocks/mock-offers';
 import L, { Map, Marker, Icon, LayerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { MARKER_DEFAULT_URL, MARKER_ACTIVE_URL } from '../const';
+import { MARKER_DEFAULT_URL, MARKER_ACTIVE_URL, TILE_LAYER_URL, TILE_LAYER_ATTRIBUTION } from '../const';
 
 const defaultIcon = new Icon({
   iconUrl: MARKER_DEFAULT_URL,
@@ -38,22 +38,12 @@ function useMap({ mapRef, city, locations, activeLocation }: UseMapProps): Map |
     });
 
     L.tileLayer(
-      'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+      TILE_LAYER_URL,
       {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        attribution: TILE_LAYER_ATTRIBUTION,
       },
     )
       .addTo(mapInstance);
-
-    /*locations.forEach((item) => {
-      const marker = new Marker ({
-        lat: item.latitude,
-        lng: item.longitude,
-      });
-      marker
-        .setIcon(defaultIcon)
-        .addTo(mapInstance);
-    });*/
 
     const layer = new L.LayerGroup().addTo(mapInstance);
     setMarkersLayer(layer);

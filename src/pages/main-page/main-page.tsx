@@ -4,8 +4,7 @@ import { MainContent } from './components/main-content';
 import { MainEmpty } from './components/main-empty';
 import { PlaceCardProps } from '../../mocks/mock-offers';
 import { AuthorizationStatus } from '../../const';
-import { useState } from 'react';
-
+import { useAppSelector } from '../../hooks';
 
 type MainPageProps = {
   placeCards: PlaceCardProps[];
@@ -13,11 +12,7 @@ type MainPageProps = {
 }
 
 function MainPage({placeCards, authStatus}: MainPageProps): JSX.Element {
-  const [cityName, setCityName] = useState<string>('Paris');
-
-  const handleCityChange = (newCityName: string) => {
-    setCityName(newCityName);
-  };
+  const cityName = useAppSelector((state) => state.cityName);
 
   const cityPlaceCards = placeCards.filter((card) => card.city?.name === cityName);
 
@@ -31,7 +26,7 @@ function MainPage({placeCards, authStatus}: MainPageProps): JSX.Element {
 
       <main className={mainClass}>
         <h1 className="visually-hidden">Cities</h1>
-        <Locations onCityChange={handleCityChange} />
+        <Locations />
         <div className="cities">
           {cityPlaceCards && cityPlaceCards.length > 0 ?
             <MainContent cityPlaceCards={cityPlaceCards} cityName={cityName} /> :

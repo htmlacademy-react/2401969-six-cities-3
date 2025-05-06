@@ -1,7 +1,6 @@
 import { City, Location } from '../../mocks/mock-offers';
 import { useRef } from 'react';
 import { useMap } from '../../hooks/useMap';
-//import { Icon, Marker } from 'leaflet';
 
 
 type MapProps = {
@@ -12,6 +11,7 @@ type MapProps = {
 
 function Map({ city, locations, activeLocation }: MapProps): JSX.Element {
   const mapRef = useRef<HTMLDivElement>(null);
+
   useMap({
     mapRef,
     city,
@@ -22,7 +22,6 @@ function Map({ city, locations, activeLocation }: MapProps): JSX.Element {
   return (
     <div
       style={{
-        width: '100%',
         height: '100%',
       }}
       ref={mapRef}

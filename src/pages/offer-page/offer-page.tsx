@@ -26,8 +26,9 @@ function OfferPage({ placeCards, comments, authStatus }: OfferPageProps): JSX.El
   }
 
   const cityName = offerCard?.city.name;
-  const cityPlaceCards = placeCards
+  const nearPlaceCards = placeCards
     .filter((card) => card.city.name === cityName && card.id !== offerCard.id);
+  const cityPlaceCards = [offerCard, ...nearPlaceCards];
 
 
   return (
@@ -46,12 +47,16 @@ function OfferPage({ placeCards, comments, authStatus }: OfferPageProps): JSX.El
               </section>
             </div>
           </div>
-          <section className="offer__map map">
-            <Map city={cityPlaceCards[0].city} locations={cityPlaceCards.map((card) => card.location)} />
-          </section>
         </section>
         <div className="container">
-          {cityPlaceCards.length > 0 && <NearPlaces cityPlaceCards={cityPlaceCards}/>}
+          <section className="offer__map map">
+            <Map
+              city={cityPlaceCards[0].city}
+              locations={cityPlaceCards.map((card) => card.location)}
+              activeLocation={offerCard.location}
+            />
+          </section>
+          {nearPlaceCards.length > 0 && <NearPlaces cityPlaceCards={nearPlaceCards}/>}
         </div>
       </main>
     </div>
