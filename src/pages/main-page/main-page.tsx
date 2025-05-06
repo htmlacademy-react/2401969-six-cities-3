@@ -2,18 +2,16 @@ import { Header } from '../../components/header/header';
 import { Locations } from '../../components/locations/locations';
 import { MainContent } from './components/main-content';
 import { MainEmpty } from './components/main-empty';
-import { PlaceCardProps } from '../../mocks/mock-offers';
 import { AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
 
 type MainPageProps = {
-  placeCards: PlaceCardProps[];
   authStatus: AuthorizationStatus;
 }
 
-function MainPage({placeCards, authStatus}: MainPageProps): JSX.Element {
+function MainPage({ authStatus }: MainPageProps): JSX.Element {
   const cityName = useAppSelector((state) => state.cityName);
-
+  const placeCards = useAppSelector((state) => state.placeCards);
   const cityPlaceCards = placeCards.filter((card) => card.city?.name === cityName);
 
   const mainClass = cityPlaceCards.length > 0

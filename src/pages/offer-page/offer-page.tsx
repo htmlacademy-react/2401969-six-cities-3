@@ -1,6 +1,5 @@
 import { Header } from '../../components/header/header';
 import { AuthorizationStatus } from '../../const';
-import { PlaceCardProps } from '../../mocks/mock-offers';
 import { ReviewProps } from '../../mocks/mock-comments';
 import { OfferCard } from '../../components/offer-card/offer-card';
 import { Reviews } from '../../components/reviews/reviews';
@@ -10,15 +9,17 @@ import { NotFoundPage } from '../not-found-page/not-found-page';
 import { OfferGallery } from '../../components/offer-gallery/offer-gallery';
 import { NearPlaces } from '../../components/near-places/near-places';
 import { Map } from '../../components/map/map';
+import { useAppSelector } from '../../hooks';
 
 type OfferPageProps = {
-  placeCards: PlaceCardProps[];
+
   comments: ReviewProps[];
   authStatus: AuthorizationStatus;
 }
 
-function OfferPage({ placeCards, comments, authStatus }: OfferPageProps): JSX.Element {
+function OfferPage({ comments, authStatus }: OfferPageProps): JSX.Element {
   const params = useParams();
+  const placeCards = useAppSelector((state) => state.placeCards);
   const offerCard = placeCards.find((card) => card.id === params.id);
 
   if (!offerCard) {

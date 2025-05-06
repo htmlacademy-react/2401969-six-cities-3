@@ -18,7 +18,7 @@ const authStatus = AuthorizationStatus.Auth;
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App placeCards={placeCards} favoriteCards={favoriteCards} comments={comments} authStatus={authStatus} />
+      <App favoriteCards={favoriteCards} comments={comments} authStatus={authStatus} />
     </Provider>
   </React.StrictMode>
 );
