@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-//import { MainPage } from '../../pages/main-page/main-page';
 import { MainPage } from '../../pages/main-page/main-page';
 import { FavoritesPage } from '../../pages/favorites-page/favorites-page';
 import { LoginPage } from '../../pages/login-page/login-page';
@@ -11,19 +10,18 @@ import { PlaceCardProps } from '../../mocks/mock-offers';
 import { ReviewProps } from '../../mocks/mock-comments';
 
 type AppProps = {
-  placeCards: PlaceCardProps[];
   favoriteCards: PlaceCardProps[];
   comments: ReviewProps[];
   authStatus: AuthorizationStatus;
 }
 
-function App({placeCards, favoriteCards, comments, authStatus }: AppProps): JSX.Element {
+function App({ favoriteCards, comments, authStatus }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage placeCards={placeCards} authStatus={authStatus}/>}
+          element={<MainPage authStatus={authStatus}/>}
         />
         <Route
           path={AppRoute.Login}
@@ -38,7 +36,7 @@ function App({placeCards, favoriteCards, comments, authStatus }: AppProps): JSX.
         />
         <Route
           path={`${AppRoute.Offers}/:id`}
-          element={<OfferPage placeCards={placeCards} comments={comments} authStatus={authStatus} />}
+          element={<OfferPage comments={comments} authStatus={authStatus} />}
         />
         <Route
           path={AppRoute.Favorites}
