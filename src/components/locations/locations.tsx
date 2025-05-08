@@ -1,8 +1,5 @@
 import { CITIES } from '../../const';
-//import { useState } from 'react';
 import { CityName } from '../../mocks/mock-offers';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setCityName } from '../../store/action';
 
 type CityProps = {
   name: CityName;
@@ -23,19 +20,12 @@ function LocationsItem({ name, isActive, onClick }: CityProps): JSX.Element {
   );
 }
 
-function Locations(): JSX.Element {
-  //const [activeCity, setActiveCity] = useState<string>('Paris');
+type LocationsProps = {
+  activeCity: CityName;
+  onCityChange: (city: CityName) => void;
+}
 
-  const dispatch = useAppDispatch();
-
-  const activeCity = useAppSelector((state) => state.cityName);
-
-
-  const handleCityClick = (cityName: string) => {
-    dispatch(setCityName(cityName));
-    //setActiveCity(cityName);
-    //onCityChange(cityName);
-  };
+function Locations({activeCity, onCityChange}: LocationsProps): JSX.Element {
   return (
     <div className="tabs">
       <section className="locations container">
@@ -45,7 +35,7 @@ function Locations(): JSX.Element {
               key={city}
               name={city}
               isActive={activeCity === city}
-              onClick={() => handleCityClick(city)}
+              onClick={() => onCityChange(city)}
             />
           ))}
         </ul>
