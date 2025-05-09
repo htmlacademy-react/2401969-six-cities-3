@@ -1,31 +1,30 @@
-import { CITIES } from '../../const';
+import { Link } from 'react-router-dom';
+import { AppRoute, CITIES } from '../../const';
 import { CityName } from '../../mocks/mock-offers';
 
 type CityProps = {
   name: CityName;
   isActive: boolean;
-  onClick: () => void;
 };
 
-function LocationsItem({ name, isActive, onClick }: CityProps): JSX.Element {
+function LocationsItem({ name, isActive }: CityProps): JSX.Element {
   return (
     <li className="locations__item">
-      <a className={`locations__item-link tabs__item ${isActive ? ('tabs__item--active') : ''}`}
-        href="#"
-        onClick={onClick}
+      <Link
+        to={`${AppRoute.Main}${name}`}
+        className={`locations__item-link tabs__item ${isActive ? ('tabs__item--active') : ''}`}
       >
         <span>{ name }</span>
-      </a>
+      </Link>
     </li>
   );
 }
 
 type LocationsProps = {
   activeCity: CityName;
-  onCityChange: (city: CityName) => void;
 }
 
-function Locations({activeCity, onCityChange}: LocationsProps): JSX.Element {
+function Locations({activeCity }: LocationsProps): JSX.Element {
   return (
     <div className="tabs">
       <section className="locations container">
@@ -35,7 +34,6 @@ function Locations({activeCity, onCityChange}: LocationsProps): JSX.Element {
               key={city}
               name={city}
               isActive={activeCity === city}
-              onClick={() => onCityChange(city)}
             />
           ))}
         </ul>
