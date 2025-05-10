@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { reducer } from './reducer';
-import { setOffers } from './action';
+import { offersReducer, setOffers } from './reducer';
 import { placeCards } from '../mocks/mock-offers';
 
-const store = configureStore({ reducer });
+const store = configureStore({
+  reducer: offersReducer });
 
 store.dispatch(setOffers(placeCards));
 

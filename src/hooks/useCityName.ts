@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { selectCityName } from '../store/selectors';
 import { CityName } from '../mocks/mock-offers';
 import { useEffect } from 'react';
-import { setCityName } from '../store/action';
+import { setCityName } from '../store/reducer';
 
 
 function useCityName(): CityName {

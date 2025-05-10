@@ -1,6 +1,5 @@
-import { createReducer } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CityName, PlaceCardProps } from '../mocks/mock-offers';
-import { setCityName, setOffers } from './action';
 
 type State = {
   cityName: CityName;
@@ -12,7 +11,23 @@ const initialState: State = {
   placeCards: [],
 };
 
-const reducer = createReducer(initialState, (builder) => {
+const offersSlice = createSlice({
+  name: 'offers',
+  initialState,
+  reducers: {
+    setCityName: (state, action: PayloadAction<CityName>) => {
+      state.cityName = action.payload;
+    },
+    setOffers: (state, action: PayloadAction<PlaceCardProps[]>) => {
+      state.placeCards = action.payload;
+    },
+  }
+});
+
+const offersReducer = offersSlice.reducer;
+const { setCityName, setOffers } = offersSlice.actions;
+
+/*const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setCityName, (state, action) => {
       state.cityName = action.payload;
@@ -20,8 +35,13 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setOffers, (state, action) => {
       state.placeCards = action.payload;
     });
-});
+});*/
 
-export { initialState, reducer };
+export {
+  initialState,
+  offersReducer,
+  setCityName,
+  setOffers
+};
 
 

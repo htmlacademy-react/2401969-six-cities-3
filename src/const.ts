@@ -38,7 +38,7 @@ const MARKER_DEFAULT_URL = 'img/pin.svg';
 
 const MARKER_ACTIVE_URL = 'img/pin-active.svg';
 
-const TILE_LAYER_URL: string = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+const TILE_LAYER_URL: string = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
 
 const TILE_LAYER_ATTRIBUTION: string = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
