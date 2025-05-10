@@ -20,7 +20,7 @@ function App({ favoriteCards, comments, authStatus }: AppProps): JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route
-          path={AppRoute.Main}
+          path={`${AppRoute.Main}:city?`}
           element={<MainPage authStatus={authStatus}/>}
         />
         <Route

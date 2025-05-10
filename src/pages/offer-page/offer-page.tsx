@@ -9,7 +9,8 @@ import { NotFoundPage } from '../not-found-page/not-found-page';
 import { OfferGallery } from '../../components/offer-gallery/offer-gallery';
 import { NearPlaces } from '../../components/near-places/near-places';
 import { Map } from '../../components/map/map';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../store/hooks';
+import { selectPlaceCards } from '../../store/selectors';
 
 type OfferPageProps = {
 
@@ -19,7 +20,7 @@ type OfferPageProps = {
 
 function OfferPage({ comments, authStatus }: OfferPageProps): JSX.Element {
   const params = useParams();
-  const placeCards = useAppSelector((state) => state.placeCards);
+  const placeCards = useAppSelector(selectPlaceCards);
   const offerCard = placeCards.find((card) => card.id === params.id);
 
   if (!offerCard) {

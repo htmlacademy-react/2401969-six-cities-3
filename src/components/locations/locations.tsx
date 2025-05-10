@@ -1,41 +1,30 @@
-import { CITIES } from '../../const';
-//import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { AppRoute, CITIES } from '../../const';
 import { CityName } from '../../mocks/mock-offers';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setCityName } from '../../store/action';
 
 type CityProps = {
   name: CityName;
   isActive: boolean;
-  onClick: () => void;
 };
 
-function LocationsItem({ name, isActive, onClick }: CityProps): JSX.Element {
+function LocationsItem({ name, isActive }: CityProps): JSX.Element {
   return (
     <li className="locations__item">
-      <a className={`locations__item-link tabs__item ${isActive ? ('tabs__item--active') : ''}`}
-        href="#"
-        onClick={onClick}
+      <Link
+        to={`${AppRoute.Main}${name}`}
+        className={`locations__item-link tabs__item ${isActive ? ('tabs__item--active') : ''}`}
       >
         <span>{ name }</span>
-      </a>
+      </Link>
     </li>
   );
 }
 
-function Locations(): JSX.Element {
-  //const [activeCity, setActiveCity] = useState<string>('Paris');
+type LocationsProps = {
+  activeCity: CityName;
+}
 
-  const dispatch = useAppDispatch();
-
-  const activeCity = useAppSelector((state) => state.cityName);
-
-
-  const handleCityClick = (cityName: string) => {
-    dispatch(setCityName(cityName));
-    //setActiveCity(cityName);
-    //onCityChange(cityName);
-  };
+function Locations({activeCity }: LocationsProps): JSX.Element {
   return (
     <div className="tabs">
       <section className="locations container">
@@ -45,7 +34,6 @@ function Locations(): JSX.Element {
               key={city}
               name={city}
               isActive={activeCity === city}
-              onClick={() => handleCityClick(city)}
             />
           ))}
         </ul>
