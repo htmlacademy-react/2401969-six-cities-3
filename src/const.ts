@@ -11,6 +11,11 @@ enum AppRoute {
   Offers = '/offer',
 }
 
+enum ApiRoute {
+  Offers ='/offers',
+  OfferById = '/offers/{offerId}',
+}
+
 type SortType = 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first';
 
 type SortOption = {
@@ -45,6 +50,7 @@ const TILE_LAYER_ATTRIBUTION: string = '&copy; <a href="https://www.openstreetma
 export {
   AuthorizationStatus,
   AppRoute,
+  ApiRoute,
   type SortType,
   type SortOption,
   SortOptions,

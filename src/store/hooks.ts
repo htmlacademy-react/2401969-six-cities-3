@@ -10,6 +10,7 @@ const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export {
   type RootState,
+  type AppDispatch,
   useAppDispatch,
   useAppSelector,
 };

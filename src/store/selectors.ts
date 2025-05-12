@@ -1,8 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from './hooks';
 
-const selectCityName = (state: RootState) => state.cityName;
-const selectPlaceCards = (state: RootState) => state.placeCards;
+const selectCityName = (state: RootState) => state.offers.cityName;
+const selectPlaceCards = (state: RootState) => state.offers.placeCards;
 
 const selectCityPlaceCards = createSelector(
   [selectPlaceCards, selectCityName],
