@@ -6,6 +6,7 @@ import { ApiRoute } from '../const';
 type OffersState = {
   cityName: CityName;
   placeCards: PlaceCardProps[];
+  currentOffer: PlaceCardProps | null;
   isLoading: boolean;
   error: string | null;
 }
@@ -13,6 +14,7 @@ type OffersState = {
 const initialState: OffersState = {
   cityName: 'Paris',
   placeCards: [],
+  currentOffer: null,
   isLoading: false,
   error: null,
 };
@@ -25,6 +27,14 @@ const fetchOffers = createAsyncThunk<PlaceCardProps[],undefined, { extra: AxiosI
   }
 );
 
+const fetchOfferById = createAsyncThunk<PlaceCardProps, string, { extra: AxiosInstance }>(
+  'offers/fetchById',
+  async (offerId, { extra: api }) => {
+    const { data } = await api.get<PlaceCardProps>(`${ApiRoute.Offers}/${offerId}`);
+    return data;
+  }
+);
+
 const offersSlice = createSlice({
   name: 'offers',
   initialState,
@@ -32,6 +42,9 @@ const offersSlice = createSlice({
     setCityName: (state, action: PayloadAction<CityName>) => {
       state.cityName = action.payload;
     },
+    clearCurrentOffer: (state) => {
+      state.currentOffer = null;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -46,17 +59,30 @@ const offersSlice = createSlice({
       .addCase(fetchOffers.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || 'Failed to load offers';
+      })
+      .addCase(fetchOfferById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchOfferById.fulfilled, (state, action) => {
+        state.currentOffer = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchOfferById.rejected, (state, action) => {
+        state.error = action.error.message || 'Failed to load offer details';
+        state.isLoading = false;
       });
   }
 });
 
 const offersReducer = offersSlice.reducer;
-const { setCityName } = offersSlice.actions;
+const { setCityName, clearCurrentOffer } = offersSlice.actions;
 
 export {
   offersReducer,
   setCityName,
+  clearCurrentOffer,
   fetchOffers,
+  fetchOfferById
 };
 
 
