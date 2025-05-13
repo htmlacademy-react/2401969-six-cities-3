@@ -9,8 +9,13 @@ import { NotFoundPage } from '../not-found-page/not-found-page';
 import { OfferGallery } from '../../components/offer-gallery/offer-gallery';
 import { NearPlaces } from '../../components/near-places/near-places';
 import { Map } from '../../components/map/map';
-import { useAppSelector } from '../../store/hooks';
-import { selectPlaceCards } from '../../store/selectors';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { selectCurrentOffer, selectPlaceCards } from '../../store/selectors';
+//import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { clearCurrentOffer, fetchOfferById } from '../../store/offers-slice';
+import { LoadingPage } from '../loading-page/loading-page';
+import { ErrorPage } from '../error-page/error-page';
 
 type OfferPageProps = {
 
@@ -20,8 +25,30 @@ type OfferPageProps = {
 
 function OfferPage({ comments, authStatus }: OfferPageProps): JSX.Element {
   const params = useParams();
+  const dispatch = useAppDispatch();
   const placeCards = useAppSelector(selectPlaceCards);
-  const offerCard = placeCards.find((card) => card.id === params.id);
+  //const offerCard = placeCards.find((card) => card.id === params.id);
+  const offerCard = useAppSelector(selectCurrentOffer);
+  const isLoading = useAppSelector((state) => state.offers.isLoading);
+  const error = useAppSelector((state) => state.offers.error);
+
+  useEffect(() => {
+    if (params.id) {
+      dispatch(fetchOfferById(params.id));
+    }
+
+    return () => {
+      dispatch(clearCurrentOffer());
+    };
+  }, [params.id, dispatch]);
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
+  if (error) {
+    return <ErrorPage />;
+  }
 
   if (!offerCard) {
     return <NotFoundPage />;
