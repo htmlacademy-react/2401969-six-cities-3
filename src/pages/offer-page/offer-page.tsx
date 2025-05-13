@@ -14,6 +14,8 @@ import { selectCurrentOffer, selectPlaceCards } from '../../store/selectors';
 //import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { clearCurrentOffer, fetchOfferById } from '../../store/offers-slice';
+import { LoadingPage } from '../loading-page/loading-page';
+import { ErrorPage } from '../error-page/error-page';
 
 type OfferPageProps = {
 
@@ -27,7 +29,7 @@ function OfferPage({ comments, authStatus }: OfferPageProps): JSX.Element {
   const placeCards = useAppSelector(selectPlaceCards);
   //const offerCard = placeCards.find((card) => card.id === params.id);
   const offerCard = useAppSelector(selectCurrentOffer);
-  const isLoading = useAppSelector((state) => state.offers.isLoading); // ← NEW
+  const isLoading = useAppSelector((state) => state.offers.isLoading);
   const error = useAppSelector((state) => state.offers.error);
 
   useEffect(() => {
@@ -41,23 +43,11 @@ function OfferPage({ comments, authStatus }: OfferPageProps): JSX.Element {
   }, [params.id, dispatch]);
 
   if (isLoading) {
-    return (
-      <div className="page">
-        <Header authStatus={authStatus} />
-        <main className="page__main page__main--offer">
-          <div className="container">Loading...</div>
-        </main>
-      </div>);
+    return <LoadingPage />;
   }
 
   if (error) {
-    return (
-      <div className="page">
-        <Header authStatus={authStatus} />
-        <main className="page__main page__main--offer">
-          <div className="container">Error: {error}</div>
-        </main>
-      </div>);
+    return <ErrorPage />;
   }
 
   if (!offerCard) {
