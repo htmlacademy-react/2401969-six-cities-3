@@ -56,9 +56,9 @@ const offersSlice = createSlice({
         state.isLoading = false;
         state.placeCards = action.payload;
       })
-      .addCase(fetchOffers.rejected, (state, action) => {
+      .addCase(fetchOffers.rejected, (state) => {
         state.isLoading = false;
-        state.error = action.error.message || 'Failed to load offers';
+        //state.error = action.error.message || 'Failed to load offers';
       })
       .addCase(fetchOfferById.pending, (state) => {
         state.isLoading = true;
@@ -67,8 +67,8 @@ const offersSlice = createSlice({
         state.currentOffer = action.payload;
         state.isLoading = false;
       })
-      .addCase(fetchOfferById.rejected, (state, action) => {
-        state.error = action.error.message || 'Failed to load offer details';
+      .addCase(fetchOfferById.rejected, (state) => {
+        //state.error = action.error.message || 'Failed to load offer details';
         state.isLoading = false;
       });
   }

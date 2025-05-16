@@ -10,15 +10,12 @@ import { OfferGallery } from '../../components/offer-gallery/offer-gallery';
 import { NearPlaces } from '../../components/near-places/near-places';
 import { Map } from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { selectCurrentOffer, selectPlaceCards } from '../../store/selectors';
-//import { useDispatch } from 'react-redux';
+import { selectCurrentOffer, selectLoadingStatus, selectPlaceCards } from '../../store/selectors';
 import { useEffect } from 'react';
 import { clearCurrentOffer, fetchOfferById } from '../../store/offers-slice';
 import { LoadingPage } from '../loading-page/loading-page';
-import { ErrorPage } from '../error-page/error-page';
 
 type OfferPageProps = {
-
   comments: ReviewProps[];
   authStatus: AuthorizationStatus;
 }
@@ -29,8 +26,7 @@ function OfferPage({ comments, authStatus }: OfferPageProps): JSX.Element {
   const placeCards = useAppSelector(selectPlaceCards);
   //const offerCard = placeCards.find((card) => card.id === params.id);
   const offerCard = useAppSelector(selectCurrentOffer);
-  const isLoading = useAppSelector((state) => state.offers.isLoading);
-  const error = useAppSelector((state) => state.offers.error);
+  const isLoading = useAppSelector(selectLoadingStatus);
 
   useEffect(() => {
     if (params.id) {
@@ -44,10 +40,6 @@ function OfferPage({ comments, authStatus }: OfferPageProps): JSX.Element {
 
   if (isLoading) {
     return <LoadingPage />;
-  }
-
-  if (error) {
-    return <ErrorPage />;
   }
 
   if (!offerCard) {
