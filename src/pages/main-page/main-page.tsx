@@ -4,10 +4,9 @@ import { MainContent } from './components/main-content';
 import { MainEmpty } from './components/main-empty';
 import { AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../store/hooks';
-import { selectCityPlaceCards } from '../../store/selectors';
+import { selectCityPlaceCards, selectLoadingStatus } from '../../store/selectors';
 import { useCityName } from '../../hooks/useCityName';
 import { LoadingPage } from '../loading-page/loading-page';
-import { ErrorPage } from '../error-page/error-page';
 
 type MainPageProps = {
   authStatus: AuthorizationStatus;
@@ -16,8 +15,7 @@ type MainPageProps = {
 function MainPage({ authStatus }: MainPageProps): JSX.Element {
   const cityName = useCityName();
   const cityPlaceCards = useAppSelector(selectCityPlaceCards);
-  const isLoading = useAppSelector((state) => state.offers.isLoading);
-  const error = useAppSelector((state) => state.offers.error);
+  const isLoading = useAppSelector(selectLoadingStatus);
 
   const mainClass = cityPlaceCards.length > 0
     ? 'page__main page__main--index'
@@ -25,10 +23,6 @@ function MainPage({ authStatus }: MainPageProps): JSX.Element {
 
   if (isLoading) {
     return <LoadingPage />;
-  }
-
-  if (error) {
-    return <ErrorPage />;
   }
 
   return (
