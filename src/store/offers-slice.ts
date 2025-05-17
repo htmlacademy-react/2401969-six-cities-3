@@ -6,16 +6,20 @@ import { ApiRoute } from '../const';
 type OffersState = {
   cityName: CityName;
   placeCards: PlaceCardProps[];
-  currentOffer: PlaceCardProps | null;
+  nearbyCards: PlaceCardProps[];
+  offerCard: PlaceCardProps | null;
   isLoading: boolean;
+  isNearbyLoading: boolean;
   error: string | null;
 }
 
 const initialState: OffersState = {
   cityName: 'Paris',
   placeCards: [],
-  currentOffer: null,
+  nearbyCards: [],
+  offerCard: null,
   isLoading: false,
+  isNearbyLoading: false,
   error: null,
 };
 
@@ -35,6 +39,14 @@ const fetchOfferById = createAsyncThunk<PlaceCardProps, string, { extra: AxiosIn
   }
 );
 
+const fetchNearbyOffers = createAsyncThunk<PlaceCardProps[], string, { extra: AxiosInstance }>(
+  'offers/fetchNearby',
+  async (offerId, { extra: api }) => {
+    const { data } = await api.get<PlaceCardProps[]>(`${ApiRoute.Offers}/${offerId}/nearby`);
+    return data;
+  }
+);
+
 const offersSlice = createSlice({
   name: 'offers',
   initialState,
@@ -43,7 +55,10 @@ const offersSlice = createSlice({
       state.cityName = action.payload;
     },
     clearCurrentOffer: (state) => {
-      state.currentOffer = null;
+      state.offerCard = null;
+    },
+    clearNearbyOffers: (state) => {
+      state.nearbyCards = [];
     }
   },
   extraReducers: (builder) => {
@@ -60,11 +75,23 @@ const offersSlice = createSlice({
         state.isLoading = false;
         //state.error = action.error.message || 'Failed to load offers';
       })
+      .addCase(fetchNearbyOffers.pending, (state) => {
+        state.isNearbyLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchNearbyOffers.fulfilled, (state, action) => {
+        state.isNearbyLoading = false;
+        state.nearbyCards = action.payload;
+      })
+      .addCase(fetchNearbyOffers.rejected, (state) => {
+        state.isNearbyLoading = false;
+        //state.error = action.error.message || 'Failed to load offers';
+      })
       .addCase(fetchOfferById.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(fetchOfferById.fulfilled, (state, action) => {
-        state.currentOffer = action.payload;
+        state.offerCard = action.payload;
         state.isLoading = false;
       })
       .addCase(fetchOfferById.rejected, (state) => {
@@ -75,13 +102,15 @@ const offersSlice = createSlice({
 });
 
 const offersReducer = offersSlice.reducer;
-const { setCityName, clearCurrentOffer } = offersSlice.actions;
+const { setCityName, clearCurrentOffer, clearNearbyOffers } = offersSlice.actions;
 
 export {
   offersReducer,
   setCityName,
   clearCurrentOffer,
+  clearNearbyOffers,
   fetchOffers,
+  fetchNearbyOffers,
   fetchOfferById
 };
 

@@ -1,5 +1,5 @@
 import { Header } from '../../components/header/header';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, MAX_NEAR_PLACES } from '../../const';
 import { ReviewProps } from '../../mocks/mock-comments';
 import { OfferCard } from '../../components/offer-card/offer-card';
 import { Reviews } from '../../components/reviews/reviews';
@@ -10,10 +10,10 @@ import { OfferGallery } from '../../components/offer-gallery/offer-gallery';
 import { NearPlaces } from '../../components/near-places/near-places';
 import { Map } from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { selectCurrentOffer, selectLoadingStatus, selectPlaceCards } from '../../store/selectors';
 import { useEffect } from 'react';
-import { clearCurrentOffer, fetchOfferById } from '../../store/offers-slice';
+import { clearCurrentOffer, clearNearbyOffers, fetchNearbyOffers, fetchOfferById } from '../../store/offers-slice';
 import { LoadingPage } from '../loading-page/loading-page';
+import { selectOfferPageData } from '../../store/selectors';
 
 type OfferPageProps = {
   comments: ReviewProps[];
@@ -23,22 +23,27 @@ type OfferPageProps = {
 function OfferPage({ comments, authStatus }: OfferPageProps): JSX.Element {
   const params = useParams();
   const dispatch = useAppDispatch();
-  const placeCards = useAppSelector(selectPlaceCards);
-  //const offerCard = placeCards.find((card) => card.id === params.id);
-  const offerCard = useAppSelector(selectCurrentOffer);
-  const isLoading = useAppSelector(selectLoadingStatus);
+
+  const {
+    offerCard,
+    nearbyCards,
+    isLoading,
+    isNearbyLoading,
+  } = useAppSelector(selectOfferPageData);
 
   useEffect(() => {
     if (params.id) {
       dispatch(fetchOfferById(params.id));
+      dispatch(fetchNearbyOffers(params.id));
     }
 
     return () => {
       dispatch(clearCurrentOffer());
+      dispatch(clearNearbyOffers());
     };
   }, [params.id, dispatch]);
 
-  if (isLoading) {
+  if (isLoading || isNearbyLoading) {
     return <LoadingPage />;
   }
 
@@ -46,11 +51,7 @@ function OfferPage({ comments, authStatus }: OfferPageProps): JSX.Element {
     return <NotFoundPage />;
   }
 
-  const cityName = offerCard?.city.name;
-  const nearPlaceCards = placeCards
-    .filter((card) => card.city.name === cityName && card.id !== offerCard.id);
-  const cityPlaceCards = [offerCard, ...nearPlaceCards];
-
+  const cityPlaceCards = [offerCard, ...nearbyCards.slice(0, MAX_NEAR_PLACES)];
 
   return (
     <div className="page">
@@ -72,12 +73,12 @@ function OfferPage({ comments, authStatus }: OfferPageProps): JSX.Element {
         <div className="container">
           <section className="offer__map map">
             <Map
-              city={cityPlaceCards[0].city}
+              city={offerCard.city}
               locations={cityPlaceCards.map((card) => card.location)}
               activeLocation={offerCard.location}
             />
           </section>
-          {nearPlaceCards.length > 0 && <NearPlaces cityPlaceCards={nearPlaceCards}/>}
+          {nearbyCards.length > 0 && <NearPlaces cityPlaceCards={nearbyCards}/>}
         </div>
       </main>
     </div>

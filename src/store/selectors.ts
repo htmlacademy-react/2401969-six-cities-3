@@ -3,8 +3,10 @@ import { RootState } from './hooks';
 
 const selectCityName = (state: RootState) => state.offers.cityName;
 const selectPlaceCards = (state: RootState) => state.offers.placeCards;
-const selectCurrentOffer = (state: RootState) => state.offers.currentOffer;
+const selectNearbyCards = (state: RootState) => state.offers.nearbyCards;
+const selectOfferCard = (state: RootState) => state.offers.offerCard;
 const selectLoadingStatus = (state: RootState) => state.offers.isLoading;
+const selectNearbyLoadingStatus = (state: RootState) => state.offers.isNearbyLoading;
 const selectErrorStatus = (state: RootState) => state.offers.error;
 
 const selectCityPlaceCards = createSelector(
@@ -12,11 +14,15 @@ const selectCityPlaceCards = createSelector(
   (placeCards, cityName) => placeCards.filter((card) => card.city?.name === cityName)
 );
 
+const selectOfferPageData = createSelector(
+  [selectOfferCard, selectNearbyCards, selectLoadingStatus, selectNearbyLoadingStatus],
+  (offerCard, nearbyCards, isLoading, isNearbyLoading) => ({offerCard, nearbyCards, isLoading, isNearbyLoading})
+);
+
 export {
   selectCityName,
-  selectPlaceCards,
-  selectCurrentOffer,
-  selectLoadingStatus,
   selectErrorStatus,
-  selectCityPlaceCards
+  selectLoadingStatus,
+  selectCityPlaceCards,
+  selectOfferPageData
 };
