@@ -13,14 +13,13 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useEffect } from 'react';
 import { clearCurrentOffer, clearNearbyOffers, fetchNearbyOffers, fetchOfferById } from '../../store/offers-slice';
 import { LoadingPage } from '../loading-page/loading-page';
-import { selectOfferPageData } from '../../store/selectors';
+import { selectAuthStatus, selectOfferPageData } from '../../store/selectors';
 
 type OfferPageProps = {
   comments: ReviewProps[];
-  authStatus: AuthorizationStatus;
 }
 
-function OfferPage({ comments, authStatus }: OfferPageProps): JSX.Element {
+function OfferPage({ comments }: OfferPageProps): JSX.Element {
   const params = useParams();
   const dispatch = useAppDispatch();
 
@@ -30,6 +29,8 @@ function OfferPage({ comments, authStatus }: OfferPageProps): JSX.Element {
     isLoading,
     isNearbyLoading,
   } = useAppSelector(selectOfferPageData);
+
+  const authStatus = useAppSelector(selectAuthStatus);
 
   useEffect(() => {
     if (params.id) {
@@ -55,7 +56,7 @@ function OfferPage({ comments, authStatus }: OfferPageProps): JSX.Element {
 
   return (
     <div className="page">
-      <Header authStatus={authStatus} />
+      <Header />
 
       <main className="page__main page__main--offer">
         <section className="offer">

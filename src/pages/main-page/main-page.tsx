@@ -2,17 +2,12 @@ import { Header } from '../../components/header/header';
 import { Locations } from '../../components/locations/locations';
 import { MainContent } from './components/main-content';
 import { MainEmpty } from './components/main-empty';
-import { AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../store/hooks';
 import { selectCityPlaceCards, selectLoadingStatus } from '../../store/selectors';
 import { useCityName } from '../../hooks/useCityName';
 import { LoadingPage } from '../loading-page/loading-page';
 
-type MainPageProps = {
-  authStatus: AuthorizationStatus;
-}
-
-function MainPage({ authStatus }: MainPageProps): JSX.Element {
+function MainPage(): JSX.Element {
   const cityName = useCityName();
   const cityPlaceCards = useAppSelector(selectCityPlaceCards);
   const isLoading = useAppSelector(selectLoadingStatus);
@@ -27,7 +22,7 @@ function MainPage({ authStatus }: MainPageProps): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      <Header authStatus={authStatus} />
+      <Header />
 
       <main className={mainClass}>
         <h1 className="visually-hidden">Cities</h1>

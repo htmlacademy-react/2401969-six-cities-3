@@ -8,20 +8,22 @@ import { AuthorizationStatus, AppRoute } from '../../const';
 import { PrivateRoute } from '../private-route/private-route';
 import { PlaceCardProps } from '../../mocks/mock-offers';
 import { ReviewProps } from '../../mocks/mock-comments';
+import { useAppSelector } from '../../store/hooks';
+import { selectAuthStatus } from '../../store/selectors';
 
 type AppProps = {
   favoriteCards: PlaceCardProps[];
   comments: ReviewProps[];
-  authStatus: AuthorizationStatus;
 }
 
-function App({ favoriteCards, comments, authStatus }: AppProps): JSX.Element {
+function App({ favoriteCards, comments }: AppProps): JSX.Element {
+  const authStatus = useAppSelector(selectAuthStatus);
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={`${AppRoute.Main}:city?`}
-          element={<MainPage authStatus={authStatus}/>}
+          element={<MainPage />}
         />
         <Route
           path={AppRoute.Login}
@@ -36,7 +38,7 @@ function App({ favoriteCards, comments, authStatus }: AppProps): JSX.Element {
         />
         <Route
           path={`${AppRoute.Offers}/:id`}
-          element={<OfferPage comments={comments} authStatus={authStatus} />}
+          element={<OfferPage comments={comments} />}
         />
         <Route
           path={AppRoute.Favorites}
