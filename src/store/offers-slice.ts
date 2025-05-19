@@ -23,9 +23,9 @@ const initialState: OffersState = {
   error: null,
 };
 
-const fetchOffers = createAsyncThunk<PlaceCardProps[],undefined, { extra: AxiosInstance }>(
+const fetchOffers = createAsyncThunk<PlaceCardProps[], undefined, { extra: AxiosInstance }>(
   'offers/fetchOffers',
-  async(_, { extra: api}) => {
+  async(_, { extra: api }) => {
     const {data} = await api.get<PlaceCardProps[]>(ApiRoute.Offers);
     return data;
   }

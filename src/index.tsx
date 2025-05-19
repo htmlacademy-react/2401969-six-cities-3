@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const authStatus = AuthorizationStatus.Auth;
+const authStatus = AuthorizationStatus.NotAuth;
 
 root.render(
   <React.StrictMode>

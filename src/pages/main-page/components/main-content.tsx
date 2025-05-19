@@ -35,7 +35,7 @@ function MainContent({ cityPlaceCards, cityName }: MainContentProps): JSX.Elemen
     <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{cityPlaceCards.length} places to stay in {cityName}</b>
+        <b className="places__found">{cityPlaceCards.length} place{cityPlaceCards.length > 1 && 's'} to stay in {cityName}</b>
         <PlacesSorting
           currentSort={currentSort}
           onSortChange={setCurrentSort}
