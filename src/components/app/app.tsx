@@ -6,8 +6,8 @@ import { OfferPage } from '../../pages/offer-page/offer-page';
 import { NotFoundPage } from '../../pages/not-found-page/not-found-page';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import { PrivateRoute } from '../private-route/private-route';
-import { PlaceCardProps } from '../../mocks/mock-offers';
-import { ReviewProps } from '../../mocks/mock-comments';
+import { PlaceCardProps } from '../../types/offers-types';
+import { ReviewProps } from '../../types/comments-types';
 import { useAppSelector } from '../../store/hooks';
 import { selectAuthStatus } from '../../store/selectors';
 

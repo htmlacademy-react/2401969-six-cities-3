@@ -1,5 +1,5 @@
 import { SortType } from './const';
-import { PlaceCardProps } from './mocks/mock-offers';
+import { PlaceCardProps } from './types/offers-types';
 
 const sortOffers = (offers: PlaceCardProps[], sortType: SortType): PlaceCardProps[] => {
   switch (sortType) {

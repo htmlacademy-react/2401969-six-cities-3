@@ -1,5 +1,5 @@
 import { Review } from '../review/review';
-import { ReviewProps } from '../../mocks/mock-comments';
+import { ReviewProps } from '../../../types/comments-types';
 //import { comments } from '../../mocks/mock-comments';
 
 type ReviewsProps = {

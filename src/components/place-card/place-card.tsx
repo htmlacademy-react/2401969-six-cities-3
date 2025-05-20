@@ -1,5 +1,5 @@
 import { AppRoute } from '../../const';
-import { PlaceCardProps } from '../../mocks/mock-offers';
+import { PlaceCardProps } from '../../types/offers-types';
 import { Link } from 'react-router-dom';
 
 type CardProps = PlaceCardProps & {

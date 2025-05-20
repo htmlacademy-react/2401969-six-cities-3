@@ -1,4 +1,4 @@
-import { PlaceCardProps } from '../../mocks/mock-offers';
+import { PlaceCardProps } from '../../../types/offers-types';
 import { OfferHost } from '../offer-host/offer-host';
 import { OfferInside } from '../offer-inside/offer-inside';
 

@@ -1,6 +1,6 @@
 import { PlacesSorting } from '../../../components/places-sorting/places-sorting';
 import { PlacesList } from '../../../components/places-list/places-list';
-import { PlaceCardProps } from '../../../mocks/mock-offers';
+import { PlaceCardProps } from '../../../types/offers-types';
 import { Map } from '../../../components/map/map';
 import { useActiveCard } from '../../../hooks/useActiveCard';
 import { sortOffers } from '../../../utils';

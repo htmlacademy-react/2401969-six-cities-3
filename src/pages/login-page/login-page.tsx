@@ -1,7 +1,7 @@
 import { FormEvent, useRef } from 'react';
 import { Header } from '../../components/header/header';
 import { useAppDispatch } from '../../store/hooks';
-import { UserAuth } from '../../mocks/user';
+import { UserAuth } from '../../types/user-types';
 import { loginUser } from '../../store/user-slice';
 
 function LoginPage(): JSX.Element {

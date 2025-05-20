@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CityName, PlaceCardProps } from '../mocks/mock-offers';
+import { CityName, PlaceCardProps } from '../types/offers-types';
 import { AxiosInstance } from 'axios';
 import { ApiRoute } from '../const';
 
@@ -10,7 +10,6 @@ type OffersState = {
   offerCard: PlaceCardProps | null;
   isLoading: boolean;
   isNearbyLoading: boolean;
-  error: string | null;
 }
 
 const initialState: OffersState = {
@@ -20,7 +19,6 @@ const initialState: OffersState = {
   offerCard: null,
   isLoading: false,
   isNearbyLoading: false,
-  error: null,
 };
 
 const fetchOffers = createAsyncThunk<PlaceCardProps[], undefined, { extra: AxiosInstance }>(
@@ -65,7 +63,6 @@ const offersSlice = createSlice({
     builder
       .addCase(fetchOffers.pending, (state) => {
         state.isLoading = true;
-        state.error = null;
       })
       .addCase(fetchOffers.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -73,11 +70,9 @@ const offersSlice = createSlice({
       })
       .addCase(fetchOffers.rejected, (state) => {
         state.isLoading = false;
-        //state.error = action.error.message || 'Failed to load offers';
       })
       .addCase(fetchNearbyOffers.pending, (state) => {
         state.isNearbyLoading = true;
-        state.error = null;
       })
       .addCase(fetchNearbyOffers.fulfilled, (state, action) => {
         state.isNearbyLoading = false;

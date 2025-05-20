@@ -1,6 +1,6 @@
-import { PlaceCardProps } from '../../mocks/mock-offers';
-import { PlaceCard } from '../place-card/place-card';
-import { MAX_NEAR_PLACES } from '../../const';
+import { PlaceCardProps } from '../../../types/offers-types';
+import { PlaceCard } from '../../place-card/place-card';
+import { MAX_NEAR_PLACES } from '../../../const';
 
 type NearPlacesProps = {
   cityPlaceCards: PlaceCardProps[];

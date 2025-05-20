@@ -1,4 +1,4 @@
-import { MAX_GALLERY_PHOTOS } from '../../const';
+import { MAX_GALLERY_PHOTOS } from '../../../const';
 
 type OfferGalleryProps = {
   images: string[];

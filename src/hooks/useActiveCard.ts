@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Location } from '../mocks/mock-offers';
+import { Location } from '../types/offers-types';
 
 type useActiveCardProps = { id: string; location: Location }[];
 

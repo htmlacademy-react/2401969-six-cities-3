@@ -1,7 +1,7 @@
 import { Header } from '../../components/header/header';
 import { FavoritesContent } from './components/favorites-content';
 import { FavoritesEmpty } from './components/favorites-empty';
-import { PlaceCardProps } from '../../mocks/mock-offers';
+import { PlaceCardProps } from '../../types/offers-types';
 
 type FavoritePageProps = {
   favoriteCards: PlaceCardProps[];
