@@ -1,11 +1,23 @@
 import { Link } from 'react-router-dom';
 import { AuthorizationStatus, AppRoute } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { selectUser } from '../../store/selectors';
+import React from 'react';
+import { logoutUser } from '../../store/user-slice';
 
 type HeaderNavProps = {
   authStatus: AuthorizationStatus;
 }
 
 function HeaderNav({ authStatus }: HeaderNavProps): JSX.Element {
+  const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
+
+  const handleSignOutClick = (evt: React.MouseEvent) => {
+    evt.preventDefault();
+    dispatch(logoutUser());
+  };
+
   return (
     <nav className="header__nav">
       {(() => {
@@ -19,17 +31,18 @@ function HeaderNav({ authStatus }: HeaderNavProps): JSX.Element {
                     to={AppRoute.Favorites}
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper" />
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">{user?.email}</span>
                     <span className="header__favorite-count">3</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">
-                  <Link
+                  <a
                     className="header__nav-link"
-                    to={AppRoute.Login}
+                    href="#"
+                    onClick={handleSignOutClick}
                   >
                     <span className="header__signout">Sign out</span>
-                  </Link>
+                  </a>
                 </li>
               </ul>
             );

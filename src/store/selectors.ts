@@ -9,6 +9,7 @@ const selectLoadingStatus = (state: RootState) => state.offers.isLoading;
 const selectNearbyLoadingStatus = (state: RootState) => state.offers.isNearbyLoading;
 const selectErrorStatus = (state: RootState) => state.offers.error;
 const selectAuthStatus = (state: RootState) => state.user.authorizationStatus;
+const selectUser = (state: RootState) => state.user.user;
 
 const selectCityPlaceCards = createSelector(
   [selectPlaceCards, selectCityName],
@@ -25,6 +26,7 @@ export {
   selectErrorStatus,
   selectLoadingStatus,
   selectAuthStatus,
+  selectUser,
   selectCityPlaceCards,
   selectOfferPageData
 };
