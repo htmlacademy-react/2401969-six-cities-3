@@ -1,68 +1,62 @@
 import { Header } from '../../components/header/header';
-import { AuthorizationStatus } from '../../const';
-import { ReviewProps } from '../../mocks/mock-comments';
-import { OfferCard } from '../../components/offer-card/offer-card';
-import { Reviews } from '../../components/reviews/reviews';
-import { ReviewsForm } from '../../components/reviews-form/reviews-form';
+import { AuthorizationStatus, MAX_NEAR_PLACES } from '../../const';
+import { ReviewProps } from '../../types/comments-types';
+import { OfferCard } from '../../components/offer-page-blocks/offer-card/offer-card';
+import { Reviews } from '../../components/review-blocks/reviews/reviews';
+import { ReviewsForm } from '../../components/review-blocks/reviews-form/reviews-form';
 import { useParams } from 'react-router-dom';
 import { NotFoundPage } from '../not-found-page/not-found-page';
-import { OfferGallery } from '../../components/offer-gallery/offer-gallery';
-import { NearPlaces } from '../../components/near-places/near-places';
+import { OfferGallery } from '../../components/offer-page-blocks/offer-gallery/offer-gallery';
+import { NearPlaces } from '../../components/offer-page-blocks/near-places/near-places';
 import { Map } from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { selectCurrentOffer, selectPlaceCards } from '../../store/selectors';
-//import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { clearCurrentOffer, fetchOfferById } from '../../store/offers-slice';
+import { clearCurrentOffer, clearNearbyOffers, fetchNearbyOffers, fetchOfferById } from '../../store/offers-slice';
 import { LoadingPage } from '../loading-page/loading-page';
-import { ErrorPage } from '../error-page/error-page';
+import { selectAuthStatus, selectOfferPageData } from '../../store/selectors';
 
 type OfferPageProps = {
-
   comments: ReviewProps[];
-  authStatus: AuthorizationStatus;
 }
 
-function OfferPage({ comments, authStatus }: OfferPageProps): JSX.Element {
+function OfferPage({ comments }: OfferPageProps): JSX.Element {
   const params = useParams();
   const dispatch = useAppDispatch();
-  const placeCards = useAppSelector(selectPlaceCards);
-  //const offerCard = placeCards.find((card) => card.id === params.id);
-  const offerCard = useAppSelector(selectCurrentOffer);
-  const isLoading = useAppSelector((state) => state.offers.isLoading);
-  const error = useAppSelector((state) => state.offers.error);
+
+  const {
+    offerCard,
+    nearbyCards,
+    isLoading,
+    isNearbyLoading,
+  } = useAppSelector(selectOfferPageData);
+
+  const authStatus = useAppSelector(selectAuthStatus);
 
   useEffect(() => {
     if (params.id) {
       dispatch(fetchOfferById(params.id));
+      dispatch(fetchNearbyOffers(params.id));
     }
 
     return () => {
       dispatch(clearCurrentOffer());
+      dispatch(clearNearbyOffers());
     };
   }, [params.id, dispatch]);
 
-  if (isLoading) {
+  if (isLoading || isNearbyLoading) {
     return <LoadingPage />;
-  }
-
-  if (error) {
-    return <ErrorPage />;
   }
 
   if (!offerCard) {
     return <NotFoundPage />;
   }
 
-  const cityName = offerCard?.city.name;
-  const nearPlaceCards = placeCards
-    .filter((card) => card.city.name === cityName && card.id !== offerCard.id);
-  const cityPlaceCards = [offerCard, ...nearPlaceCards];
-
+  const cityPlaceCards = [offerCard, ...nearbyCards.slice(0, MAX_NEAR_PLACES)];
 
   return (
     <div className="page">
-      <Header authStatus={authStatus} />
+      <Header />
 
       <main className="page__main page__main--offer">
         <section className="offer">
@@ -80,12 +74,12 @@ function OfferPage({ comments, authStatus }: OfferPageProps): JSX.Element {
         <div className="container">
           <section className="offer__map map">
             <Map
-              city={cityPlaceCards[0].city}
+              city={offerCard.city}
               locations={cityPlaceCards.map((card) => card.location)}
               activeLocation={offerCard.location}
             />
           </section>
-          {nearPlaceCards.length > 0 && <NearPlaces cityPlaceCards={nearPlaceCards}/>}
+          {nearbyCards.length > 0 && <NearPlaces cityPlaceCards={nearbyCards}/>}
         </div>
       </main>
     </div>

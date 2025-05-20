@@ -1,27 +1,29 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CityName, PlaceCardProps } from '../mocks/mock-offers';
+import { CityName, PlaceCardProps } from '../types/offers-types';
 import { AxiosInstance } from 'axios';
 import { ApiRoute } from '../const';
 
 type OffersState = {
   cityName: CityName;
   placeCards: PlaceCardProps[];
-  currentOffer: PlaceCardProps | null;
+  nearbyCards: PlaceCardProps[];
+  offerCard: PlaceCardProps | null;
   isLoading: boolean;
-  error: string | null;
+  isNearbyLoading: boolean;
 }
 
 const initialState: OffersState = {
   cityName: 'Paris',
   placeCards: [],
-  currentOffer: null,
+  nearbyCards: [],
+  offerCard: null,
   isLoading: false,
-  error: null,
+  isNearbyLoading: false,
 };
 
-const fetchOffers = createAsyncThunk<PlaceCardProps[],undefined, { extra: AxiosInstance }>(
+const fetchOffers = createAsyncThunk<PlaceCardProps[], undefined, { extra: AxiosInstance }>(
   'offers/fetchOffers',
-  async(_, { extra: api}) => {
+  async(_, { extra: api }) => {
     const {data} = await api.get<PlaceCardProps[]>(ApiRoute.Offers);
     return data;
   }
@@ -35,6 +37,14 @@ const fetchOfferById = createAsyncThunk<PlaceCardProps, string, { extra: AxiosIn
   }
 );
 
+const fetchNearbyOffers = createAsyncThunk<PlaceCardProps[], string, { extra: AxiosInstance }>(
+  'offers/fetchNearby',
+  async (offerId, { extra: api }) => {
+    const { data } = await api.get<PlaceCardProps[]>(`${ApiRoute.Offers}/${offerId}/nearby`);
+    return data;
+  }
+);
+
 const offersSlice = createSlice({
   name: 'offers',
   initialState,
@@ -43,45 +53,59 @@ const offersSlice = createSlice({
       state.cityName = action.payload;
     },
     clearCurrentOffer: (state) => {
-      state.currentOffer = null;
+      state.offerCard = null;
+    },
+    clearNearbyOffers: (state) => {
+      state.nearbyCards = [];
     }
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchOffers.pending, (state) => {
         state.isLoading = true;
-        state.error = null;
       })
       .addCase(fetchOffers.fulfilled, (state, action) => {
         state.isLoading = false;
         state.placeCards = action.payload;
       })
-      .addCase(fetchOffers.rejected, (state, action) => {
+      .addCase(fetchOffers.rejected, (state) => {
         state.isLoading = false;
-        state.error = action.error.message || 'Failed to load offers';
+      })
+      .addCase(fetchNearbyOffers.pending, (state) => {
+        state.isNearbyLoading = true;
+      })
+      .addCase(fetchNearbyOffers.fulfilled, (state, action) => {
+        state.isNearbyLoading = false;
+        state.nearbyCards = action.payload;
+      })
+      .addCase(fetchNearbyOffers.rejected, (state) => {
+        state.isNearbyLoading = false;
+        //state.error = action.error.message || 'Failed to load offers';
       })
       .addCase(fetchOfferById.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(fetchOfferById.fulfilled, (state, action) => {
-        state.currentOffer = action.payload;
+        state.offerCard = action.payload;
         state.isLoading = false;
       })
-      .addCase(fetchOfferById.rejected, (state, action) => {
-        state.error = action.error.message || 'Failed to load offer details';
+      .addCase(fetchOfferById.rejected, (state) => {
+        //state.error = action.error.message || 'Failed to load offer details';
         state.isLoading = false;
       });
   }
 });
 
 const offersReducer = offersSlice.reducer;
-const { setCityName, clearCurrentOffer } = offersSlice.actions;
+const { setCityName, clearCurrentOffer, clearNearbyOffers } = offersSlice.actions;
 
 export {
   offersReducer,
   setCityName,
   clearCurrentOffer,
+  clearNearbyOffers,
   fetchOffers,
+  fetchNearbyOffers,
   fetchOfferById
 };
 

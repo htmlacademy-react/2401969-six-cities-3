@@ -1,12 +1,11 @@
 import { HeaderNav } from '../header-nav/header-nav';
 import { Link } from 'react-router-dom';
-import { AuthorizationStatus, AppRoute } from '../../const';
+import { AppRoute } from '../../const';
+import { useAppSelector } from '../../store/hooks';
+import { selectAuthStatus } from '../../store/selectors';
 
-type HeaderProps = {
-  authStatus: AuthorizationStatus;
-}
-
-function Header({ authStatus }: HeaderProps): JSX.Element {
+function Header(): JSX.Element {
+  const authStatus = useAppSelector(selectAuthStatus);
   return (
     <header className="header">
       <div className="container">

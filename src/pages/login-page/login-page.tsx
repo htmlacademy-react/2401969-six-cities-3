@@ -1,16 +1,36 @@
+import { FormEvent, useRef } from 'react';
 import { Header } from '../../components/header/header';
-import { AuthorizationStatus } from '../../const';
+import { useAppDispatch } from '../../store/hooks';
+import { UserAuth } from '../../types/user-types';
+import { loginUser } from '../../store/user-slice';
 
 function LoginPage(): JSX.Element {
+  const formRef = useRef<HTMLFormElement>(null);
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    const form = formRef.current;
+    if (!form) {
+      return;
+    }
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData) as UserAuth;
+
+    dispatch(loginUser(data));
+  };
+
   return (
     <div className="page page--gray page--login">
-      <Header authStatus={AuthorizationStatus.Unknown}/>
+      <Header />
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form className="login__form form" action="#" method="post" ref={formRef} onSubmit={handleSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input className="login__input form__input" type="email" name="email" placeholder="Email" required />

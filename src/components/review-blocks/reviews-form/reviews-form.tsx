@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, Fragment } from 'react';
-import { RATING_TITLES } from '../../const';
+import { RATING_TITLES } from '../../../const';
 
 function ReviewsForm(): JSX.Element {
 

@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { selectCityName } from '../store/selectors';
-import { CityName } from '../mocks/mock-offers';
+import { CityName } from '../types/offers-types';
 import { useEffect } from 'react';
 import { setCityName } from '../store/offers-slice';
 

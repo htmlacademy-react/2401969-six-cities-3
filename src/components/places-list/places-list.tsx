@@ -1,5 +1,5 @@
 import { PlaceCard } from '../place-card/place-card';
-import { PlaceCardProps } from '../../mocks/mock-offers';
+import { PlaceCardProps } from '../../types/offers-types';
 
 type PlacesProps = {
   placeCards: PlaceCardProps[];

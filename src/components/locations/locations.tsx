@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, CITIES } from '../../const';
-import { CityName } from '../../mocks/mock-offers';
+import { CityName } from '../../types/offers-types';
 
 type CityProps = {
   name: CityName;

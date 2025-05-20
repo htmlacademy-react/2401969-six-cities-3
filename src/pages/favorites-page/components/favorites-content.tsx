@@ -1,4 +1,4 @@
-import { PlaceCardProps } from '../../../mocks/mock-offers';
+import { PlaceCardProps } from '../../../types/offers-types';
 import { PlaceCard } from '../../../components/place-card/place-card';
 
 type MainFavoritesProps = {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { City, Location } from '../mocks/mock-offers';
+import { City, Location } from '../types/offers-types';
 import L, { Map, Marker, Icon, LayerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MARKER_DEFAULT_URL, MARKER_ACTIVE_URL, TILE_LAYER_URL, TILE_LAYER_ATTRIBUTION } from '../const';

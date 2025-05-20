@@ -1,4 +1,4 @@
-import { City, Location } from '../../mocks/mock-offers';
+import { City, Location } from '../../types/offers-types';
 import { useRef } from 'react';
 import { useMap } from '../../hooks/useMap';
 
