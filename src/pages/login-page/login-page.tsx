@@ -2,7 +2,7 @@ import { FormEvent, useRef } from 'react';
 import { Header } from '../../components/header/header';
 import { useAppDispatch } from '../../store/hooks';
 import { UserAuth } from '../../types/user-types';
-import { loginUser } from '../../store/user-slice';
+import { loginUser } from '../../store/slices/user-slice';
 
 function LoginPage(): JSX.Element {
   const formRef = useRef<HTMLFormElement>(null);

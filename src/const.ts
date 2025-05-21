@@ -13,9 +13,9 @@ enum AppRoute {
 
 enum ApiRoute {
   Offers ='/offers',
-  OfferById = '/offers/{offerId}',
   Login = '/login',
-  Logout = '/logout'
+  Logout = '/logout',
+  Comments = 'comments',
 }
 
 type SortType = 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first';

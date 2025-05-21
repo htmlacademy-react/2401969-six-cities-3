@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { logoutUser } from '../store/user-slice';
+import { logoutUser } from '../store/slices/user-slice';
 import { AppRoute } from '../const';
 import { useAppDispatch } from '../store/hooks';
 
@@ -7,10 +7,11 @@ function useLogOut() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleSignOutClick = async (evt: React.MouseEvent) => {
+  const handleSignOutClick = (evt: React.MouseEvent) => {
     evt.preventDefault();
-    await dispatch(logoutUser());
-    navigate(AppRoute.Main);
+    void dispatch(logoutUser()).then(() => {
+      navigate(AppRoute.Main);
+    });
   };
 
   return { handleSignOutClick};

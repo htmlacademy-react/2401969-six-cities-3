@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CityName, PlaceCardProps } from '../types/offers-types';
+import { CityName, PlaceCardProps } from '../../types/offers-types';
 import { AxiosInstance } from 'axios';
-import { ApiRoute } from '../const';
+import { ApiRoute } from '../../const';
 
 type OffersState = {
   cityName: CityName;
