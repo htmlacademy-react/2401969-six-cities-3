@@ -7,16 +7,14 @@ import { NotFoundPage } from '../../pages/not-found-page/not-found-page';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import { PrivateRoute } from '../private-route/private-route';
 import { PlaceCardProps } from '../../types/offers-types';
-import { ReviewProps } from '../../types/comments-types';
 import { useAppSelector } from '../../store/hooks';
 import { selectAuthStatus } from '../../store/selectors';
 
 type AppProps = {
   favoriteCards: PlaceCardProps[];
-  comments: ReviewProps[];
 }
 
-function App({ favoriteCards, comments }: AppProps): JSX.Element {
+function App({ favoriteCards }: AppProps): JSX.Element {
   const authStatus = useAppSelector(selectAuthStatus);
   return (
     <BrowserRouter>
@@ -38,7 +36,7 @@ function App({ favoriteCards, comments }: AppProps): JSX.Element {
         />
         <Route
           path={`${AppRoute.Offers}/:id`}
-          element={<OfferPage comments={comments} />}
+          element={<OfferPage />}
         />
         <Route
           path={AppRoute.Favorites}
