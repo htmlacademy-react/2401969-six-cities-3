@@ -24,7 +24,7 @@ function LoginPage(): JSX.Element {
 
   return (
     <div className="page page--gray page--login">
-      <Header />
+      <Header withNav={false}/>
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">
