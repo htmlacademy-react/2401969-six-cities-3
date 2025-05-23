@@ -39,6 +39,12 @@ const MAX_GALLERY_PHOTOS = 6;
 
 const MAX_NEAR_PLACES = 3;
 
+const MAX_COMMENTS = 10;
+
+const MIN_REVIEW_LENGTH = 50;
+
+const MAX_RATING = 5;
+
 const RATING_TITLES = ['отлично', 'хорошо', 'нормально', 'плохо', 'ужасно'];
 
 const MARKER_DEFAULT_URL = 'img/pin.svg';
@@ -60,6 +66,9 @@ export {
   CITIES,
   MAX_GALLERY_PHOTOS,
   MAX_NEAR_PLACES,
+  MAX_COMMENTS,
+  MIN_REVIEW_LENGTH,
+  MAX_RATING,
   RATING_TITLES,
   MARKER_DEFAULT_URL,
   MARKER_ACTIVE_URL,

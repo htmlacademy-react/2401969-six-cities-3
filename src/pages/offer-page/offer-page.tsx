@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import { clearCurrentOffer, clearNearbyOffers, fetchNearbyOffers, fetchOfferById } from '../../store/slices/offers-slice';
 import { LoadingPage } from '../loading-page/loading-page';
 import { selectAuthStatus, selectOfferPageData } from '../../store/selectors';
+import { clearComments, fetchComments } from '../../store/slices/comments-slice';
 
 function OfferPage(): JSX.Element {
   const params = useParams();
@@ -32,11 +33,13 @@ function OfferPage(): JSX.Element {
     if (params.id) {
       dispatch(fetchOfferById(params.id));
       dispatch(fetchNearbyOffers(params.id));
+      dispatch(fetchComments(params.id));
     }
 
     return () => {
       dispatch(clearCurrentOffer());
       dispatch(clearNearbyOffers());
+      dispatch(clearComments());
     };
   }, [params.id, dispatch]);
 
@@ -62,7 +65,7 @@ function OfferPage(): JSX.Element {
               <OfferCard offerCard={offerCard} />
               <section className="offer__reviews reviews">
                 {comments.length > 0 && <Reviews comments={comments} />}
-                {authStatus === AuthorizationStatus.Auth && <ReviewsForm />}
+                {authStatus === AuthorizationStatus.Auth && <ReviewsForm offerId={params.id} />}
               </section>
             </div>
           </div>
