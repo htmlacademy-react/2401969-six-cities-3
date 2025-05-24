@@ -11,6 +11,7 @@ const selectAuthStatus = (state: RootState) => state.user.authorizationStatus;
 const selectUser = (state: RootState) => state.user.user;
 const selectComments = (state: RootState) => state.comments.comments;
 const selectCommentsSending = (state: RootState) => state.comments.isSending;
+const selectFavoritesCards = (state: RootState) => state.offers.favoriteCards;
 
 const selectCityPlaceCards = createSelector(
   [selectPlaceCards, selectCityName],
@@ -45,5 +46,6 @@ export {
   selectCityPlaceCards,
   selectOfferPageData,
   selectSortedComments,
-  selectCommentsData
+  selectCommentsData,
+  selectFavoritesCards,
 };

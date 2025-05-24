@@ -15,7 +15,8 @@ enum ApiRoute {
   Offers ='/offers',
   Login = '/login',
   Logout = '/logout',
-  Comments = 'comments',
+  Comments = '/comments',
+  Favorite = '/favorite',
 }
 
 type SortType = 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first';
