@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { fetchOffers, offersReducer } from './offers-slice';
+import { fetchOffers, offersReducer } from './slices/offers-slice';
 import { createAPI } from '../services/api';
-import { checkUserStatus, userReduser } from './user-slice';
+import { checkUserStatus, userReduser } from './slices/user-slice';
+import { commentsReducer } from './slices/comments-slice';
 
 const api = createAPI();
 
@@ -9,6 +10,7 @@ const store = configureStore({
   reducer: {
     offers: offersReducer,
     user: userReduser,
+    comments: commentsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

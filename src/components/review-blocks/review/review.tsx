@@ -1,6 +1,6 @@
-import { ReviewProps } from '../../../types/comments-types';
+import { CommentProps } from '../../../types/comments-types';
 
-function Review({ date, user, comment, rating}: ReviewProps): JSX.Element {
+function Review({ date, user, comment, rating}: CommentProps): JSX.Element {
   return (
     <li className="reviews__item">
       <div className="reviews__user user">

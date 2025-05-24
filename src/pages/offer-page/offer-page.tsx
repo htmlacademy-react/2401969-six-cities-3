@@ -1,6 +1,5 @@
 import { Header } from '../../components/header/header';
 import { AuthorizationStatus, MAX_NEAR_PLACES } from '../../const';
-import { ReviewProps } from '../../types/comments-types';
 import { OfferCard } from '../../components/offer-page-blocks/offer-card/offer-card';
 import { Reviews } from '../../components/review-blocks/reviews/reviews';
 import { ReviewsForm } from '../../components/review-blocks/reviews-form/reviews-form';
@@ -11,20 +10,18 @@ import { NearPlaces } from '../../components/offer-page-blocks/near-places/near-
 import { Map } from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useEffect } from 'react';
-import { clearCurrentOffer, clearNearbyOffers, fetchNearbyOffers, fetchOfferById } from '../../store/offers-slice';
+import { clearCurrentOffer, clearNearbyOffers, fetchNearbyOffers, fetchOfferById } from '../../store/slices/offers-slice';
 import { LoadingPage } from '../loading-page/loading-page';
 import { selectAuthStatus, selectOfferPageData } from '../../store/selectors';
+import { clearComments, fetchComments } from '../../store/slices/comments-slice';
 
-type OfferPageProps = {
-  comments: ReviewProps[];
-}
-
-function OfferPage({ comments }: OfferPageProps): JSX.Element {
+function OfferPage(): JSX.Element {
   const params = useParams();
   const dispatch = useAppDispatch();
 
   const {
     offerCard,
+    comments,
     nearbyCards,
     isLoading,
     isNearbyLoading,
@@ -36,11 +33,13 @@ function OfferPage({ comments }: OfferPageProps): JSX.Element {
     if (params.id) {
       dispatch(fetchOfferById(params.id));
       dispatch(fetchNearbyOffers(params.id));
+      dispatch(fetchComments(params.id));
     }
 
     return () => {
       dispatch(clearCurrentOffer());
       dispatch(clearNearbyOffers());
+      dispatch(clearComments());
     };
   }, [params.id, dispatch]);
 
@@ -66,7 +65,7 @@ function OfferPage({ comments }: OfferPageProps): JSX.Element {
               <OfferCard offerCard={offerCard} />
               <section className="offer__reviews reviews">
                 {comments.length > 0 && <Reviews comments={comments} />}
-                {authStatus === AuthorizationStatus.Auth && <ReviewsForm />}
+                {authStatus === AuthorizationStatus.Auth && <ReviewsForm offerId={params.id} />}
               </section>
             </div>
           </div>

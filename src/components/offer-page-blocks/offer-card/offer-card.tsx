@@ -1,4 +1,5 @@
 import { PlaceCardProps } from '../../../types/offers-types';
+import { FavoriteButton } from '../../favorite-button/favorite-button';
 import { OfferHost } from '../offer-host/offer-host';
 import { OfferInside } from '../offer-inside/offer-inside';
 
@@ -8,7 +9,7 @@ type OfferCardProps = {
 }
 
 function OfferCard({ offerCard }: OfferCardProps): JSX.Element {
-  const { title, description, type, price, rating, isPremium, isFavorite, bedrooms, goods, host, maxAdults, } = offerCard;
+  const { id, title, description, type, price, rating, isPremium, isFavorite, bedrooms, goods, host, maxAdults, } = offerCard;
 
   const capacityTitle = `Max\u00a0${maxAdults}\u00a0${maxAdults > 1 ? 'adults' : 'adult'}`;
   const bedroomsTitle = `${bedrooms}\u00a0${bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}`;
@@ -23,14 +24,11 @@ function OfferCard({ offerCard }: OfferCardProps): JSX.Element {
         <h1 className="offer__name">
           {title}
         </h1>
-        <button className={`offer__bookmark-button button ${isFavorite ? 'offer__bookmark-button--active' : ''}`} type="button">
-          <svg className="offer__bookmark-icon" width="31" height="33">
-            <use xlinkHref="#icon-bookmark"></use>
-          </svg>
-          <span className="visually-hidden">
-            {isFavorite ? 'In favorites' : 'To favorites'}
-          </span>
-        </button>
+        <FavoriteButton
+          offerId={id}
+          isFavorite={isFavorite}
+          place={'offer'}
+        />
       </div>
       <div className="offer__rating rating">
         <div className="offer__stars rating__stars">

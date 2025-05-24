@@ -2,7 +2,7 @@ import { FormEvent, useRef } from 'react';
 import { Header } from '../../components/header/header';
 import { useAppDispatch } from '../../store/hooks';
 import { UserAuth } from '../../types/user-types';
-import { loginUser } from '../../store/user-slice';
+import { loginUser } from '../../store/slices/user-slice';
 
 function LoginPage(): JSX.Element {
   const formRef = useRef<HTMLFormElement>(null);
@@ -24,7 +24,7 @@ function LoginPage(): JSX.Element {
 
   return (
     <div className="page page--gray page--login">
-      <Header />
+      <Header withNav={false}/>
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">

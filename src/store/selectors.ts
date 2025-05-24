@@ -9,6 +9,9 @@ const selectLoadingStatus = (state: RootState) => state.offers.isLoading;
 const selectNearbyLoadingStatus = (state: RootState) => state.offers.isNearbyLoading;
 const selectAuthStatus = (state: RootState) => state.user.authorizationStatus;
 const selectUser = (state: RootState) => state.user.user;
+const selectComments = (state: RootState) => state.comments.comments;
+const selectCommentsSending = (state: RootState) => state.comments.isSending;
+const selectFavoritesCards = (state: RootState) => state.offers.favoriteCards;
 
 const selectCityPlaceCards = createSelector(
   [selectPlaceCards, selectCityName],
@@ -16,8 +19,23 @@ const selectCityPlaceCards = createSelector(
 );
 
 const selectOfferPageData = createSelector(
-  [selectOfferCard, selectNearbyCards, selectLoadingStatus, selectNearbyLoadingStatus],
-  (offerCard, nearbyCards, isLoading, isNearbyLoading) => ({offerCard, nearbyCards, isLoading, isNearbyLoading})
+  [selectOfferCard, selectComments, selectNearbyCards, selectLoadingStatus, selectNearbyLoadingStatus],
+  (offerCard, comments, nearbyCards, isLoading, isNearbyLoading) => ({offerCard, comments, nearbyCards, isLoading, isNearbyLoading})
+);
+
+const selectSortedComments = createSelector(
+  [selectComments],
+  (comments) => [...comments].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )
+);
+
+const selectCommentsData = createSelector(
+  [selectSortedComments, selectCommentsSending],
+  (comments, isSending) => ({
+    comments,
+    isSending,
+  })
 );
 
 export {
@@ -26,5 +44,8 @@ export {
   selectAuthStatus,
   selectUser,
   selectCityPlaceCards,
-  selectOfferPageData
+  selectOfferPageData,
+  selectSortedComments,
+  selectCommentsData,
+  selectFavoritesCards,
 };

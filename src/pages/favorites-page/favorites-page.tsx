@@ -1,14 +1,13 @@
 import { Header } from '../../components/header/header';
+import { useAppSelector } from '../../store/hooks';
+import { selectFavoritesCards } from '../../store/selectors';
 import { FavoritesContent } from './components/favorites-content';
 import { FavoritesEmpty } from './components/favorites-empty';
-import { PlaceCardProps } from '../../types/offers-types';
+//import { PlaceCardProps } from '../../types/offers-types';
 
-type FavoritePageProps = {
-  favoriteCards: PlaceCardProps[];
-}
 
-function FavoritesPage({ favoriteCards }: FavoritePageProps): JSX.Element {
-
+function FavoritesPage(): JSX.Element {
+  const favoriteCards = useAppSelector(selectFavoritesCards);
 
   const pageClass = favoriteCards.length > 0
     ? 'page'

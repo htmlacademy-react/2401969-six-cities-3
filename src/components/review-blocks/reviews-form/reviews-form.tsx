@@ -1,8 +1,15 @@
-import { useState, ChangeEvent, Fragment } from 'react';
-import { RATING_TITLES } from '../../../const';
+import { useState, ChangeEvent, Fragment, FormEvent } from 'react';
+import { MAX_RATING, MIN_REVIEW_LENGTH, RATING_TITLES, } from '../../../const';
+import { useAppDispatch } from '../../../store/hooks';
+import { postComment } from '../../../store/slices/comments-slice';
 
-function ReviewsForm(): JSX.Element {
+type ReviewsFormProps = {
+  offerId: string | undefined;
+}
 
+function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const [isSending, setIsSending] = useState(false);
   const [formData, setFormData] = useState<{
     rating: number | null;
     reviewText: string;
@@ -16,23 +23,47 @@ function ReviewsForm(): JSX.Element {
     });
   };
 
+  const handleSubmit = (evt: FormEvent) => {
+    evt.preventDefault();
+    if (!offerId || isSending || !formData.rating || formData.reviewText.length < MIN_REVIEW_LENGTH) {
+      return;
+    }
+
+    setIsSending(true);
+    try {
+      void dispatch(postComment({
+        offerId,
+        comment: formData.reviewText,
+        rating: formData.rating,
+      })).unwrap();
+      setFormData({ rating: null, reviewText: ' '});
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   const { rating, reviewText } = formData;
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      onSubmit={handleSubmit}
+      action="#"
+      method="post"
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {Array.from({length: 5}, (_, i) => (
+        {Array.from({length: MAX_RATING}, (_, i) => (
           <Fragment key={`${5 - i}-stars`}>
             <input className="form__rating-input visually-hidden"
               name="rating"
-              value={5 - i}
-              id={`${5 - i}-stars`}
+              value={MAX_RATING - i}
+              id={`${MAX_RATING - i}-stars`}
               type="radio"
-              checked={5 - i === rating}
+              checked={MAX_RATING - i === rating}
               onChange={handleChange}
             />
-            <label htmlFor={`${5 - i}-stars`}
+            <label htmlFor={`${MAX_RATING - i}-stars`}
               className="reviews__rating-label form__rating-label"
               title={RATING_TITLES[i]}
             >
@@ -52,13 +83,13 @@ function ReviewsForm(): JSX.Element {
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{MIN_REVIEW_LENGTH} characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={reviewText.length <= 50 || !rating}
-        >Submit
+          disabled={reviewText.length <= MIN_REVIEW_LENGTH || !rating || isSending}
+        >{isSending ? 'Sending...' : 'Submit'}
         </button>
       </div>
     </form>
