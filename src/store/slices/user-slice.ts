@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ApiRoute, AuthorizationStatus } from '../const';
-import { User, UserAuth } from '../types/user-types';
+import { ApiRoute, AuthorizationStatus } from '../../const';
+import { User, UserAuth } from '../../types/user-types';
 import { AxiosInstance } from 'axios';
-import { dropToken, saveToken } from '../services/token';
+import { dropToken, saveToken } from '../../services/token';
 
 type UserState = {
   authorizationStatus: AuthorizationStatus;

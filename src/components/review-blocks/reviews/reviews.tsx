@@ -1,12 +1,12 @@
 import { Review } from '../review/review';
-import { ReviewProps } from '../../../types/comments-types';
-//import { comments } from '../../mocks/mock-comments';
+import { CommentProps } from '../../../types/comments-types';
 
-type ReviewsProps = {
-  comments: ReviewProps[];
+
+type CommentsProps = {
+  comments: CommentProps[];
 }
 
-function Reviews({comments}:ReviewsProps): JSX.Element {
+function Reviews({comments}:CommentsProps): JSX.Element {
   return (
     <>
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
