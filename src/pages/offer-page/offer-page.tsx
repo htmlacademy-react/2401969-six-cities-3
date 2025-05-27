@@ -16,7 +16,7 @@ import { selectAuthStatus, selectOfferPageData } from '../../store/selectors';
 import { clearComments, fetchComments } from '../../store/slices/comments-slice';
 
 function OfferPage(): JSX.Element {
-  const params = useParams();
+  const { id } = useParams();
   const dispatch = useAppDispatch();
 
   const {
@@ -30,10 +30,10 @@ function OfferPage(): JSX.Element {
   const authStatus = useAppSelector(selectAuthStatus);
 
   useEffect(() => {
-    if (params.id) {
-      dispatch(fetchOfferById(params.id));
-      dispatch(fetchNearbyOffers(params.id));
-      dispatch(fetchComments(params.id));
+    if (id) {
+      dispatch(fetchOfferById(id));
+      dispatch(fetchNearbyOffers(id));
+      dispatch(fetchComments(id));
     }
 
     return () => {
@@ -41,7 +41,7 @@ function OfferPage(): JSX.Element {
       dispatch(clearNearbyOffers());
       dispatch(clearComments());
     };
-  }, [params.id, dispatch]);
+  }, [id, dispatch]);
 
   if (isLoading || isNearbyLoading) {
     return <LoadingPage />;
@@ -65,7 +65,7 @@ function OfferPage(): JSX.Element {
               <OfferCard offerCard={offerCard} />
               <section className="offer__reviews reviews">
                 {comments.length > 0 && <Reviews comments={comments} />}
-                {authStatus === AuthorizationStatus.Auth && <ReviewsForm offerId={params.id} />}
+                {authStatus === AuthorizationStatus.Auth && <ReviewsForm offerId={id} />}
               </section>
             </div>
           </div>
