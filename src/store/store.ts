@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { fetchOffers, offersReducer } from './slices/offers-slice';
+import { offersReducer } from './slices/offers-slice';
 import { createAPI } from '../services/api';
-import { checkUserStatus, userReduser } from './slices/user-slice';
+import { userReduser } from './slices/user-slice';
 import { commentsReducer } from './slices/comments-slice';
 
 const api = createAPI();
@@ -20,8 +20,8 @@ const store = configureStore({
     })
 });
 
-store.dispatch(fetchOffers());
-store.dispatch(checkUserStatus());
+//store.dispatch(fetchOffers());
+//store.dispatch(checkUserStatus());
 
 export { store };
 
