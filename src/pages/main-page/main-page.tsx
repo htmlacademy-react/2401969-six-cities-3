@@ -3,20 +3,22 @@ import { Locations } from '../../components/locations/locations';
 import { MainContent } from './components/main-content';
 import { MainEmpty } from './components/main-empty';
 import { useAppSelector } from '../../store/hooks';
-import { selectCityPlaceCards, selectLoadingStatus } from '../../store/selectors';
+import { selectCityPlaceCards } from '../../store/selectors';
 import { useCityName } from '../../hooks/useCityName';
 import { LoadingPage } from '../loading-page/loading-page';
+import { offersSelectors } from '../../store/slices/offers-slice';
+import { RequestStatus } from '../../const';
 
 function MainPage(): JSX.Element {
   const cityName = useCityName();
   const cityPlaceCards = useAppSelector(selectCityPlaceCards);
-  const isLoading = useAppSelector(selectLoadingStatus);
+  const status = useAppSelector(offersSelectors.status);
 
   const mainClass = cityPlaceCards.length > 0
     ? 'page__main page__main--index'
     : 'page__main page__main--index page__main--index-empty';
 
-  if (isLoading) {
+  if (status === RequestStatus.Loading) {
     return <LoadingPage />;
   }
 

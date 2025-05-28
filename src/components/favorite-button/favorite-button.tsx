@@ -1,5 +1,4 @@
-import { useAppDispatch } from '../../store/hooks';
-import { toggleFavorite } from '../../store/slices/offers-slice';
+import { useOffersActions } from '../../store/hooks';
 
 type FavoriteButtonProps = {
   offerId: string;
@@ -7,10 +6,10 @@ type FavoriteButtonProps = {
   place?: 'place-card' | 'offer';
 }
 function FavoriteButton ({ offerId, isFavorite, place = 'place-card' }: FavoriteButtonProps): JSX.Element {
-  const dispatch = useAppDispatch();
+  const { toggleFavorite } = useOffersActions();
 
   const handleClick = () => {
-    dispatch(toggleFavorite({ offerId, status: isFavorite ? 0 : 1}));
+    toggleFavorite({ offerId, status: isFavorite ? 0 : 1});
   };
 
   return (

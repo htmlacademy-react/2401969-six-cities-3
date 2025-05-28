@@ -1,21 +1,20 @@
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { selectCityName } from '../store/selectors';
+import { useAppSelector, useOffersActions } from '../store/hooks';
 import { CityName } from '../types/offers-types';
 import { useEffect } from 'react';
-import { setCityName } from '../store/slices/offers-slice';
+import { offersSelectors } from '../store/slices/offers-slice';
 
 
 function useCityName(): CityName {
-  const cityName = useAppSelector(selectCityName);
+  const cityName = useAppSelector(offersSelectors.cityName);
   const { city: urlCity } = useParams<{ city?: CityName}>();
-  const dispatch = useAppDispatch();
+  const { setCityName } = useOffersActions();
 
   useEffect(() => {
     if (urlCity && urlCity !== cityName) {
-      dispatch(setCityName(urlCity));
+      setCityName(urlCity);
     }
-  }, [urlCity, cityName, dispatch]);
+  }, [urlCity, cityName, setCityName]);
 
   return cityName;
 }

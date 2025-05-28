@@ -4,6 +4,19 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+enum RequestStatus {
+  Idle,
+  Loading,
+  Success,
+  Failed,
+}
+enum ResponseStatus {
+  Idle,
+  Sending,
+  Success,
+  Failed,
+}
+
 enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -58,6 +71,8 @@ const TILE_LAYER_ATTRIBUTION: string = '&copy; <a href="https://www.openstreetma
 
 export {
   AuthorizationStatus,
+  RequestStatus,
+  ResponseStatus,
   AppRoute,
   ApiRoute,
   type SortType,
