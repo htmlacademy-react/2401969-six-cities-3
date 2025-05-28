@@ -1,5 +1,5 @@
 import { Header } from '../../components/header/header';
-import { AuthorizationStatus, MAX_NEAR_PLACES } from '../../const';
+import { AuthorizationStatus, MAX_NEAR_PLACES, RequestStatus } from '../../const';
 import { OfferCard } from '../../components/offer-page-blocks/offer-card/offer-card';
 import { Reviews } from '../../components/review-blocks/reviews/reviews';
 import { ReviewsForm } from '../../components/review-blocks/reviews-form/reviews-form';
@@ -8,42 +8,57 @@ import { NotFoundPage } from '../not-found-page/not-found-page';
 import { OfferGallery } from '../../components/offer-page-blocks/offer-gallery/offer-gallery';
 import { NearPlaces } from '../../components/offer-page-blocks/near-places/near-places';
 import { Map } from '../../components/map/map';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppSelector, useCommentsAction, useOffersActions } from '../../store/hooks';
 import { useEffect } from 'react';
-import { clearCurrentOffer, clearNearbyOffers, fetchNearbyOffers, fetchOfferById } from '../../store/slices/offers-slice';
 import { LoadingPage } from '../loading-page/loading-page';
-import { selectAuthStatus, selectOfferPageData } from '../../store/selectors';
-import { clearComments, fetchComments } from '../../store/slices/comments-slice';
+import { selectOfferPageData } from '../../store/selectors';
+import { userSelectors } from '../../store/slices/user-slice';
+
 
 function OfferPage(): JSX.Element {
   const { id } = useParams();
-  const dispatch = useAppDispatch();
+
+  const {
+    fetchOfferById,
+    fetchNearbyOffers,
+    clearCurrentOffer,
+    clearNearbyOffers
+  } = useOffersActions();
+
+  const { fetchComments, clearComments } = useCommentsAction();
 
   const {
     offerCard,
     comments,
     nearbyCards,
-    isLoading,
-    isNearbyLoading,
+    status,
   } = useAppSelector(selectOfferPageData);
 
-  const authStatus = useAppSelector(selectAuthStatus);
+  const authStatus = useAppSelector(userSelectors.authStatus);
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchOfferById(id));
-      dispatch(fetchNearbyOffers(id));
-      dispatch(fetchComments(id));
+      fetchOfferById(id);
+      fetchNearbyOffers(id);
+      fetchComments(id);
     }
 
     return () => {
-      dispatch(clearCurrentOffer());
-      dispatch(clearNearbyOffers());
-      dispatch(clearComments());
+      clearCurrentOffer();
+      clearNearbyOffers();
+      clearComments();
     };
-  }, [id, dispatch]);
+  }, [
+    id,
+    fetchOfferById,
+    fetchNearbyOffers,
+    fetchComments,
+    clearCurrentOffer,
+    clearNearbyOffers,
+    clearComments,
+  ]);
 
-  if (isLoading || isNearbyLoading) {
+  if (status === RequestStatus.Loading) {
     return <LoadingPage />;
   }
 

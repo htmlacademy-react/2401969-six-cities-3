@@ -6,21 +6,21 @@ import { OfferPage } from '../../pages/offer-page/offer-page';
 import { NotFoundPage } from '../../pages/not-found-page/not-found-page';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import { PrivateRoute } from '../private-route/private-route';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { selectAuthStatus } from '../../store/selectors';
+import { useAppSelector, useOffersActions, useUserActions } from '../../store/hooks';
 import { useEffect } from 'react';
-import { checkUserStatus } from '../../store/slices/user-slice';
-import { fetchFavorites, fetchOffers } from '../../store/slices/offers-slice';
+import { userSelectors } from '../../store/slices/user-slice';
+
 
 function App(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const authStatus = useAppSelector(selectAuthStatus);
+  const authStatus = useAppSelector(userSelectors.authStatus);
+  const { checkUserStatus } = useUserActions();
+  const { fetchOffers, fetchFavorites } = useOffersActions();
 
   useEffect(() => {
-    dispatch(checkUserStatus());
-    dispatch(fetchOffers());
-    dispatch(fetchFavorites());
-  }, [dispatch]);
+    checkUserStatus();
+    fetchOffers();
+    fetchFavorites();
+  }, [checkUserStatus, fetchOffers, fetchFavorites]);
 
   return (
     <BrowserRouter>

@@ -1,33 +1,20 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { CommentAuth, CommentProps } from '../../types/comments-types';
-import { AxiosInstance } from 'axios';
-import { ApiRoute, MAX_COMMENTS } from '../../const';
+import { createSlice } from '@reduxjs/toolkit';
+import { CommentProps } from '../../types/comments-types';
+
+import { MAX_COMMENTS, RequestStatus, ResponseStatus } from '../../const';
+import { fetchComments, postComment } from '../thunks/comments-thunks';
 
 type CommentsState = {
   comments: CommentProps[];
-  isSending: boolean;
+  requestStatus: RequestStatus;
+  responseStatus: ResponseStatus;
 };
 
 const initialState: CommentsState = {
   comments: [],
-  isSending: false,
+  requestStatus: RequestStatus.Idle,
+  responseStatus: ResponseStatus.Idle,
 };
-
-const fetchComments = createAsyncThunk<CommentProps[], string, { extra: AxiosInstance }>(
-  'comments/fetchComments',
-  async (offerId, { extra: api }) => {
-    const { data } = await api.get<CommentProps[]>(`${ApiRoute.Comments}/${offerId}`);
-    return data;
-  }
-);
-
-const postComment = createAsyncThunk<CommentProps, CommentAuth, { extra: AxiosInstance}>(
-  'comments/postComment',
-  async ({ offerId, comment, rating }, { extra: api }) => {
-    const { data } = await api.post<CommentProps>(`${ApiRoute.Comments}/${offerId}`, { comment, rating});
-    return data;
-  }
-);
 
 const commentsSlice = createSlice({
   name: 'comments',
@@ -40,29 +27,38 @@ const commentsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchComments.fulfilled, (state, action) => {
+        state.requestStatus = RequestStatus.Success;
         state.comments = action.payload.slice(0, MAX_COMMENTS);
       })
       .addCase(postComment.pending, (state) => {
-        state.isSending = true;
+        state.responseStatus = ResponseStatus.Sending;
       })
       .addCase(postComment.fulfilled, (state, action) => {
+        state.responseStatus = ResponseStatus.Success;
         state.comments = [action.payload, ...state.comments].slice(0, MAX_COMMENTS);
-        state.isSending = false;
       })
       .addCase(postComment.rejected, (state) => {
-        state.isSending = false;
+        state.responseStatus = ResponseStatus.Failed;
       });
+  },
+  selectors: {
+    comments: (state) => state.comments,
+    responseStatus: (state) => state.responseStatus,
   }
 });
 
 const commentsReducer = commentsSlice.reducer;
-const { clearComments } = commentsSlice.actions;
+const commentsActions = {
+  ...commentsSlice.actions,
+  fetchComments,
+  postComment,
+};
+const commentsSelectors = commentsSlice.selectors;
 
 export {
   commentsReducer,
-  clearComments,
-  fetchComments,
-  postComment
+  commentsActions,
+  commentsSelectors
 };
 
 

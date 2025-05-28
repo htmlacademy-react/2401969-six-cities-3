@@ -1,8 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ApiRoute, AuthorizationStatus } from '../../const';
-import { User, UserAuth } from '../../types/user-types';
-import { AxiosInstance } from 'axios';
-import { dropToken, saveToken } from '../../services/token';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AuthorizationStatus } from '../../const';
+import { User } from '../../types/user-types';
+import { checkUserStatus, loginUser, logoutUser } from '../thunks/user-thunks';
 
 type UserState = {
   authorizationStatus: AuthorizationStatus;
@@ -13,31 +12,6 @@ const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
 };
-
-const checkUserStatus = createAsyncThunk<User, undefined, { extra: AxiosInstance }>(
-  'user/checkUserStatus',
-  async(_, { extra: api }) => {
-    const { data } = await api.get<User>(ApiRoute.Login);
-    return data;
-  }
-);
-
-const loginUser = createAsyncThunk<User, UserAuth, { extra: AxiosInstance }>(
-  'user/loginUser',
-  async ({ email, password }, { extra: api }) => {
-    const { data } = await api.post<User>(ApiRoute.Login, {email, password});
-    saveToken(data.token);
-    return data;
-  }
-);
-
-const logoutUser = createAsyncThunk<void, undefined, { extra: AxiosInstance }>(
-  'user/logoutUser',
-  async (_, { extra: api }) => {
-    await api.delete(ApiRoute.Logout);
-    dropToken();
-  }
-);
 
 const userSlice = createSlice({
   name: 'user',
@@ -67,16 +41,24 @@ const userSlice = createSlice({
         state.user = null;
         state.authorizationStatus = AuthorizationStatus.NotAuth;
       });
+  },
+  selectors: {
+    authStatus: (state) => state.authorizationStatus,
+    user: (state) => state.user,
   }
 });
 
-const userReduser = userSlice.reducer;
-const { requireAuthorization } = userSlice.actions;
-
-export {
-  userReduser,
-  requireAuthorization,
+const userReducer = userSlice.reducer;
+const userActions = {
+  ...userSlice.actions,
   checkUserStatus,
   loginUser,
   logoutUser,
+};
+const userSelectors = userSlice.selectors;
+
+export {
+  userReducer,
+  userActions,
+  userSelectors,
 };

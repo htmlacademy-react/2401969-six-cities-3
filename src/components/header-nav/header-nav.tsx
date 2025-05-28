@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../store/hooks';
-import { selectUser } from '../../store/selectors';
 import { useLogOut } from '../../hooks/useLogOut';
+import { userSelectors } from '../../store/slices/user-slice';
 
 function HeaderNav(): JSX.Element {
-  const user = useAppSelector(selectUser);
+  const user = useAppSelector(userSelectors.user);
   const { handleSignOutClick } = useLogOut();
 
   return (
