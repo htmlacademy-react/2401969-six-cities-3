@@ -1,12 +1,16 @@
 import { FormEvent, useRef } from 'react';
 import { Header } from '../../components/header/header';
-import { useAppDispatch } from '../../store/hooks';
-import { UserAuth } from '../../types/user-types';
-import { loginUser } from '../../store/slices/user-slice';
+import { useUserActions } from '../../store/hooks';
+import { LocationState, UserAuth } from '../../types/user-types';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 function LoginPage(): JSX.Element {
   const formRef = useRef<HTMLFormElement>(null);
-  const dispatch = useAppDispatch();
+
+  const { loginUser } = useUserActions();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -19,7 +23,8 @@ function LoginPage(): JSX.Element {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData) as UserAuth;
 
-    dispatch(loginUser(data));
+    void loginUser(data)
+      .then(() => navigate((location.state as LocationState)?.from || `${AppRoute.Main}`, { replace: true, state: null }));
   };
 
   return (

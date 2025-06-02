@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CityName, PlaceCardProps } from '../../types/offers-types';
-import { AxiosInstance } from 'axios';
-import { ApiRoute } from '../../const';
+import { fetchFavorites, fetchNearbyOffers, fetchOfferById, fetchOffers, toggleFavorite } from '../thunks/offers-thunks';
+import { RequestStatus } from '../../const';
 
 type OffersState = {
   cityName: CityName;
@@ -9,8 +9,7 @@ type OffersState = {
   nearbyCards: PlaceCardProps[];
   offerCard: PlaceCardProps | null;
   favoriteCards: PlaceCardProps[];
-  isLoading: boolean;
-  isNearbyLoading: boolean;
+  status: RequestStatus;
 }
 
 const initialState: OffersState = {
@@ -19,49 +18,8 @@ const initialState: OffersState = {
   nearbyCards: [],
   offerCard: null,
   favoriteCards: [],
-  isLoading: false,
-  isNearbyLoading: false,
+  status: RequestStatus.Idle,
 };
-
-const fetchOffers = createAsyncThunk<PlaceCardProps[], undefined, { extra: AxiosInstance }>(
-  'offers/fetchOffers',
-  async(_, { extra: api }) => {
-    const {data} = await api.get<PlaceCardProps[]>(ApiRoute.Offers);
-    return data;
-  }
-);
-
-const fetchOfferById = createAsyncThunk<PlaceCardProps, string, { extra: AxiosInstance }>(
-  'offers/fetchById',
-  async (offerId, { extra: api }) => {
-    const { data } = await api.get<PlaceCardProps>(`${ApiRoute.Offers}/${offerId}`);
-    return data;
-  }
-);
-
-const fetchNearbyOffers = createAsyncThunk<PlaceCardProps[], string, { extra: AxiosInstance }>(
-  'offers/fetchNearby',
-  async (offerId, { extra: api }) => {
-    const { data } = await api.get<PlaceCardProps[]>(`${ApiRoute.Offers}/${offerId}/nearby`);
-    return data;
-  }
-);
-
-const fetchFavorites = createAsyncThunk<PlaceCardProps[], undefined, { extra: AxiosInstance}>(
-  'offers/fetchFavorites',
-  async (_, { extra: api }) => {
-    const { data } = await api.get<PlaceCardProps[]>(ApiRoute.Favorite);
-    return data;
-  }
-);
-
-const toggleFavorite = createAsyncThunk<PlaceCardProps, { offerId: string; status: number }, { extra: AxiosInstance }>(
-  'offers/toggleFavorite',
-  async ({ offerId, status }, { extra: api }) => {
-    const { data } = await api.post<PlaceCardProps>(`${ApiRoute.Favorite}/${offerId}/${status}`);
-    return data;
-  }
-);
 
 const offersSlice = createSlice({
   name: 'offers',
@@ -80,39 +38,44 @@ const offersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchOffers.pending, (state) => {
-        state.isLoading = true;
+        state.status = RequestStatus.Loading;
       })
       .addCase(fetchOffers.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.status = RequestStatus.Success;
         state.placeCards = action.payload;
       })
       .addCase(fetchOffers.rejected, (state) => {
-        state.isLoading = false;
+        state.status = RequestStatus.Failed;
       })
       .addCase(fetchNearbyOffers.pending, (state) => {
-        state.isNearbyLoading = true;
+        state.status = RequestStatus.Loading;
       })
       .addCase(fetchNearbyOffers.fulfilled, (state, action) => {
-        state.isNearbyLoading = false;
+        state.status = RequestStatus.Success;
         state.nearbyCards = action.payload;
       })
       .addCase(fetchNearbyOffers.rejected, (state) => {
-        state.isNearbyLoading = false;
+        state.status = RequestStatus.Failed;
       })
       .addCase(fetchOfferById.pending, (state) => {
-        state.isLoading = true;
+        state.status = RequestStatus.Loading;
       })
       .addCase(fetchOfferById.fulfilled, (state, action) => {
+        state.status = RequestStatus.Success;
         state.offerCard = action.payload;
-        state.isLoading = false;
       })
       .addCase(fetchOfferById.rejected, (state) => {
-        state.isLoading = false;
+        state.status = RequestStatus.Failed;
+      })
+      .addCase(fetchFavorites.pending, (state) => {
+        state.status = RequestStatus.Loading;
       })
       .addCase(fetchFavorites.fulfilled, (state, action) => {
+        state.status = RequestStatus.Success;
         state.favoriteCards = action.payload;
       })
       .addCase(fetchFavorites.rejected, (state) => {
+        state.status = RequestStatus.Failed;
         state.favoriteCards = [];
       })
       .addCase(toggleFavorite.pending, (state, action) => {
@@ -146,22 +109,32 @@ const offersSlice = createSlice({
           card.isFavorite = status === 0;
         }
       });
+  },
+  selectors: {
+    cityName: (state) => state.cityName,
+    placeCards: (state) => state.placeCards,
+    offerCard: (state) => state.offerCard,
+    nearbyCards: (state) => state.nearbyCards,
+    favoritesCards: (state) => state.favoriteCards,
+    status: (state) => state.status,
   }
 });
 
 const offersReducer = offersSlice.reducer;
-const { setCityName, clearCurrentOffer, clearNearbyOffers } = offersSlice.actions;
-
-export {
-  offersReducer,
-  setCityName,
-  clearCurrentOffer,
-  clearNearbyOffers,
+const offersActions = {
+  ...offersSlice.actions,
   fetchOffers,
   fetchNearbyOffers,
   fetchOfferById,
   fetchFavorites,
   toggleFavorite,
+};
+const offersSelectors = offersSlice.selectors;
+
+export {
+  offersReducer,
+  offersActions,
+  offersSelectors
 };
 
 

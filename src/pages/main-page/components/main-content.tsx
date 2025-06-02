@@ -4,7 +4,7 @@ import { PlaceCardProps } from '../../../types/offers-types';
 import { Map } from '../../../components/map/map';
 import { useActiveCard } from '../../../hooks/useActiveCard';
 import { sortOffers } from '../../../utils';
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { SortOption, DEFAULT_SORT } from '../../../const';
 
 type MainContentProps = {
@@ -15,21 +15,27 @@ type MainContentProps = {
 function MainContent({ cityPlaceCards, cityName }: MainContentProps): JSX.Element {
   const [currentSort, setCurrentSort] = useState<SortOption>(DEFAULT_SORT);
 
-  useEffect(() => {
+  /*useEffect(() => {
     setCurrentSort(DEFAULT_SORT);
-  }, [cityPlaceCards]);
+  }, [cityPlaceCards]);*/
 
-  const sortedPlaceCards = sortOffers(cityPlaceCards, currentSort.value);
+  const sortedPlaceCards = useMemo(
+    () => sortOffers(cityPlaceCards, currentSort.value),
+    [cityPlaceCards, currentSort.value]
+  );
 
   const city = cityPlaceCards[0]?.city;
+
+  const locations = useMemo(
+    () => cityPlaceCards.map((card) => card.location),
+    [cityPlaceCards]
+  );
 
   const {
     activeLocation,
     handleCardMouseEnter,
     handleCardMouseLeave
   } = useActiveCard(cityPlaceCards);
-
-  const locations = cityPlaceCards.map((card) => card.location);
 
   return (
     <div className="cities__places-container container">

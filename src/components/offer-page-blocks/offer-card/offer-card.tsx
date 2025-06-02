@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { PlaceCardProps } from '../../../types/offers-types';
 import { FavoriteButton } from '../../favorite-button/favorite-button';
 import { OfferHost } from '../offer-host/offer-host';
@@ -8,7 +9,7 @@ type OfferCardProps = {
   offerCard: PlaceCardProps;
 }
 
-function OfferCard({ offerCard }: OfferCardProps): JSX.Element {
+const OfferCard = memo(({ offerCard }: OfferCardProps): JSX.Element => {
   const { id, title, description, type, price, rating, isPremium, isFavorite, bedrooms, goods, host, maxAdults, } = offerCard;
 
   const capacityTitle = `Max\u00a0${maxAdults}\u00a0${maxAdults > 1 ? 'adults' : 'adult'}`;
@@ -56,6 +57,8 @@ function OfferCard({ offerCard }: OfferCardProps): JSX.Element {
       <OfferHost host={host} description={description} />
     </>
   );
-}
+});
+
+OfferCard.displayName = 'OfferCard';
 
 export { OfferCard };

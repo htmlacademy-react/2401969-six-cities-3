@@ -1,5 +1,5 @@
 import { Header } from '../../components/header/header';
-import { AuthorizationStatus, MAX_NEAR_PLACES } from '../../const';
+import { AuthorizationStatus, MAX_NEAR_PLACES, RequestStatus } from '../../const';
 import { OfferCard } from '../../components/offer-page-blocks/offer-card/offer-card';
 import { Reviews } from '../../components/review-blocks/reviews/reviews';
 import { ReviewsForm } from '../../components/review-blocks/reviews-form/reviews-form';
@@ -8,50 +8,76 @@ import { NotFoundPage } from '../not-found-page/not-found-page';
 import { OfferGallery } from '../../components/offer-page-blocks/offer-gallery/offer-gallery';
 import { NearPlaces } from '../../components/offer-page-blocks/near-places/near-places';
 import { Map } from '../../components/map/map';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { useEffect } from 'react';
-import { clearCurrentOffer, clearNearbyOffers, fetchNearbyOffers, fetchOfferById } from '../../store/slices/offers-slice';
+import { useAppSelector, useCommentsAction, useOffersActions } from '../../store/hooks';
+import { useEffect, useMemo } from 'react';
 import { LoadingPage } from '../loading-page/loading-page';
-import { selectAuthStatus, selectOfferPageData } from '../../store/selectors';
-import { clearComments, fetchComments } from '../../store/slices/comments-slice';
+import { selectOfferPageData } from '../../store/selectors';
+import { userSelectors } from '../../store/slices/user-slice';
+import { Location } from '../../types/offers-types';
+
 
 function OfferPage(): JSX.Element {
-  const params = useParams();
-  const dispatch = useAppDispatch();
+  const { id } = useParams();
+
+  const {
+    fetchOfferById,
+    fetchNearbyOffers,
+    clearCurrentOffer,
+    clearNearbyOffers
+  } = useOffersActions();
+
+  const { fetchComments, clearComments } = useCommentsAction();
 
   const {
     offerCard,
     comments,
     nearbyCards,
-    isLoading,
-    isNearbyLoading,
+    status,
   } = useAppSelector(selectOfferPageData);
 
-  const authStatus = useAppSelector(selectAuthStatus);
+  const authStatus = useAppSelector(userSelectors.authStatus);
 
   useEffect(() => {
-    if (params.id) {
-      dispatch(fetchOfferById(params.id));
-      dispatch(fetchNearbyOffers(params.id));
-      dispatch(fetchComments(params.id));
+    if (id) {
+      fetchOfferById(id);
+      fetchNearbyOffers(id);
+      fetchComments(id);
     }
 
     return () => {
-      dispatch(clearCurrentOffer());
-      dispatch(clearNearbyOffers());
-      dispatch(clearComments());
+      clearCurrentOffer();
+      clearNearbyOffers();
+      clearComments();
     };
-  }, [params.id, dispatch]);
+  }, [
+    id,
+    fetchOfferById,
+    fetchNearbyOffers,
+    fetchComments,
+    clearCurrentOffer,
+    clearNearbyOffers,
+    clearComments,
+  ]);
 
-  if (isLoading || isNearbyLoading) {
+  const cityPlaceCards = useMemo(
+    () => [offerCard, ...nearbyCards.slice(0, MAX_NEAR_PLACES)],
+    [nearbyCards, offerCard]
+  );
+
+  const locations = useMemo<Location[]>(
+    () => cityPlaceCards
+      .map((card) => card?.location)
+      .filter((location): location is Location => location !== null),
+    [cityPlaceCards]
+  );
+
+  if (status === RequestStatus.Loading) {
     return <LoadingPage />;
   }
 
   if (!offerCard) {
     return <NotFoundPage />;
   }
-
-  const cityPlaceCards = [offerCard, ...nearbyCards.slice(0, MAX_NEAR_PLACES)];
 
   return (
     <div className="page">
@@ -65,7 +91,7 @@ function OfferPage(): JSX.Element {
               <OfferCard offerCard={offerCard} />
               <section className="offer__reviews reviews">
                 {comments.length > 0 && <Reviews comments={comments} />}
-                {authStatus === AuthorizationStatus.Auth && <ReviewsForm offerId={params.id} />}
+                {authStatus === AuthorizationStatus.Auth && <ReviewsForm offerId={id} />}
               </section>
             </div>
           </div>
@@ -74,7 +100,7 @@ function OfferPage(): JSX.Element {
           <section className="offer__map map">
             <Map
               city={offerCard.city}
-              locations={cityPlaceCards.map((card) => card.location)}
+              locations={locations}
               activeLocation={offerCard.location}
             />
           </section>

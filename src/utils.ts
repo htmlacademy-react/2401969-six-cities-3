@@ -1,4 +1,4 @@
-import { SortType } from './const';
+import { AppRoute, SortType } from './const';
 import { PlaceCardProps } from './types/offers-types';
 
 const sortOffers = (offers: PlaceCardProps[], sortType: SortType): PlaceCardProps[] => {
@@ -14,4 +14,15 @@ const sortOffers = (offers: PlaceCardProps[], sortType: SortType): PlaceCardProp
   }
 };
 
-export { sortOffers };
+const isPrivateRout = (path: string): boolean => {
+  const privateRoutes = [
+    AppRoute.Favorites,
+    AppRoute.Login,
+  ];
+  return privateRoutes.includes(path as AppRoute);
+};
+
+export {
+  sortOffers,
+  isPrivateRout,
+};

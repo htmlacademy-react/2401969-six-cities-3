@@ -1,12 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../store/hooks';
-import { selectUser } from '../../store/selectors';
 import { useLogOut } from '../../hooks/useLogOut';
+import { userSelectors } from '../../store/slices/user-slice';
+import { memo } from 'react';
+import { offersSelectors } from '../../store/slices/offers-slice';
 
-function HeaderNav(): JSX.Element {
-  const user = useAppSelector(selectUser);
+const HeaderNav = memo((): JSX.Element => {
+  const user = useAppSelector(userSelectors.user);
   const { handleSignOutClick } = useLogOut();
+  const location = useLocation();
+  const favoriteCount = useAppSelector(offersSelectors.favoritesCards).length;
 
   return (
     <nav className="header__nav">
@@ -20,7 +24,7 @@ function HeaderNav(): JSX.Element {
               >
                 <div className="header__avatar-wrapper user__avatar-wrapper" />
                 <span className="header__user-name user__name">{user.email}</span>
-                <span className="header__favorite-count">3</span>
+                <span className="header__favorite-count">{favoriteCount}</span>
               </Link>
             </li>
             <li className="header__nav-item">
@@ -38,6 +42,8 @@ function HeaderNav(): JSX.Element {
             <Link
               className="header__nav-link header__nav-link--profile"
               to={AppRoute.Login}
+              state={{ from: location.pathname }}
+
             >
               <div className="header__avatar-wrapper user__avatar-wrapper" />
               <span className="header__login">Sign in</span>
@@ -47,6 +53,8 @@ function HeaderNav(): JSX.Element {
       </ul>
     </nav>
   );
-}
+});
+
+HeaderNav.displayName = 'HeaderNav';
 
 export { HeaderNav };

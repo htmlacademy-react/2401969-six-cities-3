@@ -1,12 +1,13 @@
 import { PlaceCardProps } from '../../../types/offers-types';
 import { PlaceCard } from '../../place-card/place-card';
 import { MAX_NEAR_PLACES } from '../../../const';
+import { memo } from 'react';
 
 type NearPlacesProps = {
   cityPlaceCards: PlaceCardProps[];
 }
 
-function NearPlaces({ cityPlaceCards}: NearPlacesProps): JSX.Element {
+const NearPlaces = memo(({ cityPlaceCards}: NearPlacesProps): JSX.Element => {
   const nearPlaceCards = cityPlaceCards.slice(0, MAX_NEAR_PLACES);
 
   return (
@@ -22,6 +23,8 @@ function NearPlaces({ cityPlaceCards}: NearPlacesProps): JSX.Element {
       </div>
     </section>
   );
-}
+});
+
+NearPlaces.displayName = 'NearPlaces';
 
 export { NearPlaces };

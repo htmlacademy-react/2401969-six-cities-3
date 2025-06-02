@@ -1,18 +1,28 @@
-import { useNavigate } from 'react-router-dom';
-import { logoutUser } from '../store/slices/user-slice';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../const';
-import { useAppDispatch } from '../store/hooks';
+import { useUserActions } from '../store/hooks';
+import { isPrivateRout } from '../utils';
+import { useCallback } from 'react';
 
 function useLogOut() {
-  const dispatch = useAppDispatch();
+  const { logoutUser } = useUserActions();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleSignOutClick = (evt: React.MouseEvent) => {
-    evt.preventDefault();
-    void dispatch(logoutUser()).then(() => {
-      navigate(AppRoute.Main);
-    });
-  };
+  const handleSignOutClick = useCallback(
+    (evt: React.MouseEvent) => {
+      evt.preventDefault();
+      void logoutUser()
+        .unwrap()
+        .then(() => {
+          if (isPrivateRout(location.pathname)) {
+            navigate(AppRoute.Login, {
+              replace: true,
+              state: { from: location.pathname }
+            });
+          }
+        });
+    }, [location.pathname, logoutUser, navigate]);
 
   return { handleSignOutClick};
 }

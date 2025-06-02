@@ -1,38 +1,42 @@
 import { SortOption, SortOptions } from '../../const';
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 
 type SortItemProps = {
   option: SortOption;
   isActive: boolean;
-  onSelect: () => void;
+  onSelect: (option: SortOption) => void;
 }
 
-function SortItem({ option, isActive, onSelect }: SortItemProps): JSX.Element {
+const SortItem = memo(({ option, isActive, onSelect }: SortItemProps): JSX.Element => {
+  const handleClick = useCallback(() => onSelect(option), [onSelect, option]);
+
   return (
     <li
       className={`places__option ${isActive ? 'places__option--active' : ''}`}
       tabIndex={0}
-      onClick={onSelect}
+      onClick={handleClick}
     >
       {option.value}
     </li>
   );
-}
+});
+
+SortItem.displayName = 'SortItem';
 
 type PlacesSortingProps = {
   currentSort: SortOption;
   onSortChange: (option: SortOption) => void;
 };
 
-function PlacesSorting({ currentSort, onSortChange }: PlacesSortingProps): JSX.Element {
+const PlacesSorting = memo(({ currentSort, onSortChange }: PlacesSortingProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => setIsOpen(!isOpen);
 
-  const handleSelect = (option: SortOption) => {
+  const handleSelect = useCallback((option: SortOption) => {
     onSortChange(option);
     setIsOpen(false);
-  };
+  }, [onSortChange]);
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -54,13 +58,15 @@ function PlacesSorting({ currentSort, onSortChange }: PlacesSortingProps): JSX.E
               key={item.value}
               option={item}
               isActive={item.value === currentSort.value}
-              onSelect={() => handleSelect(item)}
+              onSelect={handleSelect}
             />
           ))}
         </ul>
       )}
     </form>
   );
-}
+});
+
+PlacesSorting.displayName = 'PlacesSorting';
 
 export { PlacesSorting };

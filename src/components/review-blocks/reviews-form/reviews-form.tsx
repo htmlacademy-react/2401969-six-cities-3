@@ -1,14 +1,13 @@
-import { useState, ChangeEvent, Fragment, FormEvent } from 'react';
+import { useState, ChangeEvent, Fragment, FormEvent, memo } from 'react';
 import { MAX_RATING, MIN_REVIEW_LENGTH, RATING_TITLES, } from '../../../const';
-import { useAppDispatch } from '../../../store/hooks';
-import { postComment } from '../../../store/slices/comments-slice';
+import { useCommentsAction } from '../../../store/hooks';
 
 type ReviewsFormProps = {
   offerId: string | undefined;
 }
 
-function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element {
-  const dispatch = useAppDispatch();
+const ReviewsForm = memo(({ offerId }: ReviewsFormProps): JSX.Element => {
+  const { postComment } = useCommentsAction();
   const [isSending, setIsSending] = useState(false);
   const [formData, setFormData] = useState<{
     rating: number | null;
@@ -31,11 +30,11 @@ function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element {
 
     setIsSending(true);
     try {
-      void dispatch(postComment({
+      void postComment({
         offerId,
         comment: formData.reviewText,
         rating: formData.rating,
-      })).unwrap();
+      }).unwrap();
       setFormData({ rating: null, reviewText: ' '});
     } finally {
       setIsSending(false);
@@ -94,6 +93,8 @@ function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element {
       </div>
     </form>
   );
-}
+});
+
+ReviewsForm.displayName = 'ReviewsForm';
 
 export { ReviewsForm };
