@@ -2,6 +2,7 @@ import { AppRoute } from '../../const';
 import { PlaceCardProps } from '../../types/offers-types';
 import { Link } from 'react-router-dom';
 import { FavoriteButton } from '../favorite-button/favorite-button';
+import { memo } from 'react';
 
 type CardProps = PlaceCardProps & {
   onMouseEnter?: (id: string) => void;
@@ -9,7 +10,7 @@ type CardProps = PlaceCardProps & {
   place?: 'cities' | 'favorites' |'near-places';
 }
 
-function PlaceCard({
+const PlaceCard = memo(({
   id,
   title,
   type,
@@ -21,16 +22,15 @@ function PlaceCard({
   place = 'cities',
   onMouseEnter,
   onMouseLeave,
-}: CardProps): JSX.Element {
-  const handleMouseEnter = () => {
-    onMouseEnter?.(id);
-  };
+}: CardProps): JSX.Element => {
+  const imageWidth = place === 'favorites' ? 150 : 260;
+  const imageHeight = place === 'favorites' ? 110 : 200;
+  const ratingWidth = `${(Math.round(rating) / 5) * 100}%`;
 
   return (
-
     <article
       className={`${place}__card place-card`}
-      onMouseEnter={handleMouseEnter}
+      onMouseEnter={onMouseEnter ? () => onMouseEnter(id) : undefined}
       onMouseLeave={onMouseLeave}
     >
 
@@ -43,8 +43,8 @@ function PlaceCard({
           <img
             className="place-card__image"
             src={previewImage}
-            width={place === 'favorites' ? 150 : 260}
-            height={place === 'favorites' ? 110 : 200}
+            width={imageWidth}
+            height={imageHeight}
             alt="Place image"
           />
         </Link>
@@ -63,7 +63,7 @@ function PlaceCard({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${(Math.round(rating) / 5) * 100}%` }}></span>
+            <span style={{ width:  ratingWidth}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -75,6 +75,8 @@ function PlaceCard({
     </article>
 
   );
-}
+});
+
+PlaceCard.displayName = 'PlaceCard';
 
 export { PlaceCard };

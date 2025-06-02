@@ -1,9 +1,10 @@
+import { memo } from 'react';
 import { MAX_GALLERY_PHOTOS } from '../../../const';
 
 type OfferGalleryProps = {
   images: string[];
 }
-function OfferGallery({ images }: OfferGalleryProps): JSX.Element {
+const OfferGallery = memo(({ images }: OfferGalleryProps): JSX.Element => {
   const galleryImages = images.slice(0, MAX_GALLERY_PHOTOS);
   return (
     <div className="offer__gallery-container container">
@@ -17,7 +18,9 @@ function OfferGallery({ images }: OfferGalleryProps): JSX.Element {
       </div>
     </div>
   );
-}
+});
+
+OfferGallery.displayName = 'OfferGallery';
 
 export { OfferGallery };
 

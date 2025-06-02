@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useAppSelector, useOffersActions } from '../store/hooks';
 import { CityName } from '../types/offers-types';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { offersSelectors } from '../store/slices/offers-slice';
 
 
@@ -16,7 +16,7 @@ function useCityName(): CityName {
     }
   }, [urlCity, cityName, setCityName]);
 
-  return cityName;
+  return useMemo(() => urlCity || cityName, [urlCity, cityName]);
 }
 
 export { useCityName };

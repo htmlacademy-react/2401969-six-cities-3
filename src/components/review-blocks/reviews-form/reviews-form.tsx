@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, Fragment, FormEvent } from 'react';
+import { useState, ChangeEvent, Fragment, FormEvent, memo } from 'react';
 import { MAX_RATING, MIN_REVIEW_LENGTH, RATING_TITLES, } from '../../../const';
 import { useCommentsAction } from '../../../store/hooks';
 
@@ -6,7 +6,7 @@ type ReviewsFormProps = {
   offerId: string | undefined;
 }
 
-function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element {
+const ReviewsForm = memo(({ offerId }: ReviewsFormProps): JSX.Element => {
   const { postComment } = useCommentsAction();
   const [isSending, setIsSending] = useState(false);
   const [formData, setFormData] = useState<{
@@ -93,6 +93,8 @@ function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element {
       </div>
     </form>
   );
-}
+});
+
+ReviewsForm.displayName = 'ReviewsForm';
 
 export { ReviewsForm };

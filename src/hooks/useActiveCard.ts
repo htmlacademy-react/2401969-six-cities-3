@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Location } from '../types/offers-types';
 
 type useActiveCardProps = { id: string; location: Location }[];
 
 type useActiveCardReturn = {
-  //activeOfferId: string | null;
   activeLocation: Location | null;
   handleCardMouseEnter: (id: string) => void;
   handleCardMouseLeave: () => void;
@@ -13,20 +12,21 @@ type useActiveCardReturn = {
 function useActiveCard(cards: useActiveCardProps): useActiveCardReturn {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
-  const activeLocation = activeOfferId
-    ? cards.find((card) => card.id === activeOfferId)?.location ?? null
-    : null;
+  const activeLocation = useMemo(() => (
+    activeOfferId
+      ? cards.find((card) => card.id === activeOfferId)?.location ?? null
+      : null
+  ), [activeOfferId, cards]);
 
-  const handleCardMouseEnter = (id: string) => {
+  const handleCardMouseEnter = useCallback((id: string) => {
     setActiveOfferId(id);
-  };
+  },[]);
 
-  const handleCardMouseLeave = () => {
+  const handleCardMouseLeave = useCallback(() => {
     setActiveOfferId(null);
-  };
+  },[]);
 
   return {
-    //activeOfferId,
     activeLocation,
     handleCardMouseEnter,
     handleCardMouseLeave,

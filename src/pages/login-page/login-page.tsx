@@ -7,7 +7,7 @@ import { AppRoute } from '../../const';
 
 function LoginPage(): JSX.Element {
   const formRef = useRef<HTMLFormElement>(null);
-  
+
   const { loginUser } = useUserActions();
   const navigate = useNavigate();
   const location = useLocation();

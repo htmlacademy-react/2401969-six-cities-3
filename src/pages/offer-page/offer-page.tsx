@@ -9,7 +9,7 @@ import { OfferGallery } from '../../components/offer-page-blocks/offer-gallery/o
 import { NearPlaces } from '../../components/offer-page-blocks/near-places/near-places';
 import { Map } from '../../components/map/map';
 import { useAppSelector, useCommentsAction, useOffersActions } from '../../store/hooks';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { LoadingPage } from '../loading-page/loading-page';
 import { selectOfferPageData } from '../../store/selectors';
 import { userSelectors } from '../../store/slices/user-slice';
@@ -58,6 +58,16 @@ function OfferPage(): JSX.Element {
     clearComments,
   ]);
 
+  const cityPlaceCards = useMemo(
+    () => [offerCard, ...nearbyCards.slice(0, MAX_NEAR_PLACES)],
+    [nearbyCards, offerCard]
+  );
+
+  const locations = useMemo(
+    () => cityPlaceCards.map((card) => card?.location).filter((item) => item !== undefined),
+    [cityPlaceCards]
+  );
+
   if (status === RequestStatus.Loading) {
     return <LoadingPage />;
   }
@@ -65,8 +75,6 @@ function OfferPage(): JSX.Element {
   if (!offerCard) {
     return <NotFoundPage />;
   }
-
-  const cityPlaceCards = [offerCard, ...nearbyCards.slice(0, MAX_NEAR_PLACES)];
 
   return (
     <div className="page">
@@ -89,7 +97,7 @@ function OfferPage(): JSX.Element {
           <section className="offer__map map">
             <Map
               city={offerCard.city}
-              locations={cityPlaceCards.map((card) => card.location)}
+              locations={locations}
               activeLocation={offerCard.location}
             />
           </section>

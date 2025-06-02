@@ -1,16 +1,28 @@
-import { useOffersActions } from '../../store/hooks';
+import { memo, useCallback } from 'react';
+import { useAppSelector, useOffersActions } from '../../store/hooks';
+import { userSelectors } from '../../store/slices/user-slice';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 type FavoriteButtonProps = {
   offerId: string;
   isFavorite: boolean;
   place?: 'place-card' | 'offer';
 }
-function FavoriteButton ({ offerId, isFavorite, place = 'place-card' }: FavoriteButtonProps): JSX.Element {
+const FavoriteButton = memo(({ offerId, isFavorite, place = 'place-card' }: FavoriteButtonProps): JSX.Element => {
   const { toggleFavorite } = useOffersActions();
+  const user = useAppSelector(userSelectors.user);
+  const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
+    if (!user) {
+      navigate(AppRoute.Login, {
+        state: { from: location.pathname }
+      });
+    }
+
     toggleFavorite({ offerId, status: isFavorite ? 0 : 1});
-  };
+  },[isFavorite, offerId, toggleFavorite, user, navigate]);
 
   return (
     <button
@@ -30,6 +42,8 @@ function FavoriteButton ({ offerId, isFavorite, place = 'place-card' }: Favorite
       </span>
     </button>
   );
-}
+});
+
+FavoriteButton.displayName = 'FavoriteButton';
 
 export { FavoriteButton };
