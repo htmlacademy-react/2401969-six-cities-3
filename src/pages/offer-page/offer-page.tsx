@@ -13,6 +13,7 @@ import { useEffect, useMemo } from 'react';
 import { LoadingPage } from '../loading-page/loading-page';
 import { selectOfferPageData } from '../../store/selectors';
 import { userSelectors } from '../../store/slices/user-slice';
+import { Location } from '../../types/offers-types';
 
 
 function OfferPage(): JSX.Element {
@@ -63,8 +64,10 @@ function OfferPage(): JSX.Element {
     [nearbyCards, offerCard]
   );
 
-  const locations = useMemo(
-    () => cityPlaceCards.map((card) => card?.location).filter((item) => item !== undefined),
+  const locations = useMemo<Location[]>(
+    () => cityPlaceCards
+      .map((card) => card?.location)
+      .filter((location): location is Location => location !== null),
     [cityPlaceCards]
   );
 
