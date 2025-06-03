@@ -22,7 +22,16 @@ const isPrivateRout = (path: string): boolean => {
   return privateRoutes.includes(path as AppRoute);
 };
 
+const formatDateToMonthYear = (dateString: string, locale = 'en-US') => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString(locale, {
+    month: 'long',
+    year: 'numeric',
+  });
+};
+
 export {
   sortOffers,
   isPrivateRout,
+  formatDateToMonthYear
 };

@@ -1,5 +1,6 @@
 import { PlaceCard } from '../place-card/place-card';
 import { PlaceCardProps } from '../../types/offers-types';
+import { memo } from 'react';
 
 type PlacesProps = {
   placeCards: PlaceCardProps[];
@@ -8,7 +9,7 @@ type PlacesProps = {
 }
 
 
-const PlacesList = ({placeCards, onMouseEnter, onMouseLeave }: PlacesProps): JSX.Element => (
+const PlacesList = memo(({placeCards, onMouseEnter, onMouseLeave }: PlacesProps): JSX.Element => (
   <div className="cities__places-list places__list tabs__content">
     {placeCards.map((card) => (
       <PlaceCard
@@ -19,7 +20,7 @@ const PlacesList = ({placeCards, onMouseEnter, onMouseLeave }: PlacesProps): JSX
       />
     ))}
   </div>
-);
+));
 
 PlacesList.displayName = 'PlacesList';
 

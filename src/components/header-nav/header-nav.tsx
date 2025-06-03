@@ -22,7 +22,9 @@ const HeaderNav = memo((): JSX.Element => {
                 className="header__nav-link header__nav-link--profile"
                 to={AppRoute.Favorites}
               >
-                <div className="header__avatar-wrapper user__avatar-wrapper" />
+                <div className="header__avatar-wrapper user__avatar-wrapper">
+                  <img className="user__avatar" src={user.avatarUrl} width="20" height="20" alt="User avatar" />
+                </div>
                 <span className="header__user-name user__name">{user.email}</span>
                 <span className="header__favorite-count">{favoriteCount}</span>
               </Link>

@@ -8,8 +8,8 @@ const selectCityPlaceCards = createSelector(
 );
 
 const selectOfferPageData = createSelector(
-  [offersSelectors.offerCard, commentsSelectors.comments, offersSelectors.nearbyCards, offersSelectors.status],
-  (offerCard, comments, nearbyCards, status) => ({offerCard, comments, nearbyCards, status})
+  [offersSelectors.offerCard, offersSelectors.nearbyCards, offersSelectors.status],
+  (offerCard, nearbyCards, status) => ({offerCard, nearbyCards, status})
 );
 
 const selectSortedComments = createSelector(

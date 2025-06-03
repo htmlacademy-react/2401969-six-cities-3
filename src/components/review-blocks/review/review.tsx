@@ -1,6 +1,8 @@
 import { CommentProps } from '../../../types/comments-types';
+import { formatDateToMonthYear } from '../../../utils';
 
 function Review({ date, user, comment, rating}: CommentProps): JSX.Element {
+  const humanizedDate = formatDateToMonthYear(date);
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -21,7 +23,7 @@ function Review({ date, user, comment, rating}: CommentProps): JSX.Element {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={date}>{date}</time>
+        <time className="reviews__time" dateTime={date}>{humanizedDate}</time>
       </div>
     </li>
   );
