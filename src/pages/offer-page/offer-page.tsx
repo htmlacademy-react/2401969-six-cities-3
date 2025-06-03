@@ -11,7 +11,7 @@ import { Map } from '../../components/map/map';
 import { useAppSelector, useCommentsAction, useOffersActions } from '../../store/hooks';
 import { useEffect, useMemo } from 'react';
 import { LoadingPage } from '../loading-page/loading-page';
-import { selectOfferPageData } from '../../store/selectors';
+import { selectOfferPageData, selectSortedComments } from '../../store/selectors';
 import { userSelectors } from '../../store/slices/user-slice';
 import { Location } from '../../types/offers-types';
 
@@ -30,10 +30,11 @@ function OfferPage(): JSX.Element {
 
   const {
     offerCard,
-    comments,
     nearbyCards,
     status,
   } = useAppSelector(selectOfferPageData);
+
+  const comments = useAppSelector(selectSortedComments);
 
   const authStatus = useAppSelector(userSelectors.authStatus);
 
