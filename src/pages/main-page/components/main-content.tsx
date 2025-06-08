@@ -15,10 +15,6 @@ type MainContentProps = {
 function MainContent({ cityPlaceCards, cityName }: MainContentProps): JSX.Element {
   const [currentSort, setCurrentSort] = useState<SortOption>(DEFAULT_SORT);
 
-  /*useEffect(() => {
-    setCurrentSort(DEFAULT_SORT);
-  }, [cityPlaceCards]);*/
-
   const sortedPlaceCards = useMemo(
     () => sortOffers(cityPlaceCards, currentSort.value),
     [cityPlaceCards, currentSort.value]

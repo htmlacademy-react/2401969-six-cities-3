@@ -14,7 +14,7 @@ const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.NOT_FOUND]: true
 };
 
-const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
+const shouldDisplayError = (response: AxiosResponse) => StatusCodeMapping[response.status];
 
 const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
 const REQUEST_TIMEOUT = 5000;
@@ -40,10 +40,23 @@ const createAPI = (): AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError<DetailMessageType>) => {
-      if (error.response && shouldDisplayError(error.response)) {
-        const detailMessage = (error.response.data);
-        toast.warn(detailMessage.message);
+      if (!error.response) {
+        toast.error('Нет соединения с сервером');
+        return Promise.reject(error);
       }
+
+      const status = error.response.status;
+
+      if (shouldDisplayError(error.response)) {
+        const message = error.response.data?.message || `Ошибка ${status}`;
+        if (status >= Number(StatusCodes.INTERNAL_SERVER_ERROR)) {
+          toast.error(message);
+        } else {
+          toast.warn(message);
+        }
+      }
+
+      return Promise.reject(error);
     }
   );
 
