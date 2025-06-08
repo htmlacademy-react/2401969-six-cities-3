@@ -12,8 +12,8 @@ type OfferCardProps = {
 const OfferCard = memo(({ offerCard }: OfferCardProps): JSX.Element => {
   const { id, title, description, type, price, rating, isPremium, isFavorite, bedrooms, goods, host, maxAdults, } = offerCard;
 
-  const capacityTitle = `Max\u00a0${maxAdults}\u00a0${maxAdults > 1 ? 'adults' : 'adult'}`;
-  const bedroomsTitle = `${bedrooms}\u00a0${bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}`;
+  const capacityTitle = `Max ${maxAdults} ${maxAdults > 1 ? 'adults' : 'adult'}`;
+  const bedroomsTitle = `${bedrooms} ${bedrooms > 1 ? 'bedrooms' : 'bedroom'}`;
 
   return (
     <>

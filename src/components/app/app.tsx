@@ -9,18 +9,28 @@ import { PrivateRoute } from '../private-route/private-route';
 import { useAppSelector, useOffersActions, useUserActions } from '../../store/hooks';
 import { useEffect } from 'react';
 import { userSelectors } from '../../store/slices/user-slice';
+import { LoadingPage } from '../../pages/loading-page/loading-page';
 
 
 function App(): JSX.Element {
-  const authStatus = useAppSelector(userSelectors.authStatus);
   const { checkUserStatus } = useUserActions();
   const { fetchOffers, fetchFavorites } = useOffersActions();
+  const authStatus = useAppSelector(userSelectors.authStatus);
 
   useEffect(() => {
     checkUserStatus();
     fetchOffers();
-    fetchFavorites();
-  }, [checkUserStatus, fetchOffers, fetchFavorites]);
+  }, [checkUserStatus, fetchOffers]);
+
+  useEffect(() => {
+    if (authStatus === AuthorizationStatus.Auth) {
+      fetchFavorites();
+    }
+  }, [fetchFavorites, authStatus]);
+
+  if (authStatus === AuthorizationStatus.Unknown) {
+    return <LoadingPage />;
+  }
 
   return (
     <BrowserRouter>
@@ -33,7 +43,7 @@ function App(): JSX.Element {
           path={AppRoute.Login}
           element={
             <PrivateRoute
-              condition={authStatus === AuthorizationStatus.NotAuth}
+              condition={authStatus !== AuthorizationStatus.Auth}
               navigateUrl={AppRoute.Main}
             >
               <LoginPage />

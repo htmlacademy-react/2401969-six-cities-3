@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { CommentProps } from '../../types/comments-types';
 
-import { MAX_COMMENTS, RequestStatus, ResponseStatus } from '../../const';
+import { RequestStatus, ResponseStatus } from '../../const';
 import { fetchComments, postComment } from '../thunks/comments-thunks';
 
 type CommentsState = {
@@ -28,14 +28,14 @@ const commentsSlice = createSlice({
     builder
       .addCase(fetchComments.fulfilled, (state, action) => {
         state.requestStatus = RequestStatus.Success;
-        state.comments = action.payload.slice(0, MAX_COMMENTS);
+        state.comments = action.payload;
       })
       .addCase(postComment.pending, (state) => {
         state.responseStatus = ResponseStatus.Sending;
       })
       .addCase(postComment.fulfilled, (state, action) => {
         state.responseStatus = ResponseStatus.Success;
-        state.comments = [action.payload, ...state.comments].slice(0, MAX_COMMENTS);
+        state.comments = [action.payload, ...state.comments];
       })
       .addCase(postComment.rejected, (state) => {
         state.responseStatus = ResponseStatus.Failed;
