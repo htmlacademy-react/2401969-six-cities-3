@@ -31,7 +31,7 @@ type PlacesSortingProps = {
 const PlacesSorting = memo(({ currentSort, onSortChange }: PlacesSortingProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleToggle = () => setIsOpen(!isOpen);
+  const handleToggle = () => setIsOpen((prev) =>!prev);
 
   const handleSelect = useCallback((option: SortOption) => {
     onSortChange(option);
