@@ -59,7 +59,7 @@ const MIN_REVIEW_LENGTH = 50;
 
 const MAX_RATING = 5;
 
-const RATING_TITLES = ['отлично', 'хорошо', 'нормально', 'плохо', 'ужасно'];
+const RATING_TITLES = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
 
 const MARKER_DEFAULT_URL = 'img/pin.svg';
 

@@ -35,7 +35,7 @@ const ReviewsForm = memo(({ offerId }: ReviewsFormProps): JSX.Element => {
         comment: formData.reviewText,
         rating: formData.rating,
       }).unwrap();
-      setFormData({ rating: null, reviewText: ' '});
+      setFormData({ rating: null, reviewText: ''});
     } finally {
       setIsSending(false);
     }

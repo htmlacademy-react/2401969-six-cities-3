@@ -12,6 +12,8 @@ function LoginPage(): JSX.Element {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const validatePassword = (password: string): boolean => /^(?=.*[A-Za-z])(?=.*\d).+$/.test(password);
+
   const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -22,7 +24,14 @@ function LoginPage(): JSX.Element {
       return;
     }
 
-    const formData = new FormData(form);
+    const formData = new FormData(formRef.current);
+    const password = formData.get('password') as string;
+
+    if(!validatePassword(password)) {
+      return;
+    }
+
+
     const data = Object.fromEntries(formData) as UserAuth;
 
     void loginUser(data)

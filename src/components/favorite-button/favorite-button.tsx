@@ -26,7 +26,7 @@ const FavoriteButton = memo(({ offerId, isFavorite, place = 'place-card' }: Favo
 
   return (
     <button
-      className={`${place}__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`}
+      className={`${place}__bookmark-button button ${isFavorite ? `${place}__bookmark-button--active` : ''}`}
       type="button"
       onClick={handleClick}
     >
