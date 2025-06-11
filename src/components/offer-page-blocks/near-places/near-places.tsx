@@ -19,6 +19,7 @@ const NearPlaces = memo(({ cityPlaceCards}: NearPlacesProps): JSX.Element => {
             key={card.id}
             {...card}
             place='near-places'
+            isFavorite={card.isFavorite}
           />))}
       </div>
     </section>

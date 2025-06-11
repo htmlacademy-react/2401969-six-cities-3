@@ -4,6 +4,7 @@ import { useUserActions } from '../../store/hooks';
 import { LocationState, UserAuth } from '../../types/user-types';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute, CITIES } from '../../const';
+import { toast } from 'react-toastify';
 
 function LoginPage(): JSX.Element {
   const formRef = useRef<HTMLFormElement>(null);
@@ -28,6 +29,7 @@ function LoginPage(): JSX.Element {
     const password = formData.get('password') as string;
 
     if(!validatePassword(password)) {
+      toast.error('Password must contain at least one letter and one number');
       return;
     }
 

@@ -6,14 +6,14 @@ import { MARKER_DEFAULT_URL, MARKER_ACTIVE_URL, TILE_LAYER_URL, TILE_LAYER_ATTRI
 
 const defaultIcon = new Icon({
   iconUrl: MARKER_DEFAULT_URL,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: [27, 39],
+  iconAnchor: [14, 39],
 });
 
 const activeIcon = new Icon({
   iconUrl: MARKER_ACTIVE_URL,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: [27, 39],
+  iconAnchor: [14, 39],
 });
 
 type UseMapProps = {

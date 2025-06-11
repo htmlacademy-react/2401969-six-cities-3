@@ -57,6 +57,8 @@ const MAX_COMMENTS = 10;
 
 const MIN_REVIEW_LENGTH = 50;
 
+const MAX_REVIEW_LENGTH = 300;
+
 const MAX_RATING = 5;
 
 const RATING_TITLES = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
@@ -84,6 +86,7 @@ export {
   MAX_NEAR_PLACES,
   MAX_COMMENTS,
   MIN_REVIEW_LENGTH,
+  MAX_REVIEW_LENGTH,
   MAX_RATING,
   RATING_TITLES,
   MARKER_DEFAULT_URL,

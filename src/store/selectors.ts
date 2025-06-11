@@ -19,17 +19,8 @@ const selectSortedComments = createSelector(
   )
 );
 
-const selectCommentsData = createSelector(
-  [selectSortedComments, commentsSelectors.responseStatus],
-  (comments, isSending) => ({
-    comments,
-    isSending,
-  })
-);
-
 export {
   selectCityPlaceCards,
   selectOfferPageData,
   selectSortedComments,
-  selectCommentsData,
 };

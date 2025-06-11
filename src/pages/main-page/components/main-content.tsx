@@ -2,7 +2,7 @@ import { PlacesSorting } from '../../../components/places-sorting/places-sorting
 import { PlacesList } from '../../../components/places-list/places-list';
 import { PlaceCardProps } from '../../../types/offers-types';
 import { Map } from '../../../components/map/map';
-import { useActiveCard } from '../../../hooks/useActiveCard';
+import { useActiveCard } from '../../../hooks/use-active-card';
 import { sortOffers } from '../../../utils';
 import { useState, useMemo } from 'react';
 import { SortOption, DEFAULT_SORT } from '../../../const';
