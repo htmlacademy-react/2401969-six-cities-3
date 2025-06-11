@@ -1,10 +1,10 @@
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../store/hooks';
-import { useLogOut } from '../../hooks/useLogOut';
+import { useLogOut } from '../../hooks/use-log-out';
 import { userSelectors } from '../../store/slices/user-slice';
 import { memo } from 'react';
-import { offersSelectors } from '../../store/slices/offers-slice';
+import { offersSelectors } from '../../store/slices/offers-slice/offers-slice';
 
 const HeaderNav = memo((): JSX.Element => {
   const user = useAppSelector(userSelectors.user);

@@ -1,9 +1,8 @@
 import { Header } from '../../components/header/header';
 import { useAppSelector } from '../../store/hooks';
-import { offersSelectors } from '../../store/slices/offers-slice';
+import { offersSelectors } from '../../store/slices/offers-slice/offers-slice';
 import { FavoritesContent } from './components/favorites-content';
 import { FavoritesEmpty } from './components/favorites-empty';
-//import { PlaceCardProps } from '../../types/offers-types';
 
 
 function FavoritesPage(): JSX.Element {

@@ -20,7 +20,7 @@ function App(): JSX.Element {
   useEffect(() => {
     checkUserStatus();
     fetchOffers();
-  }, [checkUserStatus, fetchOffers]);
+  }, [checkUserStatus, fetchOffers, authStatus]);
 
   useEffect(() => {
     if (authStatus === AuthorizationStatus.Auth) {

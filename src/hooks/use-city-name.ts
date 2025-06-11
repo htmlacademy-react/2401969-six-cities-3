@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAppSelector, useOffersActions } from '../store/hooks';
 import { CityName } from '../types/offers-types';
 import { useEffect, useMemo } from 'react';
-import { offersSelectors } from '../store/slices/offers-slice';
+import { offersSelectors } from '../store/slices/offers-slice/offers-slice';
 import { CITIES } from '../const';
 
 

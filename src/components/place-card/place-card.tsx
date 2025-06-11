@@ -3,6 +3,7 @@ import { PlaceCardProps } from '../../types/offers-types';
 import { Link } from 'react-router-dom';
 import { FavoriteButton } from '../favorite-button/favorite-button';
 import { memo } from 'react';
+import { capitalize } from '../../utils';
 
 type CardProps = PlaceCardProps & {
   onMouseEnter?: (id: string) => void;
@@ -23,6 +24,7 @@ const PlaceCard = memo(({
   onMouseEnter,
   onMouseLeave,
 }: CardProps): JSX.Element => {
+  const offerType = capitalize(type);
   const imageWidth = place === 'favorites' ? 150 : 260;
   const imageHeight = place === 'favorites' ? 110 : 200;
   const ratingWidth = `${(Math.round(rating) / 5) * 100}%`;
@@ -70,7 +72,7 @@ const PlaceCard = memo(({
         <h2 className="place-card__name">
           <Link to={`${AppRoute.Offers}/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{offerType}</p>
       </div>
     </article>
 
