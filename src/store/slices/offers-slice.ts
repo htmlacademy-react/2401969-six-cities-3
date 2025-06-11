@@ -80,9 +80,13 @@ const offersSlice = createSlice({
       })
       .addCase(toggleFavorite.pending, (state, action) => {
         const { offerId, status } = action.meta.arg;
-        const card = state.placeCards.find((item) => item.id === offerId);
-        if (card) {
-          card.isFavorite = status === 1;
+        const placeCard = state.placeCards.find((item) => item.id === offerId);
+        if (placeCard) {
+          placeCard.isFavorite = status === 1;
+        }
+        const nearbyCard = state.nearbyCards.find((item) => item.id === offerId);
+        if (nearbyCard) {
+          nearbyCard.isFavorite = status === 1;
         }
       })
       .addCase(toggleFavorite.fulfilled, (state, action) => {
@@ -90,6 +94,10 @@ const offersSlice = createSlice({
         const placeCard = state.placeCards.find((item) => item.id === updatedOffer.id);
         if (placeCard) {
           Object.assign(placeCard, updatedOffer);
+        }
+        const nearbyCard = state.nearbyCards.find((item) => item.id === updatedOffer.id);
+        if (nearbyCard) {
+          Object.assign(nearbyCard, updatedOffer);
         }
         if (state.offerCard?.id === updatedOffer.id) {
           Object.assign(state.offerCard, updatedOffer);
@@ -104,9 +112,13 @@ const offersSlice = createSlice({
       })
       .addCase(toggleFavorite.rejected, (state, action) => {
         const { offerId, status } = action.meta.arg;
-        const card = state.placeCards.find((item) => item.id === offerId);
-        if (card) {
-          card.isFavorite = status === 0;
+        const placeCard = state.placeCards.find((item) => item.id === offerId);
+        if (placeCard) {
+          placeCard.isFavorite = status === 0;
+        }
+        const nearbyCard = state.nearbyCards.find((item) => item.id === offerId);
+        if (nearbyCard) {
+          nearbyCard.isFavorite = status === 0;
         }
       });
   },

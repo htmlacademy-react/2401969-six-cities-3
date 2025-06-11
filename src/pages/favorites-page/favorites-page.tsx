@@ -1,6 +1,6 @@
 import { Header } from '../../components/header/header';
 import { useAppSelector } from '../../store/hooks';
-import { offersSelectors } from '../../store/slices/offers-slice/offers-slice';
+import { offersSelectors } from '../../store/slices/offers-slice';
 import { FavoritesContent } from './components/favorites-content';
 import { FavoritesEmpty } from './components/favorites-empty';
 

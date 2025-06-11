@@ -6,7 +6,7 @@ import { useAppSelector } from '../../store/hooks';
 import { selectCityPlaceCards } from '../../store/selectors';
 import { useCityName } from '../../hooks/use-city-name';
 import { LoadingPage } from '../loading-page/loading-page';
-import { offersSelectors } from '../../store/slices/offers-slice/offers-slice';
+import { offersSelectors } from '../../store/slices/offers-slice';
 import { RequestStatus } from '../../const';
 
 function MainPage(): JSX.Element {

@@ -30,8 +30,47 @@ const formatDateToMonthYear = (dateString: string, locale = 'en-US') => {
   });
 };
 
+const createMockPlaceCard = (overrides?: Partial<PlaceCardProps>): PlaceCardProps => ({
+  id: '1',
+  title: 'Test Offer',
+  description: 'Test description',
+  type: 'Apartment',
+  price: 100,
+  rating: 4.5,
+  bedrooms: 2,
+  maxAdults: 3,
+  isPremium: false,
+  isFavorite: false,
+  city: {
+    name: 'Paris',
+    location: {
+      latitude: 48.8566,
+      longitude: 2.3522,
+      zoom: 10,
+    },
+  },
+  location: {
+    latitude: 48.86,
+    longitude: 2.35,
+    zoom: 10,
+  },
+  previewImage: 'img/test.jpg',
+  goods: ['Wi-Fi', 'Kitchen'],
+  host: {
+    name: 'Test Host',
+    isPro: true,
+    avatarUrl: 'img/avatar.jpg',
+  },
+  images: ['img/1.jpg', 'img/2.jpg'],
+  ...overrides
+});
+
+const capitalize = (data: string): string => data[0].toUpperCase() + data.slice(1);
+
 export {
   sortOffers,
   isPrivateRout,
-  formatDateToMonthYear
+  formatDateToMonthYear,
+  createMockPlaceCard,
+  capitalize,
 };
