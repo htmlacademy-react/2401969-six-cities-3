@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../const';
 import { User } from '../../types/user-types';
 import { checkUserStatus, loginUser, logoutUser } from '../thunks/user-thunks';
@@ -16,11 +16,7 @@ const initialState: UserState = {
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    requireAuthorization: (state, action: PayloadAction<AuthorizationStatus>) => {
-      state.authorizationStatus = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(checkUserStatus.fulfilled, (state, action) => {
@@ -38,6 +34,10 @@ const userSlice = createSlice({
         state.authorizationStatus = AuthorizationStatus.NotAuth;
       })
       .addCase(logoutUser.fulfilled, (state) => {
+        state.user = null;
+        state.authorizationStatus = AuthorizationStatus.NotAuth;
+      })
+      .addCase(logoutUser.rejected, (state) => {
         state.user = null;
         state.authorizationStatus = AuthorizationStatus.NotAuth;
       });

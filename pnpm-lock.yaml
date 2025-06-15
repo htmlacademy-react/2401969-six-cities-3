@@ -11,6 +11,9 @@ importers:
       '@reduxjs/toolkit':
         specifier: 2.2.1
         version: 2.2.1(react-redux@8.1.3(@types/react-dom@18.2.11)(@types/react@18.2.25)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(redux@4.2.1))(react@18.2.0)
+      '@types/redux-mock-store':
+        specifier: 1.5.0
+        version: 1.5.0
       axios:
         specifier: 1.5.1
         version: 1.5.1
@@ -47,6 +50,9 @@ importers:
       redux:
         specifier: '4'
         version: 4.2.1
+      redux-mock-store:
+        specifier: 1.5.5
+        version: 1.5.5(redux@4.2.1)
     devDependencies:
       '@jedmao/redux-mock-store':
         specifier: 3.0.5
@@ -544,6 +550,9 @@ packages:
 
   '@types/react@18.2.25':
     resolution: {integrity: sha512-24xqse6+VByVLIr+xWaQ9muX1B4bXJKXBbjszbld/UEDslGLY53+ZucF44HCmLbMPejTzGG9XgR+3m2/Wqu1kw==}
+
+  '@types/redux-mock-store@1.5.0':
+    resolution: {integrity: sha512-jcscBazm6j05Hs6xYCca6psTUBbFT2wqMxT7wZEHAYFxHB/I8jYk7d5msrHUlDiSL02HdTqTmkK2oIV8i3C8DA==}
 
   '@types/scheduler@0.26.0':
     resolution: {integrity: sha512-WFHp9YUJQ6CKshqoC37iOlHnQSmxNc795UhB26CyBBttrN9svdIrUjl/NjnNmfcwtncN0h/0PPAFWv9ovP8mLA==}
@@ -1528,6 +1537,9 @@ packages:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
 
+  lodash.isplainobject@4.0.6:
+    resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
+
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
@@ -1842,6 +1854,11 @@ packages:
   redent@3.0.0:
     resolution: {integrity: sha512-6tDA8g98We0zd0GvVeMT9arEOnTw9qM03L9cJXaCjrip1OO764RDBLBfrB4cwzNGDj5OA5ioymC9GkizgWJDUg==}
     engines: {node: '>=8'}
+
+  redux-mock-store@1.5.5:
+    resolution: {integrity: sha512-YxX+ofKUTQkZE4HbhYG4kKGr7oCTJfB0GLy7bSeqx86GLpGirrbUWstMnqXkqHNaQpcnbMGbof2dYs5KsPE6Zg==}
+    peerDependencies:
+      redux: '*'
 
   redux-thunk@3.1.0:
     resolution: {integrity: sha512-NW2r5T6ksUKXCabzhL9z+h206HQw/NJkcLm1GPImRQ8IzfXwRGqjVhKJGauHirT0DAuyy6hjdnMZaRoAcy0Klw==}
@@ -2734,6 +2751,10 @@ snapshots:
       '@types/prop-types': 15.7.14
       '@types/scheduler': 0.26.0
       csstype: 3.1.3
+
+  '@types/redux-mock-store@1.5.0':
+    dependencies:
+      redux: 4.2.1
 
   '@types/scheduler@0.26.0': {}
 
@@ -4002,6 +4023,8 @@ snapshots:
     dependencies:
       p-locate: 5.0.0
 
+  lodash.isplainobject@4.0.6: {}
+
   lodash.merge@4.6.2: {}
 
   lodash@4.17.21: {}
@@ -4314,6 +4337,11 @@ snapshots:
     dependencies:
       indent-string: 4.0.0
       strip-indent: 3.0.0
+
+  redux-mock-store@1.5.5(redux@4.2.1):
+    dependencies:
+      lodash.isplainobject: 4.0.6
+      redux: 4.2.1
 
   redux-thunk@3.1.0(redux@5.0.1):
     dependencies:
