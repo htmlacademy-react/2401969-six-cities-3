@@ -13,7 +13,7 @@ const HeaderNav = memo((): JSX.Element => {
   const favoriteCount = useAppSelector(offersSelectors.favoritesCards).length;
 
   return (
-    <nav className="header__nav">
+    <nav className="header__nav" data-testid="header-nav">
       <ul className="header__nav-list">
         {user ? (
           <>

@@ -1,6 +1,7 @@
-import { ActionCreatorsMapObject, AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit';
+import { Action, ActionCreatorsMapObject, AsyncThunk, createAsyncThunk, ThunkDispatch } from '@reduxjs/toolkit';
 import { store } from './store';
 import { AxiosInstance } from 'axios';
+import { createAPI } from '../services/api';
 
 type RootState = ReturnType<typeof store.getState>;
 type AppDispatch = typeof store.dispatch;
@@ -20,9 +21,15 @@ const createAppAsyncThunk = createAsyncThunk.withTypes<{
   extra: AxiosInstance;
 }>();
 
+type AppThunkDispatch = ThunkDispatch<RootState, ReturnType<typeof createAPI>, Action<string>>;
+
+const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
+
 export {
   type RootState,
   type AppDispatch,
   type BoundActions,
-  createAppAsyncThunk
+  createAppAsyncThunk,
+  type AppThunkDispatch,
+  extractActionsTypes,
 };
