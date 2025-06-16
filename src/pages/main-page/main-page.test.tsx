@@ -10,7 +10,6 @@ describe('Component: MainPage', () => {
       preloadedState: {
         offers: {
           status: RequestStatus.Loading,
-          // Остальные обязательные поля из initialState
           cityName: 'Paris',
           placeCards: [],
           nearbyCards: [],
