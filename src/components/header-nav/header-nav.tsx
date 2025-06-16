@@ -10,7 +10,7 @@ const HeaderNav = memo((): JSX.Element => {
   const user = useAppSelector(userSelectors.user);
   const { handleSignOutClick } = useLogOut();
   const location = useLocation();
-  const favoriteCount = useAppSelector(offersSelectors.favoritesCards).length;
+  const favoriteCount = useAppSelector(offersSelectors.favoritesCards)?.length || 0;
 
   return (
     <nav className="header__nav" data-testid="header-nav">

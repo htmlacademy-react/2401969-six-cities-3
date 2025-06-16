@@ -1,53 +1,31 @@
 import { describe, expect, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { Header } from './header';
 import { AppRoute } from '../../const';
-import { MemoryRouter } from 'react-router-dom';
-import { userReducer } from '../../store/slices/user-slice';
-import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import { commentsReducer } from '../../store/slices/comments-slice';
-import { offersReducer } from '../../store/slices/offers-slice';
-
-
-const createStore = () => configureStore({
-  reducer: {
-    offers: offersReducer,
-    user: userReducer,
-    comments: commentsReducer
-  },
-});
-
-const renderHeader = (withNav = true) => render(
-  <Provider store={createStore()}>
-    <MemoryRouter>
-      <Header withNav={withNav} />
-    </MemoryRouter>
-  </Provider>
-);
+import { renderWithProviders } from '../../utils/mock-component';
 
 describe('Component: Header', () => {
-
   it('should render logo with correct link', () => {
-    renderHeader();
+    const expectedAltText = /6 cities logo/i;
+    renderWithProviders(<Header />);
 
-    const logoLink = screen.getByRole('link', { name: /6 cities logo/i });
+    const logoLink = screen.getByRole('link', { name: expectedAltText });
     expect(logoLink).toBeInTheDocument();
     expect(logoLink).toHaveClass('header__logo-link--active');
     expect(logoLink).toHaveAttribute('href', AppRoute.Main);
 
-    const logoImage = screen.getByAltText('6 cities logo');
+    const logoImage = screen.getByAltText(expectedAltText);
     expect(logoImage).toBeInTheDocument();
   });
 
   it('should render navigation when withNav is true', () => {
-    renderHeader();
+    renderWithProviders(<Header />);
 
     expect(screen.getByTestId('header-nav')).toBeInTheDocument();
   });
 
   it('should not render navigation when withNav is false', () => {
-    renderHeader(false);
+    renderWithProviders(<Header withNav={false} />);
 
     expect(screen.queryByTestId('header-nav')).not.toBeInTheDocument();
   });

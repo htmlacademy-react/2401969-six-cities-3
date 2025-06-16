@@ -32,7 +32,7 @@ const OfferCard = memo(({ offerCard }: OfferCardProps): JSX.Element => {
         />
       </div>
       <div className="offer__rating rating">
-        <div className="offer__stars rating__stars">
+        <div className="offer__stars rating__stars" data-testid="rating-stars">
           <span style={{ width: `${(Math.round(rating) / 5) * 100}%` }}></span>
           <span className="visually-hidden">Rating</span>
         </div>

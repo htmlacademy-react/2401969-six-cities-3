@@ -15,6 +15,7 @@ const SortItem = memo(({ option, isActive, onSelect }: SortItemProps): JSX.Eleme
       className={`places__option ${isActive ? 'places__option--active' : ''}`}
       tabIndex={0}
       onClick={handleClick}
+      data-testid="places-sorting"
     >
       {option.value}
     </li>

@@ -146,7 +146,8 @@ const offersSelectors = offersSlice.selectors;
 export {
   offersReducer,
   offersActions,
-  offersSelectors
+  offersSelectors,
+  initialState
 };
 
 

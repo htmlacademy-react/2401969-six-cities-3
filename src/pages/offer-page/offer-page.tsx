@@ -61,7 +61,7 @@ function OfferPage(): JSX.Element {
   ]);
 
   const cityPlaceCards = useMemo(
-    () => [offerCard, ...nearbyCards.slice(0, MAX_NEAR_PLACES)],
+    () => [offerCard, ...(nearbyCards || []).slice(0, MAX_NEAR_PLACES)],
     [nearbyCards, offerCard]
   );
 

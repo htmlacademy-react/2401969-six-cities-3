@@ -21,4 +21,3 @@ const store = configureStore({
 });
 
 export { store };
-

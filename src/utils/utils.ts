@@ -1,5 +1,6 @@
-import { AppRoute, SortType } from './const';
-import { PlaceCardProps } from './types/offers-types';
+import { AppRoute, SortType } from '../const';
+import { CommentProps } from '../types/comments-types';
+import { PlaceCardProps } from '../types/offers-types';
 
 const sortOffers = (offers: PlaceCardProps[], sortType: SortType): PlaceCardProps[] => {
   switch (sortType) {
@@ -65,6 +66,19 @@ const createMockPlaceCard = (overrides?: Partial<PlaceCardProps>): PlaceCardProp
   ...overrides
 });
 
+const createMockReview = (overrides?: Partial<CommentProps>): CommentProps => ({
+  id: '1',
+  date: '2023-01-01',
+  user: {
+    name: 'Test User',
+    avatarUrl: 'img/avatar.jpg',
+    isPro: true,
+  },
+  comment: 'Great place!',
+  rating: 5,
+  ...overrides
+});
+
 const capitalize = (data: string): string => data[0].toUpperCase() + data.slice(1);
 
 export {
@@ -72,5 +86,6 @@ export {
   isPrivateRout,
   formatDateToMonthYear,
   createMockPlaceCard,
+  createMockReview,
   capitalize,
 };

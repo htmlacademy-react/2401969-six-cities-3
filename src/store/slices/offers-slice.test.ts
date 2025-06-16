@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest';
 import { CITIES, RequestStatus } from '../../const';
 import { CityName, PlaceCardProps } from '../../types/offers-types';
-import { createMockPlaceCard } from '../../utils';
+import { createMockPlaceCard } from '../../utils/utils';
 import { offersActions, offersReducer, offersSelectors } from './offers-slice';
 import { fetchFavorites, fetchNearbyOffers, fetchOffers, toggleFavorite } from '../thunks/offers-thunks';
 
