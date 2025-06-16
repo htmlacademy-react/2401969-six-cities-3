@@ -25,6 +25,7 @@ function Map({ city, locations, activeLocation }: MapProps): JSX.Element {
         height: '100%',
       }}
       ref={mapRef}
+      data-testid="map"
     >
     </div>
   );

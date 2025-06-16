@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { MainPage } from '../../pages/main-page/main-page';
 import { FavoritesPage } from '../../pages/favorites-page/favorites-page';
 import { LoginPage } from '../../pages/login-page/login-page';
@@ -33,44 +33,42 @@ function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path={`${AppRoute.Main}:city?`}
-          element={<MainPage />}
-        />
-        <Route
-          path={AppRoute.Login}
-          element={
-            <PrivateRoute
-              condition={authStatus !== AuthorizationStatus.Auth}
-              navigateUrl={AppRoute.Main}
-            >
-              <LoginPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={`${AppRoute.Offers}/:id`}
-          element={<OfferPage />}
-        />
-        <Route
-          path={AppRoute.Favorites}
-          element={
-            <PrivateRoute
-              condition={authStatus === AuthorizationStatus.Auth}
-              navigateUrl={AppRoute.Login}
-            >
-              <FavoritesPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="*"
-          element={<NotFoundPage />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route
+        path={`${AppRoute.Main}:city?`}
+        element={<MainPage />}
+      />
+      <Route
+        path={AppRoute.Login}
+        element={
+          <PrivateRoute
+            condition={authStatus !== AuthorizationStatus.Auth}
+            navigateUrl={AppRoute.Main}
+          >
+            <LoginPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={`${AppRoute.Offers}/:id`}
+        element={<OfferPage />}
+      />
+      <Route
+        path={AppRoute.Favorites}
+        element={
+          <PrivateRoute
+            condition={authStatus === AuthorizationStatus.Auth}
+            navigateUrl={AppRoute.Login}
+          >
+            <FavoritesPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="*"
+        element={<NotFoundPage />}
+      />
+    </Routes>
   );
 }
 

@@ -1,5 +1,5 @@
 import { CommentProps } from '../../../types/comments-types';
-import { formatDateToMonthYear } from '../../../utils';
+import { formatDateToMonthYear } from '../../../utils/utils';
 
 function Review({ date, user, comment, rating}: CommentProps): JSX.Element {
   const humanizedDate = formatDateToMonthYear(date);
@@ -16,7 +16,10 @@ function Review({ date, user, comment, rating}: CommentProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${(rating / 5) * 100}%` }}></span>
+            <span
+              style={{ width: `${(rating / 5) * 100}%` }}
+              data-testid="rating-stars"
+            />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

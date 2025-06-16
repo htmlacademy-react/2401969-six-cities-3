@@ -3,7 +3,7 @@ import { PlacesList } from '../../../components/places-list/places-list';
 import { PlaceCardProps } from '../../../types/offers-types';
 import { Map } from '../../../components/map/map';
 import { useActiveCard } from '../../../hooks/use-active-card';
-import { sortOffers } from '../../../utils';
+import { sortOffers } from '../../../utils/utils';
 import { useState, useMemo } from 'react';
 import { SortOption, DEFAULT_SORT } from '../../../const';
 
@@ -34,7 +34,7 @@ function MainContent({ cityPlaceCards, cityName }: MainContentProps): JSX.Elemen
   } = useActiveCard(cityPlaceCards);
 
   return (
-    <div className="cities__places-container container">
+    <div className="cities__places-container container" data-testid="main-content">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{cityPlaceCards.length} place{cityPlaceCards.length > 1 && 's'} to stay in {cityName}</b>

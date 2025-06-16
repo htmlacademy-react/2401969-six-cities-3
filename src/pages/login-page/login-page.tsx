@@ -64,6 +64,7 @@ function LoginPage(): JSX.Element {
             <div className="locations__item">
               <Link className="locations__item-link"
                 to={`${AppRoute.Main}${randomCity}`}
+                data-testid="city-link"
               >
                 <span>{randomCity}</span>
               </Link>

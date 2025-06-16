@@ -3,7 +3,7 @@ import { PlaceCardProps } from '../../types/offers-types';
 import { Link } from 'react-router-dom';
 import { FavoriteButton } from '../favorite-button/favorite-button';
 import { memo } from 'react';
-import { capitalize } from '../../utils';
+import { capitalize } from '../../utils/utils';
 
 type CardProps = PlaceCardProps & {
   onMouseEnter?: (id: string) => void;
@@ -34,6 +34,7 @@ const PlaceCard = memo(({
       className={`${place}__card place-card`}
       onMouseEnter={onMouseEnter ? () => onMouseEnter(id) : undefined}
       onMouseLeave={onMouseLeave}
+      data-testid="place-card"
     >
 
       {isPremium && (
@@ -65,7 +66,7 @@ const PlaceCard = memo(({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width:  ratingWidth}}></span>
+            <span style={{ width:  ratingWidth}} data-testid="rating-stars"></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

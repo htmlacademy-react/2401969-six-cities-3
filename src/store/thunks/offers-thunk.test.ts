@@ -11,7 +11,7 @@ import {
 import { offersReducer } from '../slices/offers-slice';
 import { ApiRoute, RequestStatus } from '../../const';
 import { AppThunkDispatch, RootState } from '../types';
-import { createMockPlaceCard } from '../../utils';
+import { createMockPlaceCard } from '../../utils/utils';
 
 type TestStore = {
   dispatch: AppThunkDispatch;

@@ -1,9 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { OfferHost } from './offer-host';
-import { createMockPlaceCard } from '../../../utils';
-//import { createMockPlaceCard } from '../utils/mocks'; // Предполагаемый путь
-//import type { Host } from '../../../types/offers-types';
+import { createMockPlaceCard } from '../../../utils/utils';
+
 
 describe('Component: OfferHost', () => {
   // Используем мок-функцию для создания данных хоста

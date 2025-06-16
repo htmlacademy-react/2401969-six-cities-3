@@ -29,11 +29,15 @@ const FavoriteButton = memo(({ offerId, isFavorite, place = 'place-card' }: Favo
       className={`${place}__bookmark-button button ${user && isFavorite ? 'place-card__bookmark-button--active' : ''}`}
       type="button"
       onClick={handleClick}
+      aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+      data-testid="favorite-button"
+      data-is-favorite={isFavorite.toString()}
     >
       <svg
         className="place-card__bookmark-icon"
         width={place === 'offer' ? 31 : 18}
         height={place === 'offer' ? 33 : 19}
+        data-testid="bookmark-icon"
       >
         <use xlinkHref="#icon-bookmark"></use>
       </svg>

@@ -16,7 +16,7 @@ function FavoritesContent({ favoriteCards}: MainFavoritesProps): JSX.Element {
   }, {});
 
   return (
-    <div className="page__favorites-container container">
+    <div className="page__favorites-container container" data-testid="favorites-content">
       <section className="favorites">
         <h1 className="favorites__title">Saved listing</h1>
         <ul className="favorites__list">

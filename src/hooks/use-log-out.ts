@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../const';
 import { useUserActions } from '../store/hooks';
-import { isPrivateRout } from '../utils';
+import { isPrivateRout } from '../utils/utils';
 import { useCallback } from 'react';
 
 function useLogOut() {

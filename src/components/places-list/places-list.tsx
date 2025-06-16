@@ -10,7 +10,7 @@ type PlacesProps = {
 
 
 const PlacesList = memo(({placeCards, onMouseEnter, onMouseLeave }: PlacesProps): JSX.Element => (
-  <div className="cities__places-list places__list tabs__content">
+  <div className="cities__places-list places__list tabs__content" data-testid="place-list">
     {placeCards.map((card) => (
       <PlaceCard
         key={card.id}

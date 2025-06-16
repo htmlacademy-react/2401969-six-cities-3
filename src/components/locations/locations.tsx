@@ -44,4 +44,4 @@ function Locations({activeCity }: LocationsProps): JSX.Element {
   );
 }
 
-export { Locations };
+export { Locations, LocationsItem };
